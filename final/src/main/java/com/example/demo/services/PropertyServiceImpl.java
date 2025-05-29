@@ -1,4 +1,8 @@
 package com.example.demo.services;
 
-public class PropertyServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class PropertyServiceImpl implements PropertyService {
+
 }
