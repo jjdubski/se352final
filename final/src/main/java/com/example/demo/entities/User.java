@@ -122,8 +122,6 @@ public class User {
         this.propertiesListed = propertiesListed;
     }
 
-
-
 //    public List<Property> getPropertiesFavorited() {
 //        return propertiesFavorited;
 //    }
