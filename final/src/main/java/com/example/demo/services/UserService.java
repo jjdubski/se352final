@@ -28,4 +28,5 @@ public interface UserService {
 
     @PreAuthorize("isAuthenticated()")
     User getCurrentUser();
+
 }

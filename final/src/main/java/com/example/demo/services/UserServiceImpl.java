@@ -88,6 +88,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+
     @Override
     public User registerNewUser(User user, List<String> roleNames) {
         Set<Role> roles = roleNames.stream()

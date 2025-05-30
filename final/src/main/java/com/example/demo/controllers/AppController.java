@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 public class AppController {
@@ -83,6 +84,41 @@ public class AppController {
         return "profile";
     }
 
+    //edit profile
+    @PostMapping("/profile/edit")
+    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    public String updateSettings(@ModelAttribute("user") User updatedUser,
+                                 @RequestParam(required = false) String password,
+                                 @RequestParam(required = false) List<Long> addIds,
+                                 @RequestParam(required = false) List<Long> removeIds,
+                                 @RequestParam(value = "file", required = false) MultipartFile file,
+                                 RedirectAttributes redirectAttributes) {
+        try {
+            // Look up the real user so we get the correct ID
+            User actualUser = userService.getCurrentUser();
+
+            // Copy updates from form-bound user
+            actualUser.setFirstName(updatedUser.getFirstName());
+            actualUser.setLastName(updatedUser.getLastName());
+            actualUser.setEmail(updatedUser.getEmail());
+
+            userService.updateUserProfile(actualUser, password, addIds, removeIds);
+
+            // Save profile picture if provided
+            if (file != null && !file.isEmpty()) {
+                String filename = userService.storeProfilePicture(actualUser.getId(), file);
+                actualUser.setProfilePicture(filename);
+                userService.updateUser(actualUser);
+            }
+
+            redirectAttributes.addFlashAttribute("successMessage", "Account updated successfully.");
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to update account: " + ex.getMessage());
+        }
+        return "redirect:/settings";
+    }
+
+
     // === PROFILE PICTURE UPLOAD ===
     @PostMapping("/users/{id}/upload-profile-picture")
     @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
@@ -117,6 +153,8 @@ public class AppController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
 
     /////////////////////////////////////////////
     // Exception Handling

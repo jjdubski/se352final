@@ -47,16 +47,6 @@ public class User {
     private List<Property> propertiesListed;
 
 
-
-//    @OneToMany
-//    private List<Property> propertiesFavorited;
-//
-//    @OneToMany
-//    private List<Message> messagesSent;
-//
-//    @OneToMany
-//    private List<Message> messagesReceived;
-
     public User() {}
 
     public User(String password, String firstName, String lastName,
