@@ -3,30 +3,120 @@ package com.example.demo.controllers;
 import com.example.demo.dtos.ApiExceptionDto;
 import com.example.demo.dtos.JwtResponse;
 import com.example.demo.dtos.LoginRequest;
+import com.example.demo.entities.User;
 import com.example.demo.services.AuthService;
+import com.example.demo.services.UserService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 public class AppController {
     private final AuthService authService;
+    private final UserService userService;
 
     @Autowired
-    public AppController(AuthService authService) {
+    public AppController(AuthService authService, UserService userService) {
         this.authService = authService;
+        this.userService = userService;
+    }
+
+    @GetMapping({"/", "/index"})
+    public String showIndex() {
+        return "index";
+    }
+
+    // === LOGIN ===
+    @GetMapping("/login")
+    public String showLoginForm(Model model) {
+        model.addAttribute("user", new User());
+        return "login";
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
-        JwtResponse response = authService.authenticateAndGenerateToken(request);
-        return ResponseEntity.ok(response);
+    public String processLogin(@ModelAttribute("user") User user,
+                               HttpServletResponse response,
+                               Model model) {
+        try {
+            Cookie jwtCookie = authService.loginAndCreateJwtCookie(user);
+            response.addCookie(jwtCookie);
+            return "redirect:/dashboard";
+        } catch (BadCredentialsException e) {
+            model.addAttribute("error", "Invalid username or password");
+            return "login";
+        }
     }
 
+    @GetMapping("/logout")
+    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    public String logout(HttpServletResponse response) {
+        authService.clearJwtCookie(response);
+        return "redirect:/login";
+    }
+
+    // === DASHBOARD / PROFILE / SETTINGS ===
+    @GetMapping("/dashboard")
+    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    public String showDashboard(Model model) {
+        userService.prepareDashboardModel(model);
+        return "dashboard";
+    }
+
+    @GetMapping("/profile")
+    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    public String showProfile(Model model) {
+        userService.prepareProfileModel(model);
+        return "profile";
+    }
+
+    // === PROFILE PICTURE UPLOAD ===
+    @PostMapping("/users/{id}/upload-profile-picture")
+    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    public String uploadProfilePicture(@PathVariable Long id,
+                                       @RequestParam("file") MultipartFile file,
+                                       RedirectAttributes redirectAttributes) {
+        try {
+            String filename = userService.storeProfilePicture(id, file);
+            redirectAttributes.addFlashAttribute("message", "Profile picture uploaded: " + filename);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Upload failed: " + e.getMessage());
+        }
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/profile-pictures/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveProfilePicture(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get("uploads/profile-pictures/").resolve(filename).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists() && resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                        .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
+                        .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     /////////////////////////////////////////////
     // Exception Handling

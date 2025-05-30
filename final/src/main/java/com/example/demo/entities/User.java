@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -27,14 +29,24 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)  // EAGER fetch to load roles during login
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @Column()
+    private String profilePicture; // stores filename or relative path
 
     @Column(nullable = false)
     private Timestamp createdAt;
 
     @OneToMany(mappedBy = "listingAgent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Property> propertiesListed;
+
+
 
 //    @OneToMany
 //    private List<Property> propertiesFavorited;
@@ -47,14 +59,22 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String lastName, String email,
-                String password, Role role) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setEmail(email);
-        setPassword(password);
-        setRole(role);
-        setCreatedAt();
+    public User(String password, String firstName, String lastName,
+                String email,Set<Role> roles, String profilePicture) {
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.roles = roles;
+        this.profilePicture = profilePicture;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public Long getId() {
@@ -97,13 +117,11 @@ public class User {
         this.password = password;
     }
 
-    public Enum getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
+    public void setRoles(Set<Role> roles) { this.roles = roles; }
 
     public Timestamp getCreatedAt() {
         return createdAt;
@@ -121,6 +139,12 @@ public class User {
     public void setPropertiesListed(List<Property> propertiesListed) {
         this.propertiesListed = propertiesListed;
     }
+
+    public void setAgent(User user) {
+
+    }
+
+
 
 //    public List<Property> getPropertiesFavorited() {
 //        return propertiesFavorited;
