@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="@{/css/fragments.css}">
 </head>
 <body>
-<header class="app-header">
+<header th:fragment="header">
     <div class="header-content">
         <div class="logo-container">
             <img th:src="@{/images/logo.png}" alt="HotProperties Logo" class="logo">
@@ -18,7 +18,5 @@
         </a>
     </div>
 </header>
-
-
 </body>
 </html>
