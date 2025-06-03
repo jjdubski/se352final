@@ -1,8 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.ApiExceptionDto;
-import com.example.demo.dtos.JwtResponse;
-import com.example.demo.dtos.LoginRequest;
 import com.example.demo.entities.User;
 import com.example.demo.services.AuthService;
 import com.example.demo.services.UserService;
@@ -69,7 +67,7 @@ public class AppController {
         return "redirect:/login";
     }
 
-    // === DASHBOARD / PROFILE / SETTINGS ===
+    // === DASHBOARD / PROFILE / EDIT ===
     @GetMapping("/dashboard")
     @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
     public String showDashboard(Model model) {

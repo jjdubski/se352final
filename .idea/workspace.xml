@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c08d819b-439b-48e0-8ddf-5f5a4ce594d5" name="Changes" comment="" />
+    <list default="true" id="c08d819b-439b-48e0-8ddf-5f5a4ce594d5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/Favorite.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/Favorite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/Property.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/CustomUserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/CustomUserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,9 +33,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2xmz8Qw8YQAZptD3lOcf5s90Yw1" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -31,9 +43,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.FinalApplication.executor": "Run",
+    "Application.JwtSecretGenerator.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "amela",
+    "git-widget-placeholder": "Merging amela",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Amela/OneDrive/Desktop/OO/assignments/jwt_security",
     "settings.editor.selected.configurable": "configurable.group.build"
