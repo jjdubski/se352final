@@ -24,14 +24,14 @@
     <div th:if="${error}" class="failure">
         <p th:text="${error}"></p>
     </div>
-    <form method="POST" th:action="{/login}" th:object="${user}">
+    <form method="POST" th:action="@{/login}" th:object="${user}">
         <label for="username">Username</label>
         <input id="username" th:field="*{username}" type="text"/>
         <label for="password">Password</label>
         <input id="password" th:field="*{password}" type="password"/>
         <!-- Show Password Checkbox -->
         <div class="show-password">
-            <input type="checkbox" onclick="togglePasswordVisibility()" id="password"/>
+            <input type="checkbox" onclick="togglePasswordVisibility()" id="passwordShow"/>
         </div>
         <!-- Error Message -->
         <div class="error-message" th:if="${loginError}" th:text="${loginError}"></div>
