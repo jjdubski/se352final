@@ -1,8 +1,8 @@
 :root{
     --light-beige: #F5F5D5;
-    --beige: #C7B793;
+    --dark-beige: #C7B793;
     --light-green: #A3B68A;
-    --green: #5C724A;
+    --mid-green: #5C724A;
     --dark-green: #354A2F;
 }
 
@@ -46,7 +46,7 @@ body {
 }
 
 .btn {
-    background-color: #5c724a;
+    background-color: var(--dark-green);
     color: white;
     padding: 12px 24px;
     border: none;
@@ -57,14 +57,14 @@ body {
 }
 
 .btn:hover {
-    background-color: #293421;
+    background-color: var(--mid-green);
 
 }
 
 .btn.outline {
     background-color: white;
-    color: #009B3C;
-    border: 2px solid #009B3C;
+    color: var(--dark-green);
+    border: 2px solid var(--dark-green);
 }
 
 .btn.outline:hover {
