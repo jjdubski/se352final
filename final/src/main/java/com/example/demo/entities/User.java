@@ -40,10 +40,6 @@ public class User {
     @Column()
     private String profilePicture; // stores filename or relative path
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     @Column(nullable = false)
     private Timestamp createdAt;
 
@@ -73,7 +69,6 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
-<<<<<<< Updated upstream
     public String getProfilePicture() {
         return profilePicture;
     }
@@ -81,8 +76,6 @@ public class User {
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
-=======
->>>>>>> Stashed changes
 
     public Long getId() {
         return id;

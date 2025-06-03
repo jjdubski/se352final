@@ -10,11 +10,11 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    boolean existsByUsername(String username);
+//    boolean existsByUsername(String username);
 
-    List<User> findByAgent(User user);
+//    List<User> findByAgent(User user);
 
-    Arrays findByAgentIsNull();
+//    Arrays findByAgentIsNull();
 
     User findByFirstName(String name);
 
