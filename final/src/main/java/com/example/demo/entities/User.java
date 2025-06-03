@@ -40,9 +40,10 @@ public class User {
     @Column()
     private String profilePicture; // stores filename or relative path
 
-    @Column()
-    private String profilePicture;
+<<<<<<< Updated upstream
+=======
 
+>>>>>>> Stashed changes
     @Column(nullable = false)
     private Timestamp createdAt;
 
@@ -50,11 +51,6 @@ public class User {
     private List<Property> propertiesListed;
 
 
-    @OneToMany
-    private List<Property> propertiesFavorited;
-
-    @OneToMany
-    private List<Message> messages;
 
 //    @OneToMany
 //    private List<Property> propertiesFavorited;
@@ -75,17 +71,18 @@ public class User {
         this.email = email;
         this.roles = roles;
         this.profilePicture = profilePicture;
-        this.propertiesListed = propertiesListed;
     }
 
+<<<<<<< Updated upstream
     public String getProfilePicture() {
         return profilePicture;
     }
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
-
     }
+=======
+>>>>>>> Stashed changes
 
     public Long getId() {
         return id;
@@ -133,14 +130,6 @@ public class User {
 
     public void setRoles(Set<Role> roles) { this.roles = roles; }
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -158,47 +147,33 @@ public class User {
         this.propertiesListed = propertiesListed;
     }
 
-
-    public List<Property> getPropertiesFavorited() {
-        return propertiesFavorited;
-    }
-
-    public void setPropertiesFavorited(List<Property> propertiesFavorited) {
-        this.propertiesFavorited = propertiesFavorited;
-    }
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
-
-    public void addToPropertiesListed(Property property){
-        this.propertiesListed.add(property);
-        property.setListingAgent(this);
-    }
-
-    public void removePropertyListed(Property property){
-        this.propertiesListed.remove(property);
-    }
-
-    public void addToPropertiesFavorited(Property property){
-        this.propertiesFavorited.add(property);
-        property.addToUsersFavorited(this);
-    }
-
-    public void addToMessages(Message message){
-        this.messages.add(message);
-    }
-
-    public void removeMessage(Message message){
-        this.messages.remove(message);
-    }
-
     public void setAgent(User user) {
 
     }
 
+
+
+//    public List<Property> getPropertiesFavorited() {
+//        return propertiesFavorited;
+//    }
+//
+//    public void setPropertiesFavorited(List<Property> propertiesFavorited) {
+//        this.propertiesFavorited = propertiesFavorited;
+//    }
+//
+//    public List<Message> getMessagesSent() {
+//        return messagesSent;
+//    }
+//
+//    public void setMessagesSent(List<Message> messagesSent) {
+//        this.messagesSent = messagesSent;
+//    }
+//
+//    public List<Message> getMessagesReceived() {
+//        return messagesReceived;
+//    }
+//
+//    public void setMessagesReceived(List<Message> messagesReceived) {
+//        this.messagesReceived = messagesReceived;
+//    }
 }

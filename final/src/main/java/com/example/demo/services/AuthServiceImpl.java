@@ -67,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
         if(username == null){
             throw new UsernameNotFoundException("User not found: " + username);
         }
-        return userRepository.findByUsername(username);
+        return null;
     }
 
     @Override

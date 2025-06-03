@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.entities.Role;
+//import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
@@ -37,10 +37,10 @@ public class UserServiceImpl implements UserService {
 
     private CurrentUserContext getCurrentUserContext() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        User user = userRepository.findByUsername(username);
+        String name = auth.getName();
+        User user = userRepository.findByFirstName(name);
         if(user == null){
-            throw new UsernameNotFoundException("User not found" + username);
+            throw new UsernameNotFoundException("User not found" + name);
         }
         return new CurrentUserContext(user, auth);
     }
@@ -87,6 +87,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
     }
+
 
     @Override
     public User registerNewUser(User user, List<String> roleNames) {
@@ -147,10 +148,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        if(username == null){
-            throw new UsernameNotFoundException("User not found: " + username);
+        String name = auth.getName();
+        if(name == null){
+            throw new UsernameNotFoundException("User not found: " + name);
         }
-        return userRepository.findByUsername(username);
+        return userRepository.findByFirstName(name);
     }
 }
