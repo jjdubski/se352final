@@ -7,9 +7,9 @@
 }
 
 body {
-    background-color: var(--light-beige);
     margin: 0;
 }
+
 .app-header{
     background-color: white;
     box-shadow: 0 2px 4px;
