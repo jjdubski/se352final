@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.entities.Role;
+//import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;

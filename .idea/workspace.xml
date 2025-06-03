@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c08d819b-439b-48e0-8ddf-5f5a4ce594d5" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/Favorite.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/Favorite.java" afterDir="false" />
@@ -16,6 +17,9 @@
       <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/CustomUserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/CustomUserDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/application.properties" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/User.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,10 +48,16 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.FinalApplication.executor": "Run",
+<<<<<<< Updated upstream
     "Application.JwtSecretGenerator.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Merging amela",
+=======
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+>>>>>>> Stashed changes
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Amela/OneDrive/Desktop/OO/assignments/jwt_security",
     "settings.editor.selected.configurable": "configurable.group.build"
