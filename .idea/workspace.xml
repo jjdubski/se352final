@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40de26f9-4f7a-45e9-a2ff-9aed5b4aa5e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/static/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/addListing.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/addListing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/editListing.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/editListing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/favorites.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/favorites.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/manageListings.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/manageListings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/message.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/message.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/messages.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/properties.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/properties.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/property.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/property.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/target/classes/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

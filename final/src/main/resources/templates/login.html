@@ -25,8 +25,8 @@
         <p th:text="${error}"></p>
     </div>
     <form method="POST" th:action="@{/login}" th:object="${user}">
-        <label for="username">Username</label>
-        <input id="username" th:field="*{username}" type="text"/>
+        <label for="email">Email</label>
+        <input id="email" th:field="*{email}" type="text"/>
         <label for="password">Password</label>
         <input id="password" th:field="*{password}" type="password"/>
         <!-- Show Password Checkbox -->
