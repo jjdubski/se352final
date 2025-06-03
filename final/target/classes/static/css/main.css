@@ -1,4 +1,13 @@
+:root{
+    --light-beige: #F5F5D5;
+    --beige: #C7B793;
+    --light-green: #A3B68A;
+    --green: #5C724A;
+    --dark-green: #354A2F;
+}
+
 body {
+    background-color: var(--light-beige);
     margin: 0;
 }
 .app-header{
