@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40de26f9-4f7a-45e9-a2ff-9aed5b4aa5e5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/UserServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +28,16 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2xmz8Qw8YQAZptD3lOcf5s90Yw1" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -75,5 +75,8 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
