@@ -34,11 +34,20 @@ public class AppController {
         this.userService = userService;
     }
 
+    // landing page
     @GetMapping({"/", "/index"})
     public String showIndex() {
         return "index";
     }
 
+    // register page
+    @PostMapping
+    @ResponseBody
+    public String register(){
+        return "user registered";
+    }
+
+    
     // === LOGIN ===
     @GetMapping("/login")
     public String showLoginForm(Model model) {
@@ -61,22 +70,24 @@ public class AppController {
     }
 
     @GetMapping("/logout")
-    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
     public String logout(HttpServletResponse response) {
         authService.clearJwtCookie(response);
         return "redirect:/login";
     }
 
-    // === DASHBOARD / PROFILE / EDIT ===
+    // === DASHBOARD ====
     @GetMapping("/dashboard")
-    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
     public String showDashboard(Model model) {
         userService.prepareDashboardModel(model);
         return "dashboard";
     }
 
+    //===== PROFILE =======
+    //view profile
     @GetMapping("/profile")
-    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
     public String showProfile(Model model) {
         userService.prepareProfileModel(model);
         return "profile";
@@ -84,7 +95,7 @@ public class AppController {
 
     //edit profile
     @PostMapping("/profile/edit")
-    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
     public String updateSettings(@ModelAttribute("user") User updatedUser,
                                  @RequestParam(required = false) String password,
                                  @RequestParam(required = false) List<Long> addIds,
@@ -119,7 +130,7 @@ public class AppController {
 
     // === PROFILE PICTURE UPLOAD ===
     @PostMapping("/users/{id}/upload-profile-picture")
-    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
     public String uploadProfilePicture(@PathVariable Long id,
                                        @RequestParam("file") MultipartFile file,
                                        RedirectAttributes redirectAttributes) {
@@ -152,6 +163,87 @@ public class AppController {
         }
     }
 
+    //====PROPERTIES====
+
+    //manage property
+    @GetMapping("/properties/manage")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String manageProperties(){
+        return "properties managed";
+    }
+
+    //edit property
+    @PostMapping("/properties/edit/{id}")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String editProperties() {
+            return "property edited";
+    }
+
+    //add new property
+    @PutMapping("properties/add")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String addNewProperty(){
+        return "added new property";
+    }
+
+    //browse properties
+    @GetMapping("/properties/list")
+    @PreAuthorize("hasAnyRole('BUYER')")
+    public String browseProperties(){
+        return "list of properties";
+    }
+
+    //view details
+    @GetMapping("/properties/{id}")
+    @PreAuthorize("hasAnyRole('BUYER')")
+    public String viewDetails(@PathVariable String id){
+        return "Property details";
+    }
+
+    //image viewer
+    @GetMapping("/properties/{id}/images")
+    @PreAuthorize("hasAnyRole('BUYER')")
+    public String viewImages(@PathVariable String id){
+        return "images";
+    }
+
+    //===== FAVORITES ======
+
+    @GetMapping("/favorties")
+    @PreAuthorize("hasAnyRole('BUYER')")
+    public String favorites(){
+        return "favorties";
+    }
+
+    //=====MESSAGES=====
+
+    //all messages
+    @GetMapping("/messages")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String allMessages(){
+        return "messages";
+    }
+
+    //single message
+    @GetMapping("/message/{id}")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String singleMessage(@PathVariable String id){
+        return "single message";
+    }
+
+    //====== CREATE AND MANAGE =======
+
+    @PostMapping("/users/admin/create-agent")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String createAgent(){
+        return "agent created";
+    }
+
+    @PostMapping("/users/admin")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String manageUsers(){
+        return "users managed";
+    }
 
 
     /////////////////////////////////////////////
