@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="40de26f9-4f7a-45e9-a2ff-9aed5b4aa5e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/resources/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/static/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/target/classes/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/static/css/main.css" afterDir="false" />
     </list>
@@ -48,7 +49,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.FinalApplication.executor": "Run",
-    "git-widget-placeholder": "Jake",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/jake/Documents/SE 352/se352final/final/src/main/resources",
     "node.js.detected.package.eslint": "true",
