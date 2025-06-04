@@ -6,6 +6,7 @@ body {
   background-color: #F5F5D5;
 }
 
+
 .login-container {
   display: flex;
   min-height: 40vh;
@@ -58,6 +59,7 @@ input {
 
 .btn:hover {
   background-color: #293421;
+
 }
 
 .btn.outline {

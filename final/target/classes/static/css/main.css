@@ -10,6 +10,13 @@ body {
     margin: 0;
 }
 
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 1
+}
+
 .app-header{
     background-color: white;
     box-shadow: 0 2px 4px;
