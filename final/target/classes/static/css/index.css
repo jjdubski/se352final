@@ -2,6 +2,7 @@ body{
     background-color: var(--light-beige);
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     font-family: 'Inter', sans-serif;
 }

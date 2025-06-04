@@ -14,7 +14,8 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 1
+    width: 1;
+    background-color: white;
 }
 
 .app-header{
