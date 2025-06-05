@@ -162,5 +162,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Message> findMessagesForUser(User user) {
         return messageRepository.findByReceipent(user);
+
+    @Override
+    public List<Property> getFavorites() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        if(name == null){
+            throw new UsernameNotFoundException("User not found: " + name);
+        }
+        User user = userRepository.findByFirstName(name);
+        return user.getPropertiesFavorited();
     }
 }

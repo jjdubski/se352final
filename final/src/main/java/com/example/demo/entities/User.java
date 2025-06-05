@@ -48,14 +48,14 @@ public class User {
 
 
 
-//    @OneToMany
-//    private List<Property> propertiesFavorited;
-//
-//    @OneToMany
-//    private List<Message> messagesSent;
-//
-//    @OneToMany
-//    private List<Message> messagesReceived;
+    @OneToMany
+    private List<Property> propertiesFavorited;
+
+    @OneToMany
+    private List<Message> messagesSent;
+
+    @OneToMany
+    private List<Message> messagesReceived;
 
     public User() {}
 
@@ -146,27 +146,29 @@ public class User {
 
 
 
-//    public List<Property> getPropertiesFavorited() {
-//        return propertiesFavorited;
-//    }
+    public List<Property> getPropertiesFavorited() {
+        return propertiesFavorited;
+    }
 //
-//    public void setPropertiesFavorited(List<Property> propertiesFavorited) {
-//        this.propertiesFavorited = propertiesFavorited;
-//    }
+//   }
 //
-//    public List<Message> getMessagesSent() {
-//        return messagesSent;
-//    }
-//
-//    public void setMessagesSent(List<Message> messagesSent) {
-//        this.messagesSent = messagesSent;
-//    }
-//
-//    public List<Message> getMessagesReceived() {
-//        return messagesReceived;
-//    }
-//
-//    public void setMessagesReceived(List<Message> messagesReceived) {
-//        this.messagesReceived = messagesReceived;
-//    }
+    public void setPropertiesFavorited(List<Property> propertiesFavorited) {
+        this.propertiesFavorited = propertiesFavorited;
+    }
+
+    public List<Message> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(List<Message> messagesSent) {
+        this.messagesSent = messagesSent;
+    }
+
+    public List<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(List<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
+    }
 }

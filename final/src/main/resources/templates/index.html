@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/index.css}" />
 </head>
 <body>
-<div th:replace="fragments :: header"></div>
+<div th:replace="fragments :: header(showButton=false)"></div>
 <div class="landing-container">
     <div class="welcome-container">
         <h1>Welcome to <span class="brand">HotProperties</span></h1>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="landing-pic-container">
-<!--        <img th:src="images/landing-pic.jpg" alt="House Image" class="landing-pic">-->
+        <img th:src="@{/images/landing-pic.jpg}" alt="House Image" class="landing-pic">
     </div>
 </div>
 </body>
