@@ -154,4 +154,16 @@ public class UserServiceImpl implements UserService {
         }
         return userRepository.findByFirstName(name);
     }
+
+
+    @Override
+    public List<Property> getFavorites() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        if(name == null){
+            throw new UsernameNotFoundException("User not found: " + name);
+        }
+        User user = userRepository.findByFirstName(name);
+        return user.getPropertiesFavorited();
+    }
 }
