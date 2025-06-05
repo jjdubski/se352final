@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.dtos.ApiExceptionDto;
 import com.example.demo.entities.User;
 import com.example.demo.services.AuthService;
+import com.example.demo.services.PropertyService;
 import com.example.demo.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,11 +28,13 @@ import java.util.List;
 public class AppController {
     private final AuthService authService;
     private final UserService userService;
+    private final PropertyService propertyService;
 
     @Autowired
-    public AppController(AuthService authService, UserService userService) {
+    public AppController(AuthService authService, UserService userService, PropertyService propertyService) {
         this.authService = authService;
         this.userService = userService;
+        this.propertyService = propertyService;
     }
 
     // landing page
@@ -168,8 +171,10 @@ public class AppController {
     //manage property
     @GetMapping("/properties/manage")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String manageProperties(){
-        return "properties managed";
+    public String manageProperties(Model model){
+        User agent = userService.getCurrentUser();
+        model.addAttribute("properties",propertyService.getPropertiesForCurrentAgent(agent));
+        return "manageListings";
     }
 
     //edit property
