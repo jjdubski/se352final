@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.entities.Property;
 import com.example.demo.entities.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
@@ -28,5 +29,8 @@ public interface UserService {
 
     @PreAuthorize("isAuthenticated()")
     User getCurrentUser();
+
+    @PreAuthorize("isAuthenticated()")
+    List<Property> getFavorites();
 
 }

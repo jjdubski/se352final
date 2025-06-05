@@ -7,21 +7,21 @@
 </head>
 <body>
 <header th:replace="fragments :: header(showButton=true)"></header>
-<div class="edit-listing-container">
-    <h1>Edit Listing</h1>
-    <div class="edit-listing-form-container">
-        <form th:action="@{/properties/edit/{id}(id=${property.id})}" th:object="${property}" method="post">
-            <div class="edit-listing-images">
+<div class="new-listing-container">
+    <h1>New Listing</h1>
+    <div class="new-listing-form-container">
+        <form th:action="@{/properties/new}" th:object="${property}" method="post">
+            <div class="new-listing-images">
                 <div th:each="img : ${property.images}" class="property-image-container">
                     <img th:src="@{'/images/' + ${img}}" alt="Property Image" class="property-img">
-                    <button type="button" class="delete-btn" 
+                    <button type="button" class="delete-image-button" 
                             th:attr="data-img=${img}">Delete</button>
                     <form th:action="@{/properties/delete-image/{id}(id=${property.id})}" method="post">
                         <input type="hidden" name="imageName" th:value="${img}" />
                     </form>
                 </div>
             </div>
-            <div class="edit-form">
+            <div class="new-form">
                 <label for="title">Title:</label>
                 <input id="title" th:field="*{title}" type="text" required/>
                 <label for="price">Price:</label>

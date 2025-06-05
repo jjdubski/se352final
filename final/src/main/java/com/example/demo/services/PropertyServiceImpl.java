@@ -7,6 +7,10 @@ import com.example.demo.exceptions.PropertyNotFoundException;
 import com.example.demo.repositories.ImageRepository;
 import com.example.demo.repositories.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +56,21 @@ public class PropertyServiceImpl implements PropertyService {
         return imageRepository.findByProperty(property.get());
     }
 
+//     public final PropertyRepository propertyRepository;
 
+//     public PropertyServiceImpl(PropertyRepository propertyRepository) {
+//         this.propertyRepository = propertyRepository;
+//     }
+
+//     @Override
+//     public List<Image> getImages(Long id) {
+//         List<Image> image = propertyRepository.getAllPropertyImages(id);
+//         return image;
+//     }
+
+//     @Override
+//     public Property getProperty(Long id) {
+//         Property property = propertyRepository.getReferenceById(id);
+//         return property;
+//     }
 }
