@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+
 </head>
 <body>
+<div th:replace="fragments :: header"></div>
+
+<div class="dashboard">
+    <h1 class="dashboard-title">Welcome <span class="name" th:text="${user.firstName}"></span></h1>
+    <p class="dashboard-subtitle"><span class="role" th:text="${user.role}"></span> Dashboard</p>
+
+    <div class="card-row">
+        <div class="card">
+            <a th:href="@{/properties}">
+                <button class="btn" style="background-color: --light-green;">View properties »</button>
+            </a>
+        </div>
+        <div class="card">
+            <a th:href="@{/messages}">
+                <button class="btn" style="background-color: rgb(92, 114, 74);">View Messages »<span class="dash-num" th:text="${}"></span></button>
+            </a>
+        </div>
+        <div class="card">
+            <a th:href="@{/favorites}">
+                <button class="btn" style="background-color: rgb(53, 74, 47);">View Favorites »<span class="dash-num"></span></button>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/profile}">
+                <button class="btn" style="background-color: rgb(217, 217, 217); color: black;">My Profile »</button>
+            </a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

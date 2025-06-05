@@ -1,0 +1,80 @@
+:root{
+    --light-beige: #F5F5D5;
+    --dark-beige: #C7B793;
+    --light-green: #A3B68A;
+    --mid-green: #5C724A;
+    --dark-green: #354A2F;
+}
+
+body {
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 1;
+    background-color: white;
+}
+
+.app-header{
+    background-color: white;
+    box-shadow: 0 2px 4px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 1rem 0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 99%;
+    margin: 1rem;
+
+}
+
+.logo {
+    height: 90px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 2rem;
+    color: rgb(53, 74, 47);
+}
+
+.btn {
+    background-color: var(--dark-green);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 2rem;
+}
+
+.btn:hover {
+    background-color: var(--mid-green);
+
+}
+
+.btn.outline {
+    background-color: white;
+    color: var(--dark-green);
+    border: 2px solid var(--dark-green);
+}
+
+.btn.outline:hover {
+    background-color: #e6f7ed;
+}

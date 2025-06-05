@@ -269,9 +269,9 @@ public class AppController {
 
     //manage property
     @GetMapping("/properties/manage")
-    @PreAuthorize("hasAnyRole('AGENT')")
+//    @PreAuthorize("hasAnyRole('AGENT')")
     public String manageProperties(){
-        return "properties managed";
+        return "manageListings";
     }
 
     //edit property
