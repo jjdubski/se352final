@@ -7,8 +7,8 @@
     <title>My Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/styles.css" />
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
 
 
 </head>
@@ -21,10 +21,10 @@
         <span class="profile-pic-text">My Profile</span>
     </div>
     <ul class="profile-info-container">
-        <li class="profile-info-id">First Name: <span class="profile-info">Carlos</span></li>
-        <li class="profile-info-id">Last Name: <span class="profile-info">Atienza</span></li>
-        <li class="profile-info-id">Email: <span class="profile-info">atienzacarlos72@gmail.com</span></li>
-        <li class="profile-info-id">Role: <span class="profile-info">Buyer</span></li>
+        <li class="profile-info-id">First Name: <span class="profile-info" th:text="${user.firstName}"></span></li>
+        <li class="profile-info-id">Last Name: <span class="profile-info" th:text="${user.lastName}"></span></li>
+        <li class="profile-info-id">Email: <span class="profile-info" th:text="${user.email}"></span></li>
+        <li class="profile-info-id">Role: <span class="profile-info" th:text="${user.role}"></span></li>
     </ul>
     <div class="buttons" style="margin-top: 60px;">
         <a th:href="@{/editprofile}">
@@ -39,7 +39,7 @@
 </div>
 </div>
 
-<body>
+
 
 </body>
 </html>
