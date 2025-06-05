@@ -33,4 +33,7 @@ public interface UserService {
     @PreAuthorize("isAuthenticated()")
     List<Property> getFavorites();
 
+    User getUserById(Long id);
+
+    void delete(String email);
 }
