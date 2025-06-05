@@ -1,1 +1,45 @@
 
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+
+
+</head>
+<body>
+<div class="profile-container">
+    <div class="profile-header-container">
+        <div class="profile-pic-container">
+            <img src="/images/profileImg.jpg" class="profile-pic">
+        </div>
+        <span class="profile-pic-text">My Profile</span>
+    </div>
+    <ul class="profile-info-container">
+        <li class="profile-info-id">First Name: <span class="profile-info" th:text="${user.firstName}"></span></li>
+        <li class="profile-info-id">Last Name: <span class="profile-info" th:text="${user.lastName}"></span></li>
+        <li class="profile-info-id">Email: <span class="profile-info" th:text="${user.email}"></span></li>
+        <li class="profile-info-id">Role: <span class="profile-info" th:text="${user.role}"></span></li>
+    </ul>
+    <div class="buttons" style="margin-top: 60px;">
+        <a th:href="@{/editprofile}">
+            <button class="btn" style="background-color: white; color: rgb(92, 114, 74);">Edit Profile</button>
+        </a>
+
+        <a th:href="@{/dashboard}">
+            <button class="btn">Back to Dashboard</button>
+        </a>
+
+    </div>
+</div>
+</div>
+
+
+
+</body>
+</html>

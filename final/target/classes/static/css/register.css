@@ -6,32 +6,6 @@ body {
   background-color: #F5F5D5;
 }
 
-.btn {
-  background-color: #5c724a;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-
-.btn:hover {
-  background-color: #293421;
-
-}
-
-.btn.outline {
-  background-color: white;
-  color: #009B3C;
-  border: 2px solid #009B3C;
-}
-
-.btn.outline:hover {
-  background-color: #e6f7ed;
-}
-
 input {
   width: 90%;
   padding: 0.5rem;
