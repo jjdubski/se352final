@@ -7,16 +7,36 @@
     <link rel="stylesheet" href="@{/css/fragments.css}">
 </head>
 <body>
-<header th:fragment="header">
+<header th:fragment="header(showButton)">
     <div class="header-content">
         <div class="logo-container">
             <img th:src="@{/images/logo.png}" alt="HotProperties Logo" class="logo">
             <span class="logo-text">Hot Properties</span>
         </div>
-        <a th:href="@{/dashboard}">
+
+        <a th:href="@{/dashboard}" th:if="${showButton}">
             <button class="btn" type="submit">Go to Dashboard</button>
         </a>
     </div>
 </header>
+<div th:fragment="propertyCard(property)" class="property-card">
+    <div class="edit-button">
+        <a th:href="@{'/properties/edit/' + ${property.id}}">Edit</a>
+    </div>
+    <div class="delete-button">
+        <form th:action="@{'/properties/delete/' + ${property.id}}" method="post" onsubmit="return confirm('Are you sure you want to delete this property?');">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+    <div class="property-image">
+        <img th:src="@{'/images/' + ${property.image}}" alt="Property Image" class="property-img">
+    </div>
+    <div class="property-details">
+        <h2 th:text="${property.title}">Property Title</h2>
+        <p th:text="${property.description}">Property Description</p>
+        <p class="price" th:text="${'$' + ${property.price}}">$100,000</p>
+        <a th:href="@{'/properties/' + ${property.id}}" class="btn view-details">View Details</a>
+    </div>
+</div>
 </body>
 </html>

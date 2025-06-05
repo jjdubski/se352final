@@ -3,9 +3,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Message Details</title>
 </head>
 <body>
-
+<header th:replace="fragments :: header(showButton=true)"></header>
+<div>
+    <h1>Message Details</h1>
+    <div>
+        <div>
+            <label>Property:</label>
+            <span th:text="${message.property}"></span>
+        </div>
+        <div>
+            <label>From:</label>
+            <span th:text="${message.sender}"></span>
+        </div>
+        <div>
+            <label>Sent At:</label>
+            <span th:text="${message.sentAt}"></span>
+        </div>
+        <hr>
+        <div>
+            <label>Message:</label>
+            <div>
+                <span th:text="${message.content}"></span>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <h2>Reply to Buyer</h2>
+            <form th:action="@{/messages/reply}" method="post">
+                <input type="hidden" name="messageId" th:value="${message.id}" />
+                <div>
+                    <label>Your reply:</label>
+                    <textarea name="reply" rows="6" cols="60"></textarea>
+                </div>
+                <div>
+                    <button type="submit">Send Reply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
