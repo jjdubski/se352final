@@ -33,7 +33,6 @@ public class AppController {
     private final UserService userService;
     private final PropertyService propertyService;
 
-
     @Autowired
     public AppController(AuthService authService, UserService userService, PropertyService propertyService) {
         this.authService = authService;
@@ -200,15 +199,17 @@ public class AppController {
 
     //manage property
     @GetMapping("/properties/manage")
-//    @PreAuthorize("hasAnyRole('AGENT')")
-    public String manageProperties(){
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String manageProperties(Model model){
+        User agent = userService.getCurrentUser();
+        model.addAttribute("properties",propertyService.getPropertiesForCurrentAgent(agent));
         return "manageListings";
     }
 
     //edit property
     @PostMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String editProperties() {
+    public String editProperties(@PathVariable Long id, Model model) {
             return "property edited";
     }
 
@@ -222,26 +223,31 @@ public class AppController {
     //browse properties
     @GetMapping("/properties/list")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String browseProperties(){
-        return "list of properties";
+    public String browseProperties(Model model){
+        model.addAttribute("properties", propertyService.getAllProperties());
+        return "properties";
     }
 
     //view details
     @GetMapping("/properties/{id}")
     @PreAuthorize("hasAnyRole('BUYER')")
     public String viewDetails(@PathVariable Long id, Model model){
-        Property property = propertyService.getProperty(id);
-        model.addAttribute("property", property);
-        return "Property-details";
+//         Property property = propertyService.getProperty(id);
+//         model.addAttribute("property", property);
+        model.addAttribute("property",propertyService.findPropertyById(id));
+        return "property";
     }
 
     //image viewer
     @GetMapping("/properties/{id}/images")
     @PreAuthorize("hasAnyRole('BUYER')")
     public String viewImages(@PathVariable Long id, Model model){
-        List<Image> images = propertyService.getImages(id);
-        model.addAttribute("Images", images);
-        return "images";
+//         List<Image> images = propertyService.getImages(id);
+//         model.addAttribute("Images", images);
+//         return "images";
+        List<Image> propertyImages = propertyService.getImagesForProperty(id);
+        model.addAttribute("images", propertyImages);
+        return "images";   //UPDATE with actual template
     }
 
     //===== FAVORITES ======
