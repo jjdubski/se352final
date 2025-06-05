@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HotProperties</title>
+  <link rel="stylesheet" href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="landing-container">
+  <div class="welcome-container">
+    <h1>Welcome to <span class="brand">HotProperties</span></h1>
+    <p class="subtitle">Find your dream home or manage your listings with ease!</p>
+    <div class="buttons">
+      <a th:href="@{/login}">
+        <button class="btn">Login</button>
+      </a>
+      <a th:href="@{/register}">
+        <button class="btn">Register</button>
+      </a>
+    </div>
+  </div>
+  <div class="landing-pic-container">
+    <img th:src="@{images/landing-pic.jpg}" alt="House Image" class="landing-pic">
+  </div>
+</div>
+
+
+</body>
+</html>

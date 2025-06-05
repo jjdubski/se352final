@@ -1,0 +1,17 @@
+<!--Jake Waksmanski-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="fragments :: header(showButton=true)"></header>
+<div class="manage-listings-container">
+    <h1>Manage Your Properties</h1>
+    <div class="property-list">
+        <div th:each="property : ${properties}" th:replace="fragments :: propertyCard(property)"></div>
+    </div>
+</div>
+</body>
+</html>

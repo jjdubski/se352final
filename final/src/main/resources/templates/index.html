@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HotProperties</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+</head>
+<body>
+<div th:replace="fragments :: header(showButton=false)"></div>
+<div class="landing-container">
+    <div class="welcome-container">
+        <h1>Welcome to <span class="brand">HotProperties</span></h1>
+        <p class="subtitle">Find your dream home or manage your listings with ease!</p>
+        <div class="buttons">
+            <a th:href="@{/login}">
+                <button class="btn">Login</button>
+            </a>
+            <a th:href="@{/register}">
+                <button class="btn">Register</button>
+            </a>
+        </div>
+    </div>
+    <div class="landing-pic-container">
+<!--        <img th:src="images/landing-pic.jpg" alt="House Image" class="landing-pic">-->
+    </div>
+</div>
+</body>
+</html>
