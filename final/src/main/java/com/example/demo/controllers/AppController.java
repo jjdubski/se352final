@@ -202,8 +202,9 @@ public class AppController {
     //view details
     @GetMapping("/properties/{id}")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String viewDetails(@PathVariable String id){
-        return "Property details";
+    public String viewDetails(@PathVariable Long id, Model model){
+        model.addAttribute("property",propertyService.findPropertyById(id));
+        return "property";
     }
 
     //image viewer
