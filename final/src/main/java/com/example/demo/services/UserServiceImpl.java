@@ -173,4 +173,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByFirstName(name);
         return user.getPropertiesFavorited();
     }
+
+    @Override
+    public User getUserById(Long id) {
+        User user = userRepository.getReferenceById(id);
+        return user;
+    }
+
+    @Override
+    public void delete(String email) {
+        userRepository.deleteByEmail(email);
+    }
 }

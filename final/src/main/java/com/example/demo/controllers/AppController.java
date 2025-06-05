@@ -196,7 +196,76 @@ public class AppController {
         }
     }
 
+    //===== USERS ======
+
+    @GetMapping("/user")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String getAllUser(Model model){
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("All-Users", users);
+        return "allUsers";
+    }
+
+    @GetMapping("/user/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String getAllUser(@PathVariable Long id, Model model){
+        User user = userService.getUserById(id);
+        model.addAttribute("Users", user);
+        return "users";
+    }
+
+    @PutMapping("/user/add")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @ResponseBody
+    public String updateUser(Model model){
+        User user = new User();
+        model.addAttribute("user", user);
+        return "addUser";
+    }
+
+    @DeleteMapping("/user/delete/{email}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String deleteUser(@PathVariable String email){
+        userService.delete(email);
+        return "delete";
+    }
+
     //====PROPERTIES====
+
+    // property pic upload
+    @PostMapping("/property/{id}/upload-property-picture")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String uploadPropertyPicture(@PathVariable Long id,
+                                        @RequestParam("file") MultipartFile file,
+                                        RedirectAttributes redirectAttributes) {
+        try {
+            String filename = userService.storeProfilePicture(id, file);
+            redirectAttributes.addFlashAttribute("message", "Property picture uploaded: " + filename);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Upload failed: " + e.getMessage());
+        }
+        return "redirect:/property";
+    }
+
+    @GetMapping("/property-pictures/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> servePropertyPicture(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get("uploads/property-pictures/").resolve(filename).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists() && resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                        .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
+                        .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     //manage property
     @GetMapping("/properties/manage")
@@ -276,7 +345,6 @@ public class AppController {
     @GetMapping("/message/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String singleMessage(@PathVariable Long id){
-
         return "message";
     }
 
@@ -287,16 +355,17 @@ public class AppController {
     public String createAgent(Model model){
         User agent = new User();
         model.addAttribute("Agent", agent);
-        return "Creat-Agent";
+        return "createAgent";
     }
 
     //======= MANAGE ========
 
     @PostMapping("/users/admin")
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @ResponseBody
     public String manageUsers(Model model){
         model.addAttribute("users", userService.getAllUsers());
-        return "all_users";
+        return "allUsers";
     }
 
 

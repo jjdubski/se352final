@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByOrderByLastNameAsc();
 
     List<Property> getFavorites(String name);
+
+    void deleteByEmail(String email);
 }
