@@ -5,7 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40de26f9-4f7a-45e9-a2ff-9aed5b4aa5e5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/final/src/main/resources/templates/newListing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/editListing.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/editListing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/fragments.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/fragments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/manageListings.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/manageListings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/messages.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/FinalApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/FinalApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/CustomAccessDeniedHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/CustomAccessDeniedHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/CustomAuthenticationEntryPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/CustomAuthenticationEntryPoint.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/config/WebConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/controllers/AppController.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/controllers/AppController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/dtos/ApiExceptionDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/dtos/ApiExceptionDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/dtos/JwtResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/dtos/JwtResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/dtos/LoginRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/dtos/LoginRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Favorite.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Favorite.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Image.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Image.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Property.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Property.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/entities/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/jwt/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/jwt/JwtUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/ImageRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/ImageRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/PropertyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/PropertyRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/RoleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/RoleRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/AuthService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/AuthServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/AuthServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/CustomUserDetailsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/CustomUserDetailsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/CustomUserDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/CustomUserDetailsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/PropertyServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/PropertyServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/services/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/CurrentUserContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/CurrentUserContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/GlobalRateLimiterFilter$RequestWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/GlobalRateLimiterFilter$RequestWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/GlobalRateLimiterFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/GlobalRateLimiterFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/JwtAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/JwtSecretGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/com/example/demo/utils/JwtSecretGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/templates/editListing.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/templates/editListing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/templates/fragments.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/templates/fragments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/classes/templates/manageListings.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/classes/templates/manageListings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/target/test-classes/com/example/demo/FinalApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/final/target/test-classes/com/example/demo/FinalApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,29 +78,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "JavaScript Debug.landingPage.html.executor": "Run",
-    "JavaScript Debug.login.html.executor": "Run",
-    "JavaScript Debug.property.html.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.FinalApplication.executor": "Run",
-    "git-widget-placeholder": "Jake",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/jake/Documents/SE 352/se352final/final/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;JavaScript Debug.landingPage.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.login.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.property.html.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.FinalApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Jake&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jake/Documents/SE 352/se352final/final/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/final/src/main/resources" />
@@ -77,19 +121,21 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19416.15" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19416.15" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c08d819b-439b-48e0-8ddf-5f5a4ce594d5" name="Changes" comment="" />
+      <changelist id="40de26f9-4f7a-45e9-a2ff-9aed5b4aa5e5" name="Changes" comment="" />
       <created>1748557877740</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748557877740</updated>
+      <workItem from="1749144939199" duration="408000" />
+      <workItem from="1749145564641" duration="4085000" />
     </task>
     <servers />
   </component>
