@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.ApiExceptionDto;
+import com.example.demo.entities.Image;
 import com.example.demo.entities.User;
 import com.example.demo.services.AuthService;
 import com.example.demo.services.PropertyService;
@@ -210,8 +211,10 @@ public class AppController {
     //image viewer
     @GetMapping("/properties/{id}/images")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String viewImages(@PathVariable String id){
-        return "images";
+    public String viewImages(@PathVariable Long id, Model model){
+        List<Image> propertyImages = propertyService.getImagesForProperty(id);
+        model.addAttribute("images", propertyImages);
+        return "images";   //UPDATE with actual template
     }
 
     //===== FAVORITES ======

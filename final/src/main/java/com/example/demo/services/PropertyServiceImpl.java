@@ -1,8 +1,10 @@
 package com.example.demo.services;
 
+import com.example.demo.entities.Image;
 import com.example.demo.entities.Property;
 import com.example.demo.entities.User;
 import com.example.demo.exceptions.PropertyNotFoundException;
+import com.example.demo.repositories.ImageRepository;
 import com.example.demo.repositories.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,12 @@ import java.util.Optional;
 public class PropertyServiceImpl implements PropertyService {
 
     PropertyRepository propertyRepository;
+    ImageRepository imageRepository;
 
     @Autowired
-    public PropertyServiceImpl(PropertyRepository propertyRepository) {
+    public PropertyServiceImpl(PropertyRepository propertyRepository, ImageRepository imageRepository) {
         this.propertyRepository = propertyRepository;
+        this.imageRepository = imageRepository;
     }
 
     @Override
@@ -37,6 +41,15 @@ public class PropertyServiceImpl implements PropertyService {
             throw new PropertyNotFoundException("No property with given id");
         }
         return property.get();
+    }
+
+    @Override
+    public List<Image> getImagesForProperty(Long id) {
+        Optional<Property> property = propertyRepository.findById(id);
+        if (property.isEmpty()){   //no property w/ given id
+            throw new PropertyNotFoundException("No property with given id");
+        }
+        return imageRepository.findByProperty(property.get());
     }
 
 

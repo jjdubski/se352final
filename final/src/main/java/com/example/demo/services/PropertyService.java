@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.entities.Image;
 import com.example.demo.entities.Property;
 import com.example.demo.entities.User;
 
@@ -12,4 +13,6 @@ public interface PropertyService {
     Object getAllProperties();
 
     Property findPropertyById(Long id);
+
+    List<Image> getImagesForProperty(Long id);
 }
