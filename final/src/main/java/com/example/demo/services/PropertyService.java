@@ -9,4 +9,6 @@ import java.util.List;
 public interface PropertyService {
 
     List<Property> getPropertiesForCurrentAgent(User agent);
+
+    Object getAllProperties();
 }

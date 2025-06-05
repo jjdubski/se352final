@@ -180,7 +180,7 @@ public class AppController {
     //edit property
     @PostMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String editProperties() {
+    public String editProperties(@PathVariable Long id, Model model) {
             return "property edited";
     }
 
@@ -194,8 +194,9 @@ public class AppController {
     //browse properties
     @GetMapping("/properties/list")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String browseProperties(){
-        return "list of properties";
+    public String browseProperties(Model model){
+        model.addAttribute("properties", propertyService.getAllProperties());
+        return "properties";
     }
 
     //view details
