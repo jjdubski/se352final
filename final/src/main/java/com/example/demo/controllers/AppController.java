@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.ApiExceptionDto;
+
 import com.example.demo.entities.Image;
 import com.example.demo.entities.Message;
 import com.example.demo.entities.Property;
@@ -266,14 +267,17 @@ public class AppController {
     @GetMapping("/messages")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String allMessages(){
+        User user = userService.getCurrentUser();
+        List<Message> message = userService.findMessagesForUser(user);
         return "messages";
     }
 
     //single message
     @GetMapping("/message/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String singleMessage(@PathVariable String id){
-        return "single message";
+    public String singleMessage(@PathVariable Long id){
+
+        return "message";
     }
 
     //====== CREATE =======
