@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 //import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
+import com.example.demo.repositories.MessageRepository;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.utils.CurrentUserContext;
@@ -28,10 +29,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MessageRepository messageRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
+                           MessageRepository messageRepository,PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.messageRepository = messageRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -153,5 +157,10 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("User not found: " + name);
         }
         return userRepository.findByFirstName(name);
+    }
+
+    @Override
+    public List<Message> findMessagesForUser(User user) {
+        return messageRepository.findByReceipent(user);
     }
 }

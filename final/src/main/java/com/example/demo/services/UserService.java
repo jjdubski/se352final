@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.entities.Message;
 import com.example.demo.entities.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
@@ -29,4 +30,5 @@ public interface UserService {
     @PreAuthorize("isAuthenticated()")
     User getCurrentUser();
 
+    List<Message> findMessagesForUser(User user);
 }
