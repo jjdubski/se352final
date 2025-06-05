@@ -8,6 +8,9 @@
       <change afterPath="$PROJECT_DIR$/final/src/main/resources/templates/newListing.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/PropertyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/PropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/PropertyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/PropertyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/PropertyServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/editListing.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/editListing.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/fragments.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/fragments.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/resources/templates/index.html" afterDir="false" />
