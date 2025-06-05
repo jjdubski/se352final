@@ -7,12 +7,9 @@
     <list default="true" id="40de26f9-4f7a-45e9-a2ff-9aed5b4aa5e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/controllers/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/repositories/PropertyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/PropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/PropertyService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/PropertyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/PropertyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/final/src/main/java/com/example/demo/services/UserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -7,5 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 
 public interface PropertyService {
+    List<Image> getImages(Long id);
 
+    Property getProperty(Long id);
 }

@@ -41,7 +41,7 @@ public class AppController {
         this.propertyService = propertyService;
     }
 
-    // landing page
+    // ===== LANDING PAGE ======
     @GetMapping({"/", "/index"})
     public String showIndex() {
         return "index";
@@ -81,7 +81,7 @@ public class AppController {
     }
 
     
-    // === LOGIN ===
+    // === LOGIN/LOGOUT ===
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("user", new User());
@@ -229,21 +229,24 @@ public class AppController {
     //view details
     @GetMapping("/properties/{id}")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String viewDetails(@PathVariable String id){
-
-        return "Property details";
+    public String viewDetails(@PathVariable Long id, Model model){
+        Property property = propertyService.getProperty(id);
+        model.addAttribute("property", property);
+        return "Property-details";
     }
 
     //image viewer
     @GetMapping("/properties/{id}/images")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String viewImages(@PathVariable String id){
+    public String viewImages(@PathVariable Long id, Model model){
+        List<Image> images = propertyService.getImages(id);
+        model.addAttribute("Images", images);
         return "images";
     }
 
     //===== FAVORITES ======
 
-    @GetMapping("/favorties")
+    @GetMapping("/favorites")
     @PreAuthorize("hasAnyRole('BUYER')")
     public String favorites(Model model){
         List<Property> properties = userService.getFavorites();
@@ -267,7 +270,7 @@ public class AppController {
         return "single message";
     }
 
-    //====== CREATE AND MANAGE =======
+    //====== CREATE =======
 
     @PostMapping("/users/admin/create-agent")
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -276,6 +279,8 @@ public class AppController {
         model.addAttribute("Agent", agent);
         return "Creat-Agent";
     }
+
+    //======= MANAGE ========
 
     @PostMapping("/users/admin")
     @PreAuthorize("hasAnyRole('ADMIN')")
