@@ -284,14 +284,27 @@ public class AppController {
     @PostMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String editProperties(@PathVariable Long id, Model model) {
-            return "property edited";
+
+        return "property edited";
     }
 
     //add new property
     @PutMapping("properties/add")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String addNewProperty(){
-        return "added new property";
+    public String addNewProperty(@ModelAttribute("property") Property property,
+                                 @RequestParam(value = "file", required = false) List<MultipartFile> files,
+                                 RedirectAttributes redirectAttributes){
+
+        try{
+
+            Property savedProperty = propertyService.addNewProperty(property,files);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Property added successfully.");
+            return "redirect:/properties/manage";
+        } catch (Exception e){
+            redirectAttributes.addFlashAttribute("errorMessage", "Property registration failed: " + e.getMessage());
+            return "redirect:/properties/add";
+        }
     }
 
     //browse properties
