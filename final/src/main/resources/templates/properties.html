@@ -12,7 +12,7 @@
         Available Properties <span th:text="'(' + ${properties.size()} + ')'"></span>
     </div>
     <div th:each="property : ${properties}" class="property-card">
-        <img th:src="${property.imageUrl}" alt="Property Image" class="property-img"/>
+        <img th:src="${property.imageUrl}" alt="Property Img" class="property-img"/>
         <div class="property-info">
             <div class="property-address" th:text="${property.address}">Address</div>
             <div class="property-city" th:text="${property.location}">Location</div>

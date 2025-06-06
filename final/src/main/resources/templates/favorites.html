@@ -1,11 +1,43 @@
 <!--Jake Waksmanski-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Favorites</title>
 </head>
 <body>
-
+    <header th:replace="fragments :: header(showButton=true)"></header>
+    <div>
+        <h1>Favorites</h1>
+        <div th:if="${favorites.isEmpty()}">
+            <p>No favorites added yet.</p>
+        </div>
+        <div th:each="property : ${favorites}">
+            <div class="property-card" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                <div>
+                    <img th:src="@{${property.images[0]}}" alt="Property Image" style="width:200px; height:auto;">
+                </div>
+                <div style="margin-left: 20px;">
+                    <h2 th:text="${property.address}">Property Address</h2>
+                    <p>Price: <span th:text="${property.price}">$</span></p>
+                    <p>Location: <span th:text="${property.location}">Location</span></p>
+                    <p>Sq. Ft: <span th:text="${property.size}">Size</span></p><div></div>
+                        <a href="#" th:href="@{/property/{id}(id=${property.id})}">
+                            <button>View Details</button>
+                        </a>
+                        <form th:if="${property.favorited}" th:action="@{/favorites/remove}" method="post">
+                            <input type="hidden" name="propertyId" th:value="${property.id}"/>
+                            <button type="submit">Remove from Favorites</button>
+                        </form>
+                        <form th:if="${!property.favorited}" th:action="@{/favorites/add}" method="post">
+                            <input type="hidden" name="propertyId" th:value="${property.id}"/>
+                            <button type="submit">Add to Favorites</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+    </div>
 </body>
 </html>

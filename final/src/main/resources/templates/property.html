@@ -1,11 +1,33 @@
 <!--Jake Waksmanski-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Property Details</title>
 </head>
 <body>
-
+    <header th:replace="fragments :: header(showButton=true)"></header>
+    <div>
+        <div>
+            <div class="property-header">
+                <h1 th:text="${property.address}">Address</h1>
+                <button>Add to Favorites</button>
+            </div>
+            <p th:text="${property.description}">Description</p>
+            <p>Price: <span th:text="${property.price}">$</span></p>
+            <p>Location: <span th:text="${property.location}">Location</span></p>
+            <p>Sq. Ft: <span th:text="${property.size}">Size (sq ft)</span></p></div>
+        <form th:action="@{/messages}" method="post">
+            <h2>Contact the Agent</h2>
+            <textarea></textarea>
+            <button>Send</button>
+        </form>
+    </div>
+    <div>
+        <h2>Property Images</h2>
+        <div>
+            <img th:each="img : ${property.images}" th:src="@{${img}}" th:alt="'Property Image ' + ${imgStat.index + 1}" />
+        </div>
+    </div>
 </body>
 </html>

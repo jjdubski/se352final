@@ -29,7 +29,7 @@ public class Property {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "listing_agent_id")
+    @JoinColumn(name = "listing_agent")
     @JsonIgnore
     private User listingAgent;
 
