@@ -44,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
 
             return new JwtResponse(token);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException("Invalid email or password");
         }
     }
 

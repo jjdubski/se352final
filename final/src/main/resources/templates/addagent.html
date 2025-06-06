@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Agent</title>
+    <link rel="stylesheet" th:href="@{css/addagent.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <script>
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div th:if="${successMessage}" class="success">
+        <p th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="failure">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <h2>Create Agent</h2>
+    <div th:if="${error}" class="failure">
+        <p th:text="${error}"></p>
+    </div>
+    <form method="POST" th:action="{/register}" th:object="${user}">
+        <label>Username: <input th:field="*{userName}" /></label>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{userName}"></div>
+
+
+        <label>First Name: <input th:field="*{firstName}" /></label>
+
+        <label>Last Name: <input th:field="*{lastName}" /></label>
+
+        <label>Email: <input th:field="*{email}" /></label>
+
+        <label>Password: <input th:field="*{password}"/></label>
+
+
+
+        <div class="pic-upload-container">
+            <label for="profilepicture">Profile Picture</label>
+            <input id="profilepicture" type="file" name="file" accept="image/*">
+        </div>
+
+        <button class="btn" type="submit">Create New Agent</button>
+
+
+    </form>
+
+</div>
+
+
+</body>
+</html>
