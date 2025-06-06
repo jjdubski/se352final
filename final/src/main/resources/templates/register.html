@@ -21,16 +21,16 @@
     </div>
     <form method="post" th:action="@{/register}" th:object="${user}" enctype="multipart/form-data">
         <label for="firstName">First Name:</label>
-        <input id="firstName" th:field="*{firstName}" required="" type="text"/>
+        <input id="firstName" required="" th:field="*{firstName}" type="text"/>
 
         <label for="lastName">Last Name:</label>
-        <input id="lastName" th:field="*{lastName}" required="" type="text"/>
+        <input id="lastName" required="" th:field="*{lastName}" type="text"/>
 
         <label for="email">Email:</label>
-        <input id="email" th:field="*{email}" required="" type="email"/>
+        <input id="email" required="" th:field="*{email}" type="email"/>
 
         <label for="password">Password:</label>
-        <input id="password" th:field="*{password}" required="" type="password"/>
+        <input id="password" required="" th:field="*{password}" type="password"/>
 
 
         <div class="pic-upload-container">

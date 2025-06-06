@@ -5,6 +5,7 @@ import com.example.demo.entities.Property;
 import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
 import com.example.demo.repositories.PropertyRepository;
+import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,62 +21,73 @@ public class DataInitializer {
     private final PropertyRepository propertyRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
-    public DataInitializer(PropertyRepository propertyRepository, UserRepository userRepository, PasswordEncoder passwordEncoder){
+    public DataInitializer(PropertyRepository propertyRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository){
         this.propertyRepository = propertyRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
 
     }
 
 
-//    @PostConstruct
-//    public void init(){
-//        if (userRepository.count() != 0 || propertyRepository.count() != 0){
-//            System.out.println("Data already present - not executing initalizer");
-//            return;
-//        }
-//
-//
-//
-//
-//        /////////////////////
-//        /////Users
-//        /////////////////////
-//
-//
-//        Set<Role> user1Roles = new HashSet<>();
-//        Role user1Role = new Role("AGENT");
-//        user1Roles.add(user1Role);
-//
-//        Set<Role> user2Roles = new HashSet<>();
-//        Role user2Role = new Role("MANAGER");
-//        user2Roles.add(user2Role);
-//
-//        Set<Role> user3Roles = new HashSet<>();
-//        Role user3Role = new Role("ADMIN");
-//        user3Roles.add(user3Role);
-//
-//        User user1 = new User(passwordEncoder.encode("bj.123"),
-//                "Bob",
-//                "Johnson",
-//                "johnson@email.com",
-//                user2Roles,
-//                "image1.jpg");
-//
-//        User user2 = new User(passwordEncoder.encode("mj.123"),
-//                "Maria",
-//                "Jackson",
-//                "jackson@email.com",
-//                user1Roles,
-//                "image2.jpg");
-//
-//        User user3 = new User(passwordEncoder.encode("jd.123"),
-//                "Jack",
-//                "Douglas",
-//                "douglas@email.com",
-//                user3Roles,
-//                "image3.jpg");
+    @PostConstruct
+    public void init(){
+        if (userRepository.count() != 0 || propertyRepository.count() != 0 || roleRepository.count() != 0){
+            System.out.println("Data already present - not executing initalizer");
+            return;
+        }
+
+        Role roleBuyer = new Role("BUYER");
+        Role roleAdmin = new Role("ADMIN");
+        Role roleManager = new Role("MANAGER");
+
+        roleRepository.save(roleBuyer);
+        roleRepository.save(roleAdmin);
+        roleRepository.save(roleManager);
+
+        /////////////////////
+        /////Users
+        /////////////////////
+
+
+        Set<Role> user1Roles = new HashSet<>();
+        user1Roles.add(roleBuyer);
+
+        Set<Role> user2Roles = new HashSet<>();
+        user2Roles.add(roleAdmin);
+
+        Set<Role> user3Roles = new HashSet<>();
+        user3Roles.add(roleManager);
+
+        User user1 = new User(passwordEncoder.encode("bj.123"),
+                "Bob",
+                "Johnson",
+                "johnson@email.com",
+                user2Roles,
+                "image1.jpg");
+        user1.setCreatedAt();
+
+        User user2 = new User(passwordEncoder.encode("mj.123"),
+                "Maria",
+                "Jackson",
+                "jackson@email.com",
+                user1Roles,
+                "image2.jpg");
+        user2.setCreatedAt();
+
+        User user3 = new User(passwordEncoder.encode("jd.123"),
+                "Jack",
+                "Douglas",
+                "douglas@email.com",
+                user3Roles,
+                "image3.jpg");
+        user3.setCreatedAt();
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
 //
 //        Property property1 = new Property(
 //                "3818 N Christiana Ave",
@@ -105,6 +117,6 @@ public class DataInitializer {
 //
 //
 //
-//    }
+   }
 
 }

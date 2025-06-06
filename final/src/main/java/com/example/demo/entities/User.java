@@ -65,7 +65,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.roles = roles;
+        this.roles = role;
         this.profilePicture = profilePicture;
     }
 
