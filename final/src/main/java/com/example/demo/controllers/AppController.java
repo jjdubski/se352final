@@ -345,6 +345,7 @@ public class AppController {
     @GetMapping("/message/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String singleMessage(@PathVariable Long id){
+        Message messages = userService.findMessage(id);
         return "message";
     }
 

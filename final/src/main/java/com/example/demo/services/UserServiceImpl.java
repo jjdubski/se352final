@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 //import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
+import com.example.demo.exceptions.MessageNotFoundException;
 import com.example.demo.repositories.MessageRepository;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
@@ -20,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -162,6 +164,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Message> findMessagesForUser(User user) {
         return messageRepository.findByReceipent(user);
+    }
+
+    @Override
+    public Message findMessage(Long id) {
+        Optional<Message> message = messageRepository.findById(id);
+        if (message.isEmpty()){  //no message w/ given id
+            throw new MessageNotFoundException("No message found with provided id");
+        }
+        return message.get();
+    }
 
     @Override
     public List<Property> getFavorites() {
@@ -184,4 +196,6 @@ public class UserServiceImpl implements UserService {
     public void delete(String email) {
         userRepository.deleteByEmail(email);
     }
+
+
 }
