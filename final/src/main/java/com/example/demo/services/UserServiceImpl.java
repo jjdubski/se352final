@@ -161,7 +161,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Message> findMessagesForUser(User user) {
-        return messageRepository.findByReceipent(user);
+        return messageRepository.findByRecipient(user);
+    }
 
     @Override
     public List<Property> getFavorites() {
