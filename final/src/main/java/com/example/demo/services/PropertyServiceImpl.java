@@ -8,11 +8,8 @@ import com.example.demo.exceptions.InvalidPropertyParameterException;
 import com.example.demo.exceptions.PropertyNotFoundException;
 import com.example.demo.repositories.ImageRepository;
 import com.example.demo.repositories.PropertyRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,6 +56,7 @@ public class PropertyServiceImpl implements PropertyService {
         return imageRepository.findByProperty(property.get());
     }
 
+    @Transactional
     @Override
     public Property addNewProperty(Property property, List<MultipartFile> files) {
         validateProperty(property);
@@ -74,8 +72,18 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyRepository.save(property);
     }
 
-    public Property updateProperty(Property savedProperty) {
-        return null;
+    @Transactional
+    @Override
+    public Property editProperty(Property property, Property updatedProperty) {
+        validateProperty(updatedProperty);
+
+        property.setTitle(updatedProperty.getTitle());
+        property.setPrice(updatedProperty.getPrice());
+        property.setLocation(updatedProperty.getLocation());
+        property.setSize(updatedProperty.getSize());
+        property.setDescription(updatedProperty.getDescription());
+
+        return property;
     }
 
 
