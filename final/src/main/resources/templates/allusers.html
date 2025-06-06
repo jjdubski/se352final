@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/allusers.css">
+</head>
+<body>
+<div class="container">
+
+
+    <div class="header-container">
+        <h1 class="dashboard-title">Manage Users</h1>
+        <form method="delete" th:action="@{/delete}">
+            <button class="btn" type="submit">Add New Agent</button>
+        </form>
+
+
+    </div>
+    <table class="user-table">
+        <thead>
+        <tr>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Delete User?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : {users}">
+            <td class="profile-container">
+                <img class="profile" th:if="{u.profilePicutre != null}"
+                     th:src="@{'/profile-pictures/' + ${u.profilePicutre}}"
+                     alt="Profile"
+                     class="profile"/>
+
+            </td>
+            <td th:text="${u.firstName + ' ' + u.lastName}">Full Name</td>
+            <td th:text="${u.role}">Role</td>
+            <td th:text="${u.email}">Email</td>
+            <td>
+                <form method="delete" th:action="@{/delete}" th:object="{user}">
+                    <button class="delete-btn" type="submit"></button>
+
+                </form>
+
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</div>
+</div>
+</body>
+</html>

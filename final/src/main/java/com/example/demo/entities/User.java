@@ -60,7 +60,7 @@ public class User {
     public User() {}
 
     public User(String password, String firstName, String lastName,
-                String email,Set<Role> roles, String profilePicture) {
+                String email, Set<Role> role, String profilePicture) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
