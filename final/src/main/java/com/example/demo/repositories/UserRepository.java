@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import com.example.demo.entities.Property;
 import com.example.demo.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -19,4 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByFirstName(String name);
 
     List<User> findAllByOrderByLastNameAsc();
+
+    List<Property> getFavorites(String name);
+
+    void deleteByEmail(String email);
 }

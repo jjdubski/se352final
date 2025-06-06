@@ -1,8 +1,13 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.ApiExceptionDto;
+
+import com.example.demo.entities.Image;
+import com.example.demo.entities.Message;
+import com.example.demo.entities.Property;
 import com.example.demo.entities.User;
 import com.example.demo.services.AuthService;
+import com.example.demo.services.PropertyService;
 import com.example.demo.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,28 +32,56 @@ import java.util.List;
 public class AppController {
     private final AuthService authService;
     private final UserService userService;
+    private final PropertyService propertyService;
 
     @Autowired
-    public AppController(AuthService authService, UserService userService) {
+    public AppController(AuthService authService, UserService userService, PropertyService propertyService) {
         this.authService = authService;
         this.userService = userService;
+        this.propertyService = propertyService;
     }
 
-    // landing page
+    // ===== LANDING PAGE ======
     @GetMapping({"/", "/index"})
     public String showIndex() {
         return "index";
     }
 
-    // register page
-    @PostMapping
-    @ResponseBody
-    public String register(){
-        return "user registered";
+    // === REGISTRATION ===
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") User user,
+                               @RequestParam("selectedRoles") List<String> roleNames,
+                               @RequestParam(value = "file", required = false) MultipartFile file,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            // First, register the user (this will assign them an ID)
+            User savedUser = userService.registerNewUser(user, roleNames);
+
+            // Then, store the profile picture (if uploaded) and update the user record
+            if (file != null && !file.isEmpty()) {
+                String filename = userService.storeProfilePicture(savedUser.getId(), file);
+                savedUser.setProfilePicture(filename);
+                // Save again to persist the filename
+                userService.updateUser(savedUser);
+            }
+
+            redirectAttributes.addFlashAttribute("successMessage", "Registration successful.");
+            return "redirect:/login";
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Registration failed: " + e.getMessage());
+            return "redirect:/register";
+        }
     }
 
     
-    // === LOGIN ===
+    // === LOGIN/LOGOUT ===
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("user", new User());
@@ -163,19 +196,90 @@ public class AppController {
         }
     }
 
+    //===== USERS ======
+
+    @GetMapping("/user")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String getAllUser(Model model){
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("All-Users", users);
+        return "allUsers";
+    }
+
+    @GetMapping("/user/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String getAllUser(@PathVariable Long id, Model model){
+        User user = userService.getUserById(id);
+        model.addAttribute("Users", user);
+        return "users";
+    }
+
+    @PutMapping("/user/add")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @ResponseBody
+    public String updateUser(Model model){
+        User user = new User();
+        model.addAttribute("user", user);
+        return "addUser";
+    }
+
+    @DeleteMapping("/user/delete/{email}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String deleteUser(@PathVariable String email){
+        userService.delete(email);
+        return "delete";
+    }
+
     //====PROPERTIES====
+
+    // property pic upload
+    @PostMapping("/property/{id}/upload-property-picture")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String uploadPropertyPicture(@PathVariable Long id,
+                                        @RequestParam("file") MultipartFile file,
+                                        RedirectAttributes redirectAttributes) {
+        try {
+            String filename = userService.storeProfilePicture(id, file);
+            redirectAttributes.addFlashAttribute("message", "Property picture uploaded: " + filename);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Upload failed: " + e.getMessage());
+        }
+        return "redirect:/property";
+    }
+
+    @GetMapping("/property-pictures/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> servePropertyPicture(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get("uploads/property-pictures/").resolve(filename).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists() && resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                        .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
+                        .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     //manage property
     @GetMapping("/properties/manage")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String manageProperties(){
-        return "properties managed";
+    public String manageProperties(Model model){
+        User agent = userService.getCurrentUser();
+        model.addAttribute("properties",propertyService.getPropertiesForCurrentAgent(agent));
+        return "manageListings";
     }
 
     //edit property
     @PostMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String editProperties() {
+    public String editProperties(@PathVariable Long id, Model model) {
             return "property edited";
     }
 
@@ -189,30 +293,41 @@ public class AppController {
     //browse properties
     @GetMapping("/properties/list")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String browseProperties(){
-        return "list of properties";
+    public String browseProperties(Model model){
+        model.addAttribute("properties", propertyService.getAllProperties());
+        return "properties";
     }
 
     //view details
     @GetMapping("/properties/{id}")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String viewDetails(@PathVariable String id){
-        return "Property details";
+    public String viewDetails(@PathVariable Long id, Model model){
+//         Property property = propertyService.getProperty(id);
+//         model.addAttribute("property", property);
+        model.addAttribute("property",propertyService.findPropertyById(id));
+        return "property";
     }
 
     //image viewer
     @GetMapping("/properties/{id}/images")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String viewImages(@PathVariable String id){
-        return "images";
+    public String viewImages(@PathVariable Long id, Model model){
+//         List<Image> images = propertyService.getImages(id);
+//         model.addAttribute("Images", images);
+//         return "images";
+        List<Image> propertyImages = propertyService.getImagesForProperty(id);
+        model.addAttribute("images", propertyImages);
+        return "images";   //UPDATE with actual template
     }
 
     //===== FAVORITES ======
 
-    @GetMapping("/favorties")
+    @GetMapping("/favorites")
     @PreAuthorize("hasAnyRole('BUYER')")
-    public String favorites(){
-        return "favorties";
+    public String favorites(Model model){
+        List<Property> properties = userService.getFavorites();
+        model.addAttribute("favorites", properties);
+        return "favorites";
     }
 
     //=====MESSAGES=====
@@ -221,28 +336,36 @@ public class AppController {
     @GetMapping("/messages")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String allMessages(){
+        User user = userService.getCurrentUser();
+        List<Message> message = userService.findMessagesForUser(user);
         return "messages";
     }
 
     //single message
     @GetMapping("/message/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String singleMessage(@PathVariable String id){
-        return "single message";
+    public String singleMessage(@PathVariable Long id){
+        return "message";
     }
 
-    //====== CREATE AND MANAGE =======
+    //====== CREATE =======
 
     @PostMapping("/users/admin/create-agent")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String createAgent(){
-        return "agent created";
+    public String createAgent(Model model){
+        User agent = new User();
+        model.addAttribute("Agent", agent);
+        return "createAgent";
     }
+
+    //======= MANAGE ========
 
     @PostMapping("/users/admin")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String manageUsers(){
-        return "users managed";
+    @ResponseBody
+    public String manageUsers(Model model){
+        model.addAttribute("users", userService.getAllUsers());
+        return "allUsers";
     }
 
 
