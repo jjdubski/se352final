@@ -284,11 +284,18 @@ public class AppController {
     @PostMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String editProperties(@PathVariable Long id,
-                                 @ModelAttribute("property") User updatedProperty
-                                 ,Model model) {
-        Property property = propertyService.findPropertyById(id);
-        //property = propertyService.editProperty();
-        return "property edited";
+                                 @ModelAttribute("property") Property updatedProperty,
+                                 RedirectAttributes redirectAttributes) {
+        try {
+            Property property = propertyService.findPropertyById(id);
+            property = propertyService.editProperty(property, updatedProperty);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Property edited successfully.");
+            return "redirect:/properties/manage";
+        } catch (Exception e){
+            redirectAttributes.addFlashAttribute("errorMessage", "Property edit failed: " + e.getMessage());
+            return "redirect:/properties/edit/{id}";
+        }
     }
 
     //add new property
