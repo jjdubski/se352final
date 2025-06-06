@@ -9,11 +9,11 @@
 
 </head>
 <body>
-<div th:replace="fragments :: header"></div>
+<div th:replace="~{fragments :: header(false)}"></div>
 
 <div class="dashboard">
     <h1 class="dashboard-title">Welcome <span class="name" th:text="${user.firstName}"></span></h1>
-    <p class="dashboard-subtitle"><span class="role" th:text="${user.role}"></span> Dashboard</p>
+    <p class="dashboard-subtitle"><span class="role" th:text="${user.roles}"></span> Dashboard</p>
 
     <div class="card-row">
         <div class="card">
@@ -23,7 +23,7 @@
         </div>
         <div class="card">
             <a th:href="@{/messages}">
-                <button class="btn" style="background-color: rgb(92, 114, 74);">View Messages »<span class="dash-num" th:text="${}"></span></button>
+                <button class="btn" style="background-color: rgb(92, 114, 74);">View Messages »<span class="dash-num" th:text="${null}"></span></button>
             </a>
         </div>
         <div class="card">

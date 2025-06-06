@@ -96,7 +96,6 @@ public class AppController {
                                HttpServletResponse response,
                                Model model) {
         try {
-
             Cookie jwtCookie = authService.loginAndCreateJwtCookie(user);
             response.addCookie(jwtCookie);
             return "redirect:/dashboard";
