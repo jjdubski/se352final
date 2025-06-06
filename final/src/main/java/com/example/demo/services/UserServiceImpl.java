@@ -55,6 +55,10 @@ public class UserServiceImpl implements UserService {
     public void prepareDashboardModel(Model model) {
         CurrentUserContext context = getCurrentUserContext();
         model.addAttribute("user", context.user());
+        Role role = context.user().getRoles().stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("User has no roles assigned"));
+        model.addAttribute("role", role.getName());
         model.addAttribute("authorization", context.auth());
     }
 
