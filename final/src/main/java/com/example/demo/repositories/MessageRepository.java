@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Long, Message> {
-    List<Message> findByReceipent(User user);
+public interface MessageRepository extends JpaRepository<Message, Long> {
+    List<Message> findByRecipient(User user);
 }
