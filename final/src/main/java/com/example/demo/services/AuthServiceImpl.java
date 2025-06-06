@@ -63,15 +63,15 @@ public class AuthServiceImpl implements AuthService {
 
     public User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        if(username == null){
-            throw new UsernameNotFoundException("User not found: " + username);
+        String email = auth.getName();
+        if(email == null){
+            throw new UsernameNotFoundException("User not found: " + email);
         }
-        return null;
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('USER', 'MANAGER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public void clearJwtCookie(HttpServletResponse response) {
         Cookie cookie = new Cookie("jwt", "");
         cookie.setPath("/");

@@ -1,7 +1,5 @@
 package com.example.demo.services;
 
-//import com.example.demo.entities.Role;
-import com.example.demo.entities.User;
 import com.example.demo.exceptions.MessageNotFoundException;
 import com.example.demo.repositories.MessageRepository;
 import com.example.demo.repositories.RoleRepository;
@@ -14,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+
+//import com.example.demo.entities.Role;
 import com.example.demo.entities.*;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     private final MessageRepository messageRepository;
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           MessageRepository messageRepository,PasswordEncoder passwordEncoder) {
+            MessageRepository messageRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.messageRepository = messageRepository;
@@ -43,10 +43,10 @@ public class UserServiceImpl implements UserService {
 
     private CurrentUserContext getCurrentUserContext() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName();
-        User user = userRepository.findByFirstName(name);
-        if(user == null){
-            throw new UsernameNotFoundException("User not found" + name);
+        String email = auth.getName();
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found: " + email);
         }
         return new CurrentUserContext(user, auth);
     }
@@ -94,7 +94,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-
     @Override
     public User registerNewUser(User user, List<String> roleNames) {
         Set<Role> roles = roleNames.stream()
@@ -120,7 +119,7 @@ public class UserServiceImpl implements UserService {
 
             // Resolve absolute path relative to the project directory
             Path uploadPath = Paths.get(System.getProperty("user.dir"), "uploads", "profile-pictures");
-            Files.createDirectories(uploadPath);  // Ensure path exists
+            Files.createDirectories(uploadPath); // Ensure path exists
 
             // Locate user and remove previous image (if any)
             User user = userRepository.findById(userId).orElseThrow();
@@ -145,7 +144,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
     @Override
     public void updateUser(User savedUser) {
         userRepository.save(savedUser);
@@ -154,11 +152,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName();
-        if(name == null){
-            throw new UsernameNotFoundException("User not found: " + name);
+        String email = auth.getName();
+        if (email == null) {
+            throw new UsernameNotFoundException("User not found: " + email);
         }
-        return userRepository.findByFirstName(name);
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -169,7 +167,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Message findMessage(Long id) {
         Optional<Message> message = messageRepository.findById(id);
-        if (message.isEmpty()){
+        if (message.isEmpty()) {
             throw new MessageNotFoundException("No message found with id: " + id);
         }
         return message.get();
@@ -178,11 +176,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Property> getFavorites() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName();
-        if(name == null){
-            throw new UsernameNotFoundException("User not found: " + name);
+        String email = auth.getName();
+        if (email == null) {
+            throw new UsernameNotFoundException("User not found: " + email);
         }
-        User user = userRepository.findByFirstName(name);
+        User user = userRepository.findByEmail(email);
         return user.getPropertiesFavorited();
     }
 
@@ -196,6 +194,5 @@ public class UserServiceImpl implements UserService {
     public void delete(String email) {
         userRepository.deleteByEmail(email);
     }
-
 
 }

@@ -41,11 +41,11 @@ public class DataInitializer {
 
         Role roleBuyer = new Role("BUYER");
         Role roleAdmin = new Role("ADMIN");
-        Role roleManager = new Role("MANAGER");
+        Role roleAgent = new Role("AGENT");
 
         roleRepository.save(roleBuyer);
         roleRepository.save(roleAdmin);
-        roleRepository.save(roleManager);
+        roleRepository.save(roleAgent);
 
         /////////////////////
         /////Users
@@ -59,7 +59,7 @@ public class DataInitializer {
         user2Roles.add(roleAdmin);
 
         Set<Role> user3Roles = new HashSet<>();
-        user3Roles.add(roleManager);
+        user3Roles.add(roleAgent);
 
         User user1 = new User(passwordEncoder.encode("bj.123"),
                 "Bob",
