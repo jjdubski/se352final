@@ -103,7 +103,7 @@ public class AppController {
     }
 
     @GetMapping("/logout")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String logout(HttpServletResponse response) {
         authService.clearJwtCookie(response);
         return "redirect:/login";
@@ -111,7 +111,7 @@ public class AppController {
 
     // === DASHBOARD ====
     @GetMapping("/dashboard")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String showDashboard(Model model) {
         userService.prepareDashboardModel(model);
         return "dashboard";
@@ -120,7 +120,7 @@ public class AppController {
     //===== PROFILE =======
     //view profile
     @GetMapping("/profile")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String showProfile(Model model) {
         userService.prepareProfileModel(model);
         return "profile";
@@ -128,7 +128,7 @@ public class AppController {
 
     //edit profile
     @PostMapping("/profile/edit")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String updateSettings(@ModelAttribute("user") User updatedUser,
                                  @RequestParam(required = false) String password,
                                  @RequestParam(required = false) List<Long> addIds,
@@ -163,7 +163,7 @@ public class AppController {
 
     // === PROFILE PICTURE UPLOAD ===
     @PostMapping("/users/{id}/upload-profile-picture")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String uploadProfilePicture(@PathVariable Long id,
                                        @RequestParam("file") MultipartFile file,
                                        RedirectAttributes redirectAttributes) {
