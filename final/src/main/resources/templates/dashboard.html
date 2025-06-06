@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="@{/css/dashboard.css}" />
-    <link rel="stylesheet" href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
 
 </head>
 <body>
@@ -13,10 +13,11 @@
 
 <div class="dashboard">
     <h1 class="dashboard-title">Welcome <span class="name" th:text="${user.firstName}"></span></h1>
-    <p class="dashboard-subtitle"><span class="role" th:text="${user.roles}"></span> Dashboard</p>
+    <p class="dashboard-subtitle"><span class="role" th:each="role : ${user.roles}" th:text="${role.name}"></span> Dashboard</p>
 
+    <h1 th:text="${role}"></h1>
     <!-- BUYER view -->
-    <div th:if="${#authorization.expression('hasRole(''BUYER'')')}">
+    <div th:if="${role == 'BUYER'}">
         <p class="dashboard-subtitle">Buyer Dashboard</p>
 
         <div class="card-row">
@@ -39,7 +40,7 @@
     </div>
 
     <!-- AGENT view -->
-    <div th:if="${#authorization.expression('hasRole(''AGENT'')')}">
+    <div th:if="${role == 'AGENT'}">
         <p class="dashboard-subtitle">Agent Dashboard</p>
 
         <div class="card-row">
@@ -68,7 +69,7 @@
     </div>
 
     <!-- ADMIN view -->
-    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+    <div th:if="${role == 'ADMIN'}">
         <p class="dashboard-subtitle">Admin Dashboard</p>
 
         <div class="card-row">
