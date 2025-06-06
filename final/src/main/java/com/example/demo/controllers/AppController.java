@@ -283,8 +283,11 @@ public class AppController {
     //edit property
     @PostMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String editProperties(@PathVariable Long id, Model model) {
-
+    public String editProperties(@PathVariable Long id,
+                                 @ModelAttribute("property") User updatedProperty
+                                 ,Model model) {
+        Property property = propertyService.findPropertyById(id);
+        //property = propertyService.editProperty();
         return "property edited";
     }
 
