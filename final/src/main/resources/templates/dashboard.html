@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
-    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" href="@{/css/dashboard.css}" />
+    <link rel="stylesheet" href="@{/css/main.css}" />
 
 </head>
 <body>
@@ -13,27 +13,78 @@
 
 <div class="dashboard">
     <h1 class="dashboard-title">Welcome <span class="name" th:text="${user.firstName}"></span></h1>
-    <p class="dashboard-subtitle"><span class="role" th:text="${user.role}"></span> Dashboard</p>
 
-    <div class="card-row">
-        <div class="card">
+    <!-- BUYER view -->
+    <div th:if="${#authorization.expression('hasRole(''BUYER'')')}">
+        <p class="dashboard-subtitle">Buyer Dashboard</p>
+
+        <div class="card-row">
             <a th:href="@{/properties}">
-                <button class="btn" style="background-color: --light-green;">View properties »</button>
+                <button class="btn" style="background-color: var(--light-green);">Browse Properties »</button>
             </a>
         </div>
-        <div class="card">
-            <a th:href="@{/messages}">
-                <button class="btn" style="background-color: rgb(92, 114, 74);">View Messages »<span class="dash-num" th:text="${}"></span></button>
-            </a>
-        </div>
-        <div class="card">
+
+        <div class="card-row">
             <a th:href="@{/favorites}">
-                <button class="btn" style="background-color: rgb(53, 74, 47);">View Favorites »<span class="dash-num"></span></button>
+                <button class="btn" style="background-color: var(--mid-green);">Saved Favorites »<span class="dash-num" th:text="${user.propertiesFavorited.size()}"></span></button>
             </a>
         </div>
-        <div>
+
+        <div class="card-row">
+            <a th:href="@{/messages}">
+                <button class="btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
+            </a>
+        </div>
+    </div>
+
+    <!-- AGENT view -->
+    <div th:if="${#authorization.expression('hasRole(''AGENT'')')}">
+        <p class="dashboard-subtitle">Agent Dashboard</p>
+
+        <div class="card-row">
+            <a th:href="@{/agent/listings}">
+                <button class="btn" style="background-color: var(--light-green);">Manage Listings »</button>
+            </a>
+        </div>
+
+        <div class="card-row">
+            <a th:href="@{/agent/new-property}">
+                <button class="btn" style="background-color: var(--mid-green);">Add New Property »</button>
+            </a>
+        </div>
+
+        <div class="card-row">
+            <a th:href="@{/messages}">
+                <button class="btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="{user.messagesReceived.size()}"></span></button>
+            </a>
+        </div>
+
+        <div class="card-row">
             <a th:href="@{/profile}">
-                <button class="btn" style="background-color: rgb(217, 217, 217); color: black;">My Profile »</button>
+                <button class="btn" style="background-color: var(--light-beige); color: var(--dark-green);">View Profile »</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- ADMIN view -->
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <p class="dashboard-subtitle">Admin Dashboard</p>
+
+        <div class="card-row">
+            <a th:href="@{/admin/users}">
+                <button class="btn" style="background-color: var(--light-green);">Manage Users »</button>
+            </a>
+        </div>
+
+        <div class="card-row">
+            <a th:href="@{/admin/createagent}">
+                <button class="btn" style="background-color: var(--mid-green);">Create Agent »</button>
+            </a>
+        </div>
+
+        <div class="card-row">
+            <a th:href="@{/profile}">
+                <button class="btn" style="background-color: var(--light-beige); color: black;">View Profile »</button>
             </a>
         </div>
     </div>
