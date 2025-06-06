@@ -339,16 +339,19 @@ public class AppController {
     //all messages
     @GetMapping("/messages")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String allMessages(){
+    public String allMessages(Model model){
         User user = userService.getCurrentUser();
-        List<Message> message = userService.findMessagesForUser(user);
+        List<Message> messages = userService.findMessagesForUser(user);
+        model.addAttribute("messages", messages);
         return "messages";
     }
 
     //single message
     @GetMapping("/message/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String singleMessage(@PathVariable Long id){
+    public String singleMessage(@PathVariable Long id, Model model){
+        Message message = userService.findMessage(id);
+        model.addAttribute("message", message);
         return "message";
     }
 

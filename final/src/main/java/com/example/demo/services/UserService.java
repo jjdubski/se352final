@@ -39,4 +39,6 @@ public interface UserService {
     User getUserById(Long id);
 
     void delete(String email);
+
+    Message findMessage(Long id);
 }
