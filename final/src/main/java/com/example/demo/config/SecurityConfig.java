@@ -49,11 +49,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
 //                        .requestMatchers("/api/public/**").permitAll()
-<<<<<<< Updated upstream
-                        .requestMatchers("/login").permitAll()
-=======
                         .requestMatchers("/login", "/register", "/dashboard").permitAll()
->>>>>>> Stashed changes
                         .requestMatchers("/", "/index", "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
 //                        .requestMatchers("/api/user/**").hasRole("USER")
 //                        .requestMatchers("/api/admin/**").hasRole("ADMIN")

@@ -1,11 +1,7 @@
 package com.example.demo.controllers;
-
 import com.example.demo.dtos.ApiExceptionDto;
-
-import com.example.demo.entities.Image;
-import com.example.demo.entities.Message;
-import com.example.demo.entities.Property;
-import com.example.demo.entities.User;
+import com.example.demo.entities.*;
+import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.AuthService;
 import com.example.demo.services.PropertyService;
 import com.example.demo.services.UserService;
@@ -26,19 +22,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AppController {
     private final AuthService authService;
     private final UserService userService;
     private final PropertyService propertyService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AppController(AuthService authService, UserService userService, PropertyService propertyService) {
+    public AppController(AuthService authService, UserService userService, PropertyService propertyService, UserRepository userRepository) {
         this.authService = authService;
         this.userService = userService;
         this.propertyService = propertyService;
+        this.userRepository = userRepository;
     }
 
     // ===== LANDING PAGE ======
@@ -56,12 +56,15 @@ public class AppController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user,
-                               @RequestParam("selectedRoles") List<String> roleNames,
                                @RequestParam(value = "file", required = false) MultipartFile file,
                                RedirectAttributes redirectAttributes) {
         try {
             // First, register the user (this will assign them an ID)
+
+            List<String> roleNames = List.of("BUYER");
+            user.setCreatedAt();
             User savedUser = userService.registerNewUser(user, roleNames);
+
 
             // Then, store the profile picture (if uploaded) and update the user record
             if (file != null && !file.isEmpty()) {
@@ -93,11 +96,12 @@ public class AppController {
                                HttpServletResponse response,
                                Model model) {
         try {
+
             Cookie jwtCookie = authService.loginAndCreateJwtCookie(user);
             response.addCookie(jwtCookie);
             return "redirect:/dashboard";
         } catch (BadCredentialsException e) {
-            model.addAttribute("error", "Invalid username or password");
+            model.addAttribute("error", "Invalid email or password");
             return "login";
         }
     }
@@ -280,14 +284,27 @@ public class AppController {
     @PostMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String editProperties(@PathVariable Long id, Model model) {
-            return "property edited";
+
+        return "property edited";
     }
 
     //add new property
     @PutMapping("properties/add")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String addNewProperty(){
-        return "added new property";
+    public String addNewProperty(@ModelAttribute("property") Property property,
+                                 @RequestParam(value = "file", required = false) List<MultipartFile> files,
+                                 RedirectAttributes redirectAttributes){
+
+        try{
+
+            Property savedProperty = propertyService.addNewProperty(property,files);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Property added successfully.");
+            return "redirect:/properties/manage";
+        } catch (Exception e){
+            redirectAttributes.addFlashAttribute("errorMessage", "Property registration failed: " + e.getMessage());
+            return "redirect:/properties/add";
+        }
     }
 
     //browse properties
@@ -335,16 +352,19 @@ public class AppController {
     //all messages
     @GetMapping("/messages")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String allMessages(){
+    public String allMessages(Model model){
         User user = userService.getCurrentUser();
-        List<Message> message = userService.findMessagesForUser(user);
+        List<Message> messages = userService.findMessagesForUser(user);
+        model.addAttribute("messages", messages);
         return "messages";
     }
 
     //single message
     @GetMapping("/message/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String singleMessage(@PathVariable Long id){
+    public String singleMessage(@PathVariable Long id, Model model){
+        Message message = userService.findMessage(id);
+        model.addAttribute("message", message);
         return "message";
     }
 

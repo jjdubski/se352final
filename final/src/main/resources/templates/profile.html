@@ -16,7 +16,15 @@
 <div class="profile-container">
     <div class="profile-header-container">
         <div class="profile-pic-container">
-            <img src="/images/profileImg.jpg" class="profile-pic">
+            <img th:if="${u.profilePicture} != null"
+                 th:src="@{u.profilePicture}"
+                 alt="Profile"
+            >
+            <img th:if="${u.profilePicture == null}"
+                 src="default.jpg"
+                 alt="Default Profile"
+            >
+
         </div>
         <span class="profile-pic-text">My Profile</span>
     </div>

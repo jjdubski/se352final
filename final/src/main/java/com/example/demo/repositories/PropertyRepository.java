@@ -19,4 +19,5 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     @Query("SELECT p.propertyImages FROM Property p WHERE p.id = :propertyId")
     List<Image> getAllPropertyImages(@Param("propertyId") Long propertyId);
 
+    List<Property> findByListingAgent(User agent);
 }
