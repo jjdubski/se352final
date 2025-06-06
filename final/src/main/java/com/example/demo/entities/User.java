@@ -1,6 +1,5 @@
 package com.example.demo.entities;
 
-
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -23,18 +22,14 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)  // EAGER fetch to load roles during login
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @ManyToMany(fetch = FetchType.EAGER) // EAGER fetch to load roles during login
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     @Column()
@@ -46,21 +41,20 @@ public class User {
     @OneToMany(mappedBy = "listingAgent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Property> propertiesListed;
 
-
-
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Property> propertiesFavorited;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Message> messagesSent;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Message> messagesReceived;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String password, String firstName, String lastName,
-                String email, Set<Role> role, String profilePicture) {
+            String email, Set<Role> role, String profilePicture) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -121,7 +115,9 @@ public class User {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) { this.roles = roles; }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public Timestamp getCreatedAt() {
         return createdAt;
@@ -144,14 +140,13 @@ public class User {
 
     }
 
-
-
     public List<Property> getPropertiesFavorited() {
         return propertiesFavorited;
     }
-//
-//   }
-//
+
+    //
+    // }
+    //
     public void setPropertiesFavorited(List<Property> propertiesFavorited) {
         this.propertiesFavorited = propertiesFavorited;
     }
