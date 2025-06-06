@@ -96,7 +96,6 @@ public class AppController {
                                HttpServletResponse response,
                                Model model) {
         try {
-
             Cookie jwtCookie = authService.loginAndCreateJwtCookie(user);
             response.addCookie(jwtCookie);
             return "redirect:/dashboard";
@@ -107,7 +106,7 @@ public class AppController {
     }
 
     @GetMapping("/logout")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String logout(HttpServletResponse response) {
         authService.clearJwtCookie(response);
         return "redirect:/login";
@@ -115,7 +114,7 @@ public class AppController {
 
     // === DASHBOARD ====
     @GetMapping("/dashboard")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String showDashboard(Model model) {
         userService.prepareDashboardModel(model);
         return "dashboard";
@@ -124,7 +123,7 @@ public class AppController {
     //===== PROFILE =======
     //view profile
     @GetMapping("/profile")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String showProfile(Model model) {
         userService.prepareProfileModel(model);
         return "profile";
@@ -132,7 +131,7 @@ public class AppController {
 
     //edit profile
     @PostMapping("/profile/edit")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String updateSettings(@ModelAttribute("user") User updatedUser,
                                  @RequestParam(required = false) String password,
                                  @RequestParam(required = false) List<Long> addIds,
@@ -167,7 +166,7 @@ public class AppController {
 
     // === PROFILE PICTURE UPLOAD ===
     @PostMapping("/users/{id}/upload-profile-picture")
-    @PreAuthorize("hasAnyRole('USER', 'AGENT', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String uploadProfilePicture(@PathVariable Long id,
                                        @RequestParam("file") MultipartFile file,
                                        RedirectAttributes redirectAttributes) {
@@ -283,15 +282,31 @@ public class AppController {
     //edit property
     @PostMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String editProperties(@PathVariable Long id, Model model) {
-            return "property edited";
+    public String editProperties(@PathVariable Long id,
+                                 @ModelAttribute("property") User updatedProperty
+                                 ,Model model) {
+        Property property = propertyService.findPropertyById(id);
+        //property = propertyService.editProperty();
+        return "property edited";
     }
 
     //add new property
     @PutMapping("properties/add")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String addNewProperty(){
-        return "added new property";
+    public String addNewProperty(@ModelAttribute("property") Property property,
+                                 @RequestParam(value = "file", required = false) List<MultipartFile> files,
+                                 RedirectAttributes redirectAttributes){
+
+        try{
+
+            Property savedProperty = propertyService.addNewProperty(property,files);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Property added successfully.");
+            return "redirect:/properties/manage";
+        } catch (Exception e){
+            redirectAttributes.addFlashAttribute("errorMessage", "Property registration failed: " + e.getMessage());
+            return "redirect:/properties/add";
+        }
     }
 
     //browse properties
@@ -339,16 +354,19 @@ public class AppController {
     //all messages
     @GetMapping("/messages")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String allMessages(){
+    public String allMessages(Model model){
         User user = userService.getCurrentUser();
-        List<Message> message = userService.findMessagesForUser(user);
+        List<Message> messages = userService.findMessagesForUser(user);
+        model.addAttribute("messages", messages);
         return "messages";
     }
 
     //single message
     @GetMapping("/message/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String singleMessage(@PathVariable Long id){
+    public String singleMessage(@PathVariable Long id, Model model){
+        Message message = userService.findMessage(id);
+        model.addAttribute("message", message);
         return "message";
     }
 

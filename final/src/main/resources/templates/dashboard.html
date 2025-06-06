@@ -9,10 +9,11 @@
 
 </head>
 <body>
-<div th:replace="fragments :: header"></div>
+<div th:replace="~{fragments :: header(false)}"></div>
 
 <div class="dashboard">
     <h1 class="dashboard-title">Welcome <span class="name" th:text="${user.firstName}"></span></h1>
+    <p class="dashboard-subtitle"><span class="role" th:text="${user.roles}"></span> Dashboard</p>
 
     <!-- BUYER view -->
     <div th:if="${#authorization.expression('hasRole(''BUYER'')')}">

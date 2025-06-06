@@ -13,9 +13,11 @@ import java.util.List;
 
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long> {
-//    List<Property> findAllByUserId(Long userId);
+    @Query("SELECT p FROM Property p WHERE p.listingAgent.id = :userId")
+    List<Property> findAllByUserId(Long userId);
 
     @Query("SELECT p.propertyImages FROM Property p WHERE p.id = :propertyId")
     List<Image> getAllPropertyImages(@Param("propertyId") Long propertyId);
 
+    List<Property> findByListingAgent(User agent);
 }
