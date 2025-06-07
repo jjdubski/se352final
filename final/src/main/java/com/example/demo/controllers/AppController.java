@@ -82,7 +82,6 @@ public class AppController {
             return "redirect:/register";
         }
     }
-
     
     // === LOGIN/LOGOUT ===
     @GetMapping("/login")
@@ -383,8 +382,37 @@ public class AppController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public String createAgent(Model model){
         User agent = new User();
-        model.addAttribute("Agent", agent);
+        model.addAttribute("agent", agent);
         return "createAgent";
+    }
+
+    @PostMapping("/users/admin/create-agent")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String registerAgent(@ModelAttribute("agent") User agent,
+                                @RequestParam(value = "file", required = false) MultipartFile file,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            // First, register the user (this will assign them an ID)
+
+            List<String> roleNames = List.of("AGENT");
+            agent.setCreatedAt();
+            User savedUser = userService.registerNewUser(agent, roleNames);
+
+            // Then, store the profile picture (if uploaded) and update the user record
+            if (file != null && !file.isEmpty()) {
+                String filename = userService.storeProfilePicture(savedUser.getId(), file);
+                savedUser.setProfilePicture(filename);
+                // Save again to persist the filename
+                userService.updateUser(savedUser);
+            }
+
+            redirectAttributes.addFlashAttribute("successMessage", "Registration successful.");
+            return "redirect:/login";
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Registration failed: " + e.getMessage());
+            return "redirect:/users/admin/create-agent";
+        }
     }
 
     //======= MANAGE ========
