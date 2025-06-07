@@ -379,7 +379,7 @@ public class AppController {
 
     //====== CREATE =======
 
-    @PostMapping("/users/admin/create-agent")
+    @GetMapping("/users/admin/create-agent")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public String createAgent(Model model){
         User agent = new User();
@@ -389,9 +389,8 @@ public class AppController {
 
     //======= MANAGE ========
 
-    @PostMapping("/users/admin")
+    @GetMapping("/users/admin")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @ResponseBody
     public String manageUsers(Model model){
         model.addAttribute("users", userService.getAllUsers());
         return "allUsers";
