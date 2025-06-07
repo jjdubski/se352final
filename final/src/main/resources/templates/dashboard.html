@@ -57,7 +57,7 @@
 
         <div class="card-row">
             <a th:href="@{/messages}">
-                <button class="btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="{user.messagesReceived.size()}"></span></button>
+                <button class="btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
             </a>
         </div>
 
