@@ -57,8 +57,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void prepareDashboardModel(Model model) {
         CurrentUserContext context = getCurrentUserContext();
-        model.addAttribute("user", context.user());
+        User user = context.user();
+        List<Message> messages = findMessagesForUser(user);
+        model.addAttribute("user", user);
         model.addAttribute("authorization", context.auth());
+        model.addAttribute("messages", messages);
     }
 
     @Override

@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
-    <link rel="stylesheet" th:href="@{/css/profile.css}" />
+    <link rel="stylesheet" th:href="@{/css/editprofile.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
-
+</head>
     <body>
-        <div class="edit-profile-container">
+        <header th:replace="fragments :: header(showButton=true)"></header>
+
+        <div class="container">
             <div class="profile-pic-container">
                 <img th:if="${user.profilePicture} != null"
-                     th:src="@{${user.profilePicture}}"
+                     th:src="@{'/profile-pictures/' + ${user.profilePicture}}"
                      alt="Profile"
+                     class="profile-pic"
                 >
                 <img th:if="${user.profilePicture == null}"
-                     src="default.jpg"
+                     th:src="@{'/images/' + 'default.jpg'}"
                      alt="Default Profile"
+                     class="profile-pic"
                 >
-                <input type="file" accept="images/*">
             </div>
 
             <h2>Edit Profile</h2>
@@ -29,20 +32,20 @@
                 <p th:text="${errorMessage}"></p>
             </div>
 
-            <form method="put" th:action="@{/profile/edit}" th:object="${user}">
+            <form method="post" th:action="@{/profile/edit}" th:object="${user}" enctype="multipart/form-data">
                 <label for="firstName">First Name</label>
                 <input id="firstName" th:field="*{firstName}" type="text">
                 <label for="lastName">Last Name</label>
                 <input id="lastName" th:field="*{lastName}" type="text">
                 <label for="email">Email</label>
                 <input id="email" th:field="*{email}" type="email">
-                <div class="error-message" th:if="${loginError}" th:text="${loginError}"></div>
+                <div class="pic-upload-container">
+                    <label for="profilepicture">Profile Picture</label>
+                    <input id="profilepicture" type="file" name="file" accept="image/*">
+                </div>
                 <button class="btn" type="submit">Save Profile</button>
-                <a th:href="@{/profile}">
-                    <button class="btn">Discard Changes</button>
-                </a>
+                <a th:href="@{/profile}" class="btn">Discard Changes</a>
             </form>
         </div>
     </body>
-</head>
 </html>
