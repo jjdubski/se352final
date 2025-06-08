@@ -52,6 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/register", "/dashboard").permitAll()
                         .requestMatchers("/", "/index", "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
                         .requestMatchers("users/admin", "users/admin/**", "register/agent").hasRole("ADMIN")
+                        .requestMatchers("properties/manage", "properties/add").hasRole("AGENT")
 //                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 //                        .requestMatchers("/api/manager/**").hasRole("MANAGER")
                         .anyRequest().authenticated()
