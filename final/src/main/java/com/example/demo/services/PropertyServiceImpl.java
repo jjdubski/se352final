@@ -13,8 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {
@@ -57,19 +62,57 @@ public class PropertyServiceImpl implements PropertyService {
         return imageRepository.findByProperty(property.get());
     }
 
+    @Override
+    public String storePropertyPicture(Long propertyId, MultipartFile file) {
+        try {
+            String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
+            // Resolve absolute path relative to the project directory
+            Path uploadPath = Paths.get(System.getProperty("user.dir"), "uploads", "property-images");
+            Files.createDirectories(uploadPath); // Ensure path exists
+
+            //Locate Property
+            Property property = findPropertyById(propertyId);
+
+//            if (user.getProfilePicture() != null && !user.getProfilePicture().equals("default.jpg")) {
+//                Path oldPath = uploadPath.resolve(user.getProfilePicture());
+//                Files.deleteIfExists(oldPath);
+//            }
+
+            Path filePath = uploadPath.resolve(filename);
+            file.transferTo(filePath.toFile());
+
+            //convert to image
+            Image image = new Image("filename", property);
+
+            // Save to property
+            property.addToPropertyImages(image);
+            propertyRepository.save(property);
+
+            return filename;
+
+        } catch (IOException ex) {
+            System.out.println("Failed to save file: " + ex.getMessage());
+            throw new RuntimeException("Failed to store property picture", ex);
+        }
+    }
+
+
     @Transactional
     @Override
-    public Property addNewProperty(Property property, List<MultipartFile> files) {
+    public Property addNewProperty(Property property, User agent) {
+
+        property.setListingAgent(agent);
         validateProperty(property);
 
-        // adding images
-        if (files != null) {
-            for (MultipartFile file : files) {
-                validateFile(file);
-                Image image = new Image(file.getName(), property);
-                property.addToPropertyImages(image);
-            }
-        }
+         //adding images
+//        if (files != null) {
+//            for (MultipartFile file : files) {
+//                validateFile(file);
+//                Image image = new Image(file.getName(), property);
+//                property.addToPropertyImages(image);
+//            }
+//        }
         return propertyRepository.save(property);
     }
 
@@ -102,6 +145,33 @@ public class PropertyServiceImpl implements PropertyService {
         return property.get();
     }
 
+    @Override
+    public String deletePropertyImage(Long id, Image propertyImage) {
+        Property property = findPropertyById(id);
+        if (property == null) {
+            throw new PropertyNotFoundException("No property with id:" + id);
+        }
+
+
+
+        //get path to delete file
+        String filename = propertyImage.getImageFileName();
+        Path uploadPath = Paths.get(System.getProperty("user.dir"), "uploads", "property-pictures");
+        Path filePath = uploadPath.resolve(filename);
+        try {
+            Files.deleteIfExists(filePath);
+        } catch (IOException e) {
+            throw new InvalidPropertyImageException("File to delete does not exist.");
+        }
+
+        //delete the property image entity
+        imageRepository.delete(propertyImage);
+        property.removePropertyImage(propertyImage);
+
+
+        return filename;
+    }
+
     // Validation Methods
     private void validateProperty(Property property) {
         validateTitle(property);
@@ -109,6 +179,7 @@ public class PropertyServiceImpl implements PropertyService {
         validateLocation(property);
         validateSize(property);
         validateListingAgent(property);
+        validatePropertyImages(property);
     }
 
     private void validateSize(Property property) {
@@ -132,6 +203,12 @@ public class PropertyServiceImpl implements PropertyService {
     private void validatePrice(Property property) {
         if (property.getPrice() == null) {
             throw new InvalidPropertyParameterException("Price cannot be null.");
+        }
+    }
+
+    private void validatePropertyImages(Property property){
+        if(property.getPropertyImages() == null || property.getPropertyImages().isEmpty()){
+            throw new InvalidPropertyParameterException("Must upload atleast one image.");
         }
     }
 
