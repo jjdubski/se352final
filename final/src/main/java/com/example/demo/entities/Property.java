@@ -111,6 +111,14 @@ public class Property {
         this.listingAgent = listingAgent;
     }
 
+    public List<Image> getPropertyImages() {
+        return propertyImages;
+    }
+
+    public List<User> getUsersFavorited() {
+        return usersFavorited;
+    }
+
     public void addToPropertyImages(Image image){
         this.propertyImages.add(image);
         image.setProperty(this);
