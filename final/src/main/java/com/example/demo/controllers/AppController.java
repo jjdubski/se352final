@@ -342,7 +342,7 @@ public class AppController {
 
     //view details
     @GetMapping("/properties/view/{id}")
-    @PreAuthorize("hasAnyRole('BUYER')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT')")
     public String viewDetails(@PathVariable Long id, Model model){
 //         Property property = propertyService.getProperty(id);
 //         model.addAttribute("property", property);
@@ -393,6 +393,26 @@ public class AppController {
         model.addAttribute("user", user);
         model.addAttribute("messages", messages);
         return "messages";
+    }
+
+    @PostMapping("/messages")
+    @PreAuthorize("hasAnyRole('BUYER')")
+    public String sendMessage(@ModelAttribute("message") Message message,
+                              @RequestParam("property") Property property,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            User sender = userService.getCurrentUser();
+            message.setSender(sender);
+            message.setRecipient(property.getListingAgent());
+            message.setProperty(property);
+            userService.sendMessage(message);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Message sent successfully.");
+            return "redirect:/messages/buyer";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to send message: " + e.getMessage());
+            return "redirect:/properties/view/" + property.getId();
+        }
     }
 
     //single message
