@@ -21,7 +21,7 @@
         <div>
             <div class="property-price" th:text="${property.price}">Price</div>
             <div class="property-actions">
-                <a th:href="@{'/properties/' + ${property.id}}" class="view-btn">View Details &rarr;</a>
+                <a th:href="@{'/properties/view/' + ${property.id}}" class="view-btn">View Details &rarr;</a>
             </div>
         </div>
     </div>

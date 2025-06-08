@@ -333,7 +333,7 @@ public class AppController {
     }
 
     //view details
-    @GetMapping("/properties/{id}")
+    @GetMapping("/properties/view/{id}")
     @PreAuthorize("hasAnyRole('BUYER')")
     public String viewDetails(@PathVariable Long id, Model model){
 //         Property property = propertyService.getProperty(id);
@@ -343,7 +343,7 @@ public class AppController {
     }
 
     //image viewer
-    @GetMapping("/properties/{id}/images")
+    @GetMapping("/properties/view/{id}/images")
     @PreAuthorize("hasAnyRole('BUYER')")
     public String viewImages(@PathVariable Long id, Model model){
 //         List<Image> images = propertyService.getImages(id);
@@ -377,7 +377,7 @@ public class AppController {
     }
 
     //single message
-    @GetMapping("/message/{id}")
+    @GetMapping("/messages/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String singleMessage(@PathVariable Long id, Model model){
         Message message = userService.findMessage(id);
