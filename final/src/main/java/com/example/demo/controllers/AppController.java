@@ -128,8 +128,16 @@ public class AppController {
         return "profile";
     }
 
+    @GetMapping("/profile/edit")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
+    public String editProfile(Model model) {
+        User user = userService.getCurrentUser();
+        model.addAttribute("user", user);
+        return "editProfile";
+    }
+
     //edit profile
-    @PostMapping("/profile/edit")
+    @PutMapping("/profile/edit")
     @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String updateSettings(@ModelAttribute("user") User updatedUser,
                                  @RequestParam(required = false) String password,
@@ -159,7 +167,7 @@ public class AppController {
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("errorMessage", "Failed to update account: " + ex.getMessage());
         }
-        return "redirect:/settings";
+        return "redirect:/profile/edit";
     }
 
 
@@ -306,7 +314,7 @@ public class AppController {
     }
 
     //add new property
-    @PostMapping("properties/add")
+    @PostMapping("/properties/add")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String addNewProperty(@ModelAttribute("property") Property property,
                                  @RequestParam(value = "file", required = false) List<MultipartFile> files,

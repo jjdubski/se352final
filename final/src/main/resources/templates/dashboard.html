@@ -38,7 +38,7 @@
 
     <!-- AGENT view -->
         <div class="card-row" th:if="${user.roles[0].name == 'AGENT'}">
-            <a th:href="@{/agent/listings}">
+            <a th:href="@{/properties/manage}">
                 <button class="dash-btn" style="background-color: var(--light-green);">Manage Listings »</button>
             </a>
         </div>

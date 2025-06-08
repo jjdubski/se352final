@@ -37,11 +37,11 @@ gitgit
         <li class="profile-info-id">Role: <span class="profile-info" th:each="role : ${user.roles}" th:text="${role.name}"></span></li>
     </ul>
     <div class="buttons" style="margin-top: 60px;">
-        <a th:href="@{/editprofile}">
+        <a th:href="@{/profile/edit}">
             <button class="btn" style="background-color: white; color: var(--dark-green);">Edit Profile</button>
         </a>
 
-        <a th:href="@{/user/dashboard}">
+        <a th:href="@{/dashboard}">
             <button class="btn" style="background-color: var(--light-beige); color: var(--dark-green);">Back to Dashboard</button>
         </a>
 

@@ -7,7 +7,7 @@
 </head>
 <body>
 <header th:replace="fragments :: header(showButton=true)"></header>
-<div class="messages-container"><div class="messages-container">
+<div class="messages-container">
     <h1 th:if="${user.roles[0].name == 'AGENT'}">Messages from Interested Buyers</h1>
     <h1 th:unless="${user.roles[0].name == 'AGENT'}">Your Messages</h1>
         <thead>
