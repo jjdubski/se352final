@@ -18,14 +18,18 @@ public interface PropertyService {
 
     List<Image> getImagesForProperty(Long id);
 
+    String storePropertyPicture(Long propertyId, MultipartFile file);
+
     @Transactional
-    Property addNewProperty(Property property, List<MultipartFile> files, User agent);
+    Property addNewProperty(Property property, User agent);
 
     @Transactional
     Property editProperty(Property property, Property updatedProperty);
 
     @Transactional
     Property deleteProperty(Long id);
+
+    String deletePropertyImage(Long id, Image propertyImage);
 
 //     List<Image> getImages(Long id);
 

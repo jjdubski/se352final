@@ -23,9 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class AppController {
@@ -249,7 +247,22 @@ public class AppController {
             @RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes) {
         try {
-            String filename = userService.storeProfilePicture(id, file);
+            String filename = propertyService.storePropertyPicture(id, file);
+            redirectAttributes.addFlashAttribute("message", "Property picture uploaded: " + filename);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Upload failed: " + e.getMessage());
+        }
+        return "redirect:/property";
+    }
+    
+    // property pic deletion
+    @PostMapping("/property/{id}/delete-property-picture")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String deleteProperyPicture(@PathVariable Long id,
+                                       @RequestParam("image") Image propertyImage,
+                                       RedirectAttributes redirectAttributes){
+        try {
+            String filename = propertyService.deletePropertyImage(id, propertyImage);
             redirectAttributes.addFlashAttribute("message", "Property picture uploaded: " + filename);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Upload failed: " + e.getMessage());
@@ -346,13 +359,13 @@ public class AppController {
     @PostMapping("/properties/add")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String addNewProperty(@ModelAttribute("property") Property property,
-            @RequestParam(value = "file", required = false) List<MultipartFile> files,
+            //@RequestParam(value = "file", required = false) List<MultipartFile> files,
             RedirectAttributes redirectAttributes) {
 
         try {
 
             User agent = userService.getCurrentUser();
-            Property savedProperty = propertyService.addNewProperty(property, files,agent);
+            Property savedProperty = propertyService.addNewProperty(property, agent);
 
             redirectAttributes.addFlashAttribute("successMessage", "Property added successfully.");
             return "redirect:/properties/manage";
