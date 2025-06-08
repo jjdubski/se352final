@@ -367,11 +367,22 @@ public class AppController {
     //=====MESSAGES=====
 
     //all messages
-    @GetMapping("/messages")
+    @GetMapping("/messages/agent")
     @PreAuthorize("hasAnyRole('AGENT')")
-    public String allMessages(Model model){
+    public String allMessagesAgent(Model model){
         User user = userService.getCurrentUser();
         List<Message> messages = userService.findMessagesForUser(user);
+        model.addAttribute("user", user);
+        model.addAttribute("messages", messages);
+        return "messages";
+    }
+
+    @GetMapping("/messages/buyer")
+    @PreAuthorize("hasAnyRole('BUYER')")
+    public String allMessagesBuyer(Model model){
+        User user = userService.getCurrentUser();
+        List<Message> messages = userService.findMessagesForUser(user);
+        model.addAttribute("user", user);
         model.addAttribute("messages", messages);
         return "messages";
     }

@@ -1,6 +1,6 @@
 <!--Jake Waksmanski-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,8 +8,7 @@
 <body>
 <header th:replace="fragments :: header(showButton=true)"></header>
 <div class="messages-container">
-    <h1>Messages from Interested Buyers</h1>
-    <table>
+    <h1 th:if="${user.roles[0].name}">Messages from Interested Buyers</h1>
         <thead>
             <tr>
                 <th>Property</th>
