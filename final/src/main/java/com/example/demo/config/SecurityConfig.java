@@ -50,11 +50,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/register", "/dashboard").permitAll()
                         .requestMatchers("/", "/index", "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
-                        .requestMatchers("users/admin", "users/admin/**", "register/agent").hasRole("ADMIN")
-                        .requestMatchers("properties/manage", "properties/add", "properties/edit/**", "messages/**")
-                        .hasRole("AGENT")
-                        .requestMatchers("properties/list", "properties/view/**", "messages/buyer").hasRole("BUYER")
                         .requestMatchers("profile/**", "logout", "dashboard").hasAnyRole("BUYER", "AGENT", "ADMIN")
+                        .requestMatchers("properties/list", "properties/view/**", "messages/buyer").hasRole("BUYER")
+                        .requestMatchers("/properties/manage", "/properties/add", "/properties/edit/**", "/messages/agent", "/messages/*").hasRole("AGENT")
+                        .requestMatchers("users/admin", "users/admin/**", "register/agent").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .exceptionHandling(ex -> ex
