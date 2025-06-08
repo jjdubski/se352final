@@ -59,17 +59,19 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Transactional
     @Override
-    public Property addNewProperty(Property property, List<MultipartFile> files) {
+    public Property addNewProperty(Property property, List<MultipartFile> files, User agent) {
+
+        property.setListingAgent(agent);
         validateProperty(property);
 
         // adding images
-        if (files != null) {
-            for (MultipartFile file : files) {
-                validateFile(file);
-                Image image = new Image(file.getName(), property);
-                property.addToPropertyImages(image);
-            }
-        }
+//        if (files != null) {
+//            for (MultipartFile file : files) {
+//                validateFile(file);
+//                Image image = new Image(file.getName(), property);
+//                property.addToPropertyImages(image);
+//            }
+//        }
         return propertyRepository.save(property);
     }
 

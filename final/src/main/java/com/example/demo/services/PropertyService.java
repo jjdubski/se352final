@@ -19,7 +19,7 @@ public interface PropertyService {
     List<Image> getImagesForProperty(Long id);
 
     @Transactional
-    Property addNewProperty(Property property, List<MultipartFile> files);
+    Property addNewProperty(Property property, List<MultipartFile> files, User agent);
 
     @Transactional
     Property editProperty(Property property, Property updatedProperty);

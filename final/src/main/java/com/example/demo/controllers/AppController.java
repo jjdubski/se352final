@@ -351,7 +351,8 @@ public class AppController {
 
         try {
 
-            Property savedProperty = propertyService.addNewProperty(property, files);
+            User agent = userService.getCurrentUser();
+            Property savedProperty = propertyService.addNewProperty(property, files,agent);
 
             redirectAttributes.addFlashAttribute("successMessage", "Property added successfully.");
             return "redirect:/properties/manage";
