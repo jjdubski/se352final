@@ -40,5 +40,8 @@ public interface UserService {
 
     void delete(String email);
 
+    @PreAuthorize("hasRole('BUYER')")
+    Message sendMessage(Message message);
+
     Message findMessage(Long id);
 }

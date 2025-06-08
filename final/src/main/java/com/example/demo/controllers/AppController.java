@@ -128,8 +128,16 @@ public class AppController {
         return "profile";
     }
 
+    @GetMapping("/profile/edit")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
+    public String editProfile(Model model) {
+        User user = userService.getCurrentUser();
+        model.addAttribute("user", user);
+        return "editProfile";
+    }
+
     //edit profile
-    @PostMapping("/profile/edit")
+    @PutMapping("/profile/edit")
     @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String updateSettings(@ModelAttribute("user") User updatedUser,
                                  @RequestParam(required = false) String password,
@@ -159,7 +167,7 @@ public class AppController {
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("errorMessage", "Failed to update account: " + ex.getMessage());
         }
-        return "redirect:/settings";
+        return "redirect:/profile/edit";
     }
 
 
@@ -306,7 +314,7 @@ public class AppController {
     }
 
     //add new property
-    @PostMapping("properties/add")
+    @PostMapping("/properties/add")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String addNewProperty(@ModelAttribute("property") Property property,
                                  @RequestParam(value = "file", required = false) List<MultipartFile> files,
@@ -334,7 +342,7 @@ public class AppController {
 
     //view details
     @GetMapping("/properties/view/{id}")
-    @PreAuthorize("hasAnyRole('BUYER')")
+    @PreAuthorize("hasAnyRole('BUYER', 'AGENT')")
     public String viewDetails(@PathVariable Long id, Model model){
 //         Property property = propertyService.getProperty(id);
 //         model.addAttribute("property", property);
@@ -385,6 +393,26 @@ public class AppController {
         model.addAttribute("user", user);
         model.addAttribute("messages", messages);
         return "messages";
+    }
+
+    @PostMapping("/messages")
+    @PreAuthorize("hasAnyRole('BUYER')")
+    public String sendMessage(@ModelAttribute("message") Message message,
+                              @RequestParam("property") Property property,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            User sender = userService.getCurrentUser();
+            message.setSender(sender);
+            message.setRecipient(property.getListingAgent());
+            message.setProperty(property);
+            userService.sendMessage(message);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Message sent successfully.");
+            return "redirect:/messages/buyer";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to send message: " + e.getMessage());
+            return "redirect:/properties/view/" + property.getId();
+        }
     }
 
     //single message

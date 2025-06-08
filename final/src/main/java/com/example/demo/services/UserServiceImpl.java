@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.exceptions.MessageNotFoundException;
 import com.example.demo.repositories.MessageRepository;
+import com.example.demo.repositories.PropertyRepository;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.utils.CurrentUserContext;
@@ -29,13 +30,15 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final PropertyRepository propertyRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final MessageRepository messageRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
+    public UserServiceImpl(UserRepository userRepository, PropertyRepository propertyRepository, RoleRepository roleRepository,
             MessageRepository messageRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.propertyRepository = propertyRepository;
         this.roleRepository = roleRepository;
         this.messageRepository = messageRepository;
         this.passwordEncoder = passwordEncoder;
@@ -162,6 +165,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Message> findMessagesForUser(User user) {
         return messageRepository.findByRecipient(user);
+    }
+
+    @Override
+    public Message sendMessage(Message message) {
+        User sender = getCurrentUserContext().user();
+        Optional<Property> propertyOpt = propertyRepository.findById(message.getProperty().getId());
+        if(propertyOpt.isEmpty()) {
+            throw new RuntimeException("Property not found with id: " + message.getProperty().getId());
+        }
+        message.setSender(sender);
+        message.setProperty(propertyOpt.get());
+        return messageRepository.save(message);
     }
 
     @Override

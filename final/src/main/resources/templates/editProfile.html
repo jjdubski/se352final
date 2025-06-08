@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/profile.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
 
     <body>
-        <div class="container">
+        <div class="edit-profile-container">
             <div class="profile-pic-container">
-                <img th:if="${u.profilePicture} != null"
-                     th:src="@{u.profilePicture}"
+                <img th:if="${user.profilePicture} != null"
+                     th:src="@{${user.profilePicture}}"
                      alt="Profile"
                 >
-                <img th:if="${u.profilePicture == null}"
+                <img th:if="${user.profilePicture == null}"
                      src="default.jpg"
                      alt="Default Profile"
                 >
@@ -29,7 +29,7 @@
                 <p th:text="${errorMessage}"></p>
             </div>
 
-            <form method="put" th:action="@{/update}" th:object=${user}">
+            <form method="put" th:action="@{/profile/edit}" th:object="${user}">
                 <label for="firstName">First Name</label>
                 <input id="firstName" th:field="*{firstName}" type="text">
                 <label for="lastName">Last Name</label>
@@ -42,11 +42,7 @@
                     <button class="btn">Discard Changes</button>
                 </a>
             </form>
-
         </div>
-
     </body>
-
-
 </head>
 </html>
