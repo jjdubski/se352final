@@ -12,80 +12,64 @@
 <header th:replace="fragments :: header(showButton=true)"></header>
 
 <div class="dashboard">
-    <h1 class="dashboard-title">Welcome <span class="name" th:text="${user.firstName}"></span></h1>
+    <h1 class="dashboard-title">Welcome, <span class="name" th:text="${user.firstName}"></span>!</h1>
     <p class="dashboard-subtitle"><span class="role" th:each="role : ${user.roles}" th:text="${role.name}"></span> Dashboard</p>
 
     <h1 th:text="${role}"></h1>
+    <div>
     <!-- BUYER view -->
-    <div th:if="${role == 'BUYER'}">
-        <div class="card-row">
+        <div class="card-row" th:if="${role == 'BUYER'}">
             <a th:href="@{/properties}">
                 <button class="dash-btn" style="background-color: var(--light-green);">Browse Properties »</button>
             </a>
         </div>
 
-        <div class="card-row">
+        <div class="card-row" th:if="${role == 'BUYER'}">
             <a th:href="@{/favorites}">
                 <button class="dash-btn" style="background-color: var(--mid-green);">Saved Favorites »<span class="dash-num" th:text="${user.propertiesFavorited.size()}"></span></button>
             </a>
         </div>
 
-        <div class="card-row">
-            <a th:href="@{/messages}">
-                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
-            </a>
-        </div>
-        <div class="card-row">
-            <a th:href="@{/user/profile}">
-                <button class="dash-btn" style="background-color: gray; color: var(--dark-green);">View Profile »</button>
-            </a>
-        </div>
-    </div>
+<!--        <div class="card-row" th:if="${role == 'BUYER'}">-->
+<!--            <a th:href="@{/messages}">-->
+<!--                <button class="dash-btn" style="background-color: var(&#45;&#45;dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>-->
+<!--            </a>-->
+<!--        </div>-->
 
     <!-- AGENT view -->
-    <div th:if="${role == 'AGENT'}">
-
-        <div class="card-row">
+        <div class="card-row" th:if="${role == 'AGENT'}">
             <a th:href="@{/agent/listings}">
                 <button class="dash-btn" style="background-color: var(--light-green);">Manage Listings »</button>
             </a>
         </div>
 
-        <div class="card-row">
+        <div class="card-row" th:if="${role == 'AGENT'}">
             <a th:href="@{/properties/add}">
                 <button class="dash-btn" style="background-color: var(--mid-green);">Add New Property »</button>
             </a>
         </div>
 
-        <div class="card-row">
+        <div class="card-row" th:if="${role == 'AGENT' || role == 'BUYER'}">
             <a th:href="@{/messages}">
                 <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
             </a>
         </div>
 
-        <div class="card-row">
-            <a th:href="@{/user/profile}">
-                <button class="dash-btn" style="background-color: gray; color: var(--dark-green);">View Profile »</button>
-            </a>
-        </div>
-    </div>
-
     <!-- ADMIN view -->
-    <div th:if="${role == 'ADMIN'}">
-        <div class="card-row">
+        <div class="card-row" th:if="${role == 'ADMIN'}">
             <a th:href="@{/users/admin}">
                 <button class="dash-btn" style="background-color: var(--light-green);">Manage Users »</button>
             </a>
         </div>
 
-        <div class="card-row">
+        <div class="card-row" th:if="${role == 'ADMIN'}">
             <a th:href="@{/users/admin/create-agent}">
                 <button class="dash-btn" style="background-color: var(--mid-green);">Create Agent »</button>
             </a>
         </div>
 
         <div class="card-row">
-            <a th:href="@{/user/profile}">
+            <a th:href="@{/profile}">
                 <button class="dash-btn" style="background-color: gray; color: black;">View Profile »</button>
             </a>
         </div>

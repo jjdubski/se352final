@@ -296,8 +296,17 @@ public class AppController {
         }
     }
 
+    //add new property page
+    @GetMapping("/properties/add")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String addNewPropertyPage(Model model) {
+        Property property = new Property();
+        model.addAttribute("property", property);
+        return "addListing";
+    }
+
     //add new property
-    @PutMapping("properties/add")
+    @PostMapping("properties/add")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String addNewProperty(@ModelAttribute("property") Property property,
                                  @RequestParam(value = "file", required = false) List<MultipartFile> files,
