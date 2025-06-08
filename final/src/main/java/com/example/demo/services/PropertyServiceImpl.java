@@ -30,7 +30,8 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public List<Property> getPropertiesForCurrentAgent(User agent) {
-        return propertyRepository.findByListingAgent(agent);
+//        return propertyRepository.findByListingAgent(agent);
+        return propertyRepository.findAllByUserId(agent.getId());
     }
 
     @Override
