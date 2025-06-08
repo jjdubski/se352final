@@ -28,7 +28,7 @@ public class Property {
     @Column
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "listing_agent")
     @JsonIgnore
     private User listingAgent;
@@ -36,7 +36,7 @@ public class Property {
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Image> propertyImages;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> usersFavorited;
 
     public Property() {

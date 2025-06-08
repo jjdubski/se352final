@@ -30,7 +30,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public List<Property> getPropertiesForCurrentAgent(User agent) {
-//        return propertyRepository.findByListingAgent(agent);
+        // return propertyRepository.findByListingAgent(agent);
         return propertyRepository.findAllByUserId(agent.getId());
     }
 
@@ -42,7 +42,7 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public Property findPropertyById(Long id) {
         Optional<Property> property = propertyRepository.findById(id);
-        if (property.isEmpty()){   //no property w/ given id
+        if (property.isEmpty()) { // no property w/ given id
             throw new PropertyNotFoundException("No property with given id");
         }
         return property.get();
@@ -51,7 +51,7 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public List<Image> getImagesForProperty(Long id) {
         Optional<Property> property = propertyRepository.findById(id);
-        if (property.isEmpty()){   //no property w/ given id
+        if (property.isEmpty()) { // no property w/ given id
             throw new PropertyNotFoundException("No property with given id");
         }
         return imageRepository.findByProperty(property.get());
@@ -63,8 +63,8 @@ public class PropertyServiceImpl implements PropertyService {
         validateProperty(property);
 
         // adding images
-        if (files != null){
-            for (MultipartFile file : files){
+        if (files != null) {
+            for (MultipartFile file : files) {
                 validateFile(file);
                 Image image = new Image(file.getName(), property);
                 property.addToPropertyImages(image);
@@ -76,17 +76,20 @@ public class PropertyServiceImpl implements PropertyService {
     @Transactional
     @Override
     public Property editProperty(Property property, Property updatedProperty) {
-        validateProperty(updatedProperty);
+        try {
+            validateProperty(updatedProperty);
 
-        property.setTitle(updatedProperty.getTitle());
-        property.setPrice(updatedProperty.getPrice());
-        property.setLocation(updatedProperty.getLocation());
-        property.setSize(updatedProperty.getSize());
-        property.setDescription(updatedProperty.getDescription());
+            property.setTitle(updatedProperty.getTitle());
+            property.setPrice(updatedProperty.getPrice());
+            property.setLocation(updatedProperty.getLocation());
+            property.setSize(updatedProperty.getSize());
+            property.setDescription(updatedProperty.getDescription());
 
-        return property;
+            return propertyRepository.save(property);
+        } catch (Exception e) {
+            throw new InvalidPropertyParameterException("Error editing property: " + e.getMessage());
+        }
     }
-
 
     // Validation Methods
     private void validateProperty(Property property) {
@@ -98,37 +101,37 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     private void validateSize(Property property) {
-        if (property.getSize() == null){
+        if (property.getSize() == null) {
             throw new InvalidPropertyParameterException("Size cannot be null.");
         }
     }
 
     private void validateListingAgent(Property property) {
-        if (property.getListingAgent() == null){
+        if (property.getListingAgent() == null) {
             throw new InvalidPropertyParameterException("Listing agent cannot be null.");
         }
     }
 
     private void validateLocation(Property property) {
-        if (property.getLocation() == null){
+        if (property.getLocation() == null) {
             throw new InvalidPropertyParameterException("Location cannot be null.");
         }
     }
 
     private void validatePrice(Property property) {
-        if (property.getPrice() == null){
+        if (property.getPrice() == null) {
             throw new InvalidPropertyParameterException("Price cannot be null.");
         }
     }
 
     private void validateTitle(Property property) {
-        if (property.getTitle() == null){
+        if (property.getTitle() == null) {
             throw new InvalidPropertyParameterException("Title cannot be null.");
         }
     }
 
     private void validateFile(MultipartFile file) {
-        if (file == null){
+        if (file == null) {
             throw new InvalidPropertyImageException("Uploaded null image.");
         }
         validateFileName(file.getOriginalFilename());
@@ -137,26 +140,26 @@ public class PropertyServiceImpl implements PropertyService {
     private void validateFileName(String originalFilename) {
         Integer len = originalFilename.length();
         if (!(len >= 4 && originalFilename.regionMatches(true, len - 4, ".jpg", 0, 4))
-        || !(len >= 4 && originalFilename.regionMatches(true, len - 4, ".png", 0, 4))){
+                || !(len >= 4 && originalFilename.regionMatches(true, len - 4, ".png", 0, 4))) {
             throw new InvalidPropertyImageException("File must be .png or .jpg.");
         }
     }
 
-//     public final PropertyRepository propertyRepository;
+    // public final PropertyRepository propertyRepository;
 
-//     public PropertyServiceImpl(PropertyRepository propertyRepository) {
-//         this.propertyRepository = propertyRepository;
-//     }
+    // public PropertyServiceImpl(PropertyRepository propertyRepository) {
+    // this.propertyRepository = propertyRepository;
+    // }
 
-//     @Override
-//     public List<Image> getImages(Long id) {
-//         List<Image> image = propertyRepository.getAllPropertyImages(id);
-//         return image;
-//     }
+    // @Override
+    // public List<Image> getImages(Long id) {
+    // List<Image> image = propertyRepository.getAllPropertyImages(id);
+    // return image;
+    // }
 
-//     @Override
-//     public Property getProperty(Long id) {
-//         Property property = propertyRepository.getReferenceById(id);
-//         return property;
-//     }
+    // @Override
+    // public Property getProperty(Long id) {
+    // Property property = propertyRepository.getReferenceById(id);
+    // return property;
+    // }
 }
