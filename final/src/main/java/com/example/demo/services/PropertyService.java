@@ -11,7 +11,7 @@ public interface PropertyService {
 
     List<Property> getPropertiesForCurrentAgent(User agent);
 
-    Object getAllProperties();
+    List<Property> getAllProperties();
 
     Property findPropertyById(Long id);
 
