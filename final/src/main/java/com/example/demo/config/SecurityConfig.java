@@ -53,7 +53,7 @@ public class SecurityConfig {
                         .requestMatchers("/profile/**", "logout", "dashboard").hasAnyRole("BUYER", "AGENT", "ADMIN")
                         .requestMatchers("/properties/view/**").hasAnyRole("BUYER", "AGENT")
                         .requestMatchers("/properties/list", "/properties/view/**", "/messages/buyer", "/favorites").hasRole("BUYER")
-                        .requestMatchers("/properties/manage", "/properties/add", "/properties/edit/**", "/messages/agent", "/messages/*").hasRole("AGENT")
+                        .requestMatchers("/properties/manage", "/properties/add", "/properties/edit/**", "/properties/delete/*", "/messages/agent", "/messages/*").hasRole("AGENT")
                         .requestMatchers("/users/admin", "/users/admin/**", "/register/agent").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

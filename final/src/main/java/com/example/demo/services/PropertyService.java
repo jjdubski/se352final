@@ -24,6 +24,9 @@ public interface PropertyService {
     @Transactional
     Property editProperty(Property property, Property updatedProperty);
 
+    @Transactional
+    Property deleteProperty(Long id);
+
 //     List<Image> getImages(Long id);
 
 //     Property getProperty(Long id);

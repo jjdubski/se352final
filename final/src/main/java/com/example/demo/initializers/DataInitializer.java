@@ -312,9 +312,17 @@ public class DataInitializer {
                 // Messages
                 /////////////
 
-                Message message1 = new Message(user1,
+                Message message1 = new Message(
+                                user1,
                                 user2,
-                                "Hi! I am interested in learning more about the property",
+                                "Hi! I am interested in learning more about the property.",
+                                property1,
+                                null);
+
+                Message message2 = new Message(
+                                user2,
+                                user1,
+                                "Thank you for your interest! Would you like to schedule a tour?",
                                 property1,
                                 null);
 
@@ -325,9 +333,65 @@ public class DataInitializer {
                                 property2,
                                 "Yes it is!");
 
-                // Save messages using a MessageRepository (assume it's injected like others)
+                Message message4 = new Message(
+                                user5,
+                                user7,
+                                "Can you provide more photos of the property at 1837 N Fremont St?",
+                                property3,
+                                null);
+
+                Message message5 = new Message(
+                                user3,
+                                user1,
+                                "Is the price negotiable for 1234 W Addison St?",
+                                property4,
+                                null);
+
+                Message message6 = new Message(
+                                user6,
+                                user2,
+                                "How old is the roof on 5678 S Michigan Ave?",
+                                property5,
+                                null);
+
+                Message message7 = new Message(
+                                user7,
+                                user3,
+                                "Are pets allowed at 9101 N Clark St?",
+                                property6,
+                                "No sorry. Pets are not allowed.");
+
+                Message message8 = new Message(
+                                user1,
+                                user2,
+                                "Is there parking available at 2222 W Irving Park Rd?",
+                                property7,
+                                "No, there is no parking available.");
+
+                Message message9 = new Message(
+                                user2,
+                                user6,
+                                "What are the HOA fees for 3333 E 79th St?",
+                                property8,
+                                null);
+
+                Message message10 = new Message(
+                                user3,
+                                user1,
+                                "Can I schedule a viewing for 4444 W Belmont Ave?",
+                                property9,
+                                "No, the property is not available.");
+
                 messageRepository.save(message1);
+                messageRepository.save(message2);
                 messageRepository.save(message3);
+                messageRepository.save(message4);
+                messageRepository.save(message5);
+                messageRepository.save(message6);
+                messageRepository.save(message7);
+                messageRepository.save(message8);
+                messageRepository.save(message9);
+                messageRepository.save(message10);
         }
 
 }

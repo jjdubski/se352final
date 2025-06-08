@@ -4,23 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Listing</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/addListing.css}" />
 </head>
 <body>
     <header th:replace="fragments :: header(showButton=true)"></header>
-    <div class="new-listing-container">
+    <div class="add-listing-container">
         <h1>New Listing</h1>
-        <div class="new-listing-form-container">
-            <form th:action="@{/properties/add}" th:object="${property}" method="post" enctype="multipart/form-data">
-                <div class="new-listing-images">
-                    <div th:each="img : ${property.propertyImages}" class="property-image-container">
-                        <img th:src="@{'/images/' + ${img}}" alt="Property Image" class="property-img">
-                        <form th:action="@{/properties/delete-image/{id}(id=${property.id})}" method="post" style="display:inline;">
-                            <input type="hidden" name="imageName" th:value="${img}" />
-                            <button type="submit" class="delete-image-button" th:attr="data-img=${img}">Delete</button>
+        <div class="add-listing-form-container">
+            <form th:action="@{/properties/add}" th:object="${property}" method="post" enctype="multipart/form-data" class="add-listing-form">
+                <div class="add-listing-images">
+                    <div th:if="${property.propertyImages == null or property.propertyImages.isEmpty()}">
+                        <p>No images uploaded yet.</p>
+                    </div>
+                    <div th:if="${property.propertyImages != null and !property.propertyImages.isEmpty()}" th:each="img : ${property.propertyImages}" class="property-image-container">
+                        <img th:src="@{'/images/' + ${img.imageFileName}}" alt="Property Image" class="property-image">
+                        <form th:action="@{/properties/delete-image/{id}(id=${property.id})}" method="post">
+                            <input type="hidden" name="imageName" th:value="${img.imageFileName}" />
+                            <button type="submit" class="delete-image-button" th:attr="data-img=${img.imageFileName}">Delete</button>
                         </form>
                     </div>
                 </div>
-                <div class="new-form">
+                <div class="add-form">
+                    <p th:if=" ${successMessage}" class="success-message" th:text="${successMessage}"></p>
+                    <p th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></p>
                     <label for="title">Title:</label>
                     <input id="title" th:field="*{title}" type="text" required/>
                     <label for="price">Price:</label>

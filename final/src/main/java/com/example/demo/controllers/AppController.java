@@ -286,6 +286,18 @@ public class AppController {
         return "manageListings";
     }
 
+    @PostMapping("/properties/delete/{id}")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String deleteProperty(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            propertyService.deleteProperty(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Property deleted successfully.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Property deletion failed: " + e.getMessage());
+        }
+        return "redirect:/properties/manage";
+    }
+
     // edit property page
     @GetMapping("/properties/edit/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")

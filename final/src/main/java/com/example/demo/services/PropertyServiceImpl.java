@@ -91,6 +91,17 @@ public class PropertyServiceImpl implements PropertyService {
         }
     }
 
+    @Transactional
+    @Override
+    public Property deleteProperty(Long id) {
+        Optional<Property> property = propertyRepository.findById(id);
+        if (property.isEmpty()) {
+            throw new PropertyNotFoundException("No property with id:" + id);
+        }
+        propertyRepository.delete(property.get());
+        return property.get();
+    }
+
     // Validation Methods
     private void validateProperty(Property property) {
         validateTitle(property);
