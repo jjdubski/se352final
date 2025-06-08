@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Users</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/allusers.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/allUsers.css}">
 </head>
 <body>
 <div class="container">
@@ -28,19 +29,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="u : {users}">
+        <tr th:each="u : ${users}">
             <td class="profile-container">
-                <img class="profile" th:if="{u.profilePicutre != null}"
-                     th:src="@{'/profile-pictures/' + ${u.profilePicutre}}"
-                     alt="Profile"
-                     class="profile"/>
+                <img class="profile" th:if="${u.profilePicture != null}"
+                     th:src="@{'/profile-pictures/' + ${u.profilePicture}}"
+                     alt="Profile"/>
 
             </td>
             <td th:text="${u.firstName + ' ' + u.lastName}">Full Name</td>
-            <td th:text="${u.role}">Role</td>
+            <td th:text="${u.getRoles()[0].getName()}">Role</td>
             <td th:text="${u.email}">Email</td>
             <td>
-                <form method="delete" th:action="@{/delete}" th:object="{user}">
+                <form method="post" th:action="@{/delete}" th:object="${u}">
                     <button class="delete-btn" type="submit"></button>
 
                 </form>

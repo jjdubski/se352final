@@ -27,11 +27,7 @@
     <div th:if="${error}" class="failure">
         <p th:text="${error}"></p>
     </div>
-    <form method="POST" th:action="{/register}" th:object="${user}">
-        <label>Username: <input th:field="*{userName}" /></label>
-        <div th:if="${#fields.hasErrors('name')}" th:errors="*{userName}"></div>
-
-
+<form method="POST" th:action="@{/users/admin/create-agent}" th:object="${agent}">
         <label>First Name: <input th:field="*{firstName}" /></label>
 
         <label>Last Name: <input th:field="*{lastName}" /></label>
@@ -40,15 +36,12 @@
 
         <label>Password: <input th:field="*{password}"/></label>
 
-
-
         <div class="pic-upload-container">
             <label for="profilepicture">Profile Picture</label>
             <input id="profilepicture" type="file" name="file" accept="image/*">
         </div>
 
         <button class="btn" type="submit">Create New Agent</button>
-
 
     </form>
 
