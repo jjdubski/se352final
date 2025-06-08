@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.entities.Image;
 import com.example.demo.entities.Property;
 import com.example.demo.entities.User;
+import jakarta.transaction.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -17,8 +18,10 @@ public interface PropertyService {
 
     List<Image> getImagesForProperty(Long id);
 
+    @Transactional
     Property addNewProperty(Property property, List<MultipartFile> files);
 
+    @Transactional
     Property editProperty(Property property, Property updatedProperty);
 
 //     List<Image> getImages(Long id);

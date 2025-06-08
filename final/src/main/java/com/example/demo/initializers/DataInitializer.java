@@ -146,7 +146,7 @@ public class DataInitializer {
                 Property property1 = new Property(
                                 "3818 N Christiana Ave",
                                 1025000.00,
-                                "Chicago, Il",
+                                "Chicago, IL",
                                 3600,
                                 "Beautifully redesigned single-family home with open-concept living, chef's kitchen, spacious bedrooms, multiple balconies, and a landscaped yard in a sought-after Chicago neighborhood.",
                                 user2);
@@ -154,7 +154,7 @@ public class DataInitializer {
                 Property property2 = new Property(
                                 "3423 N Kedzie Ave",
                                 899000.00,
-                                "Chicago, Il",
+                                "Chicago, IL",
                                 4600,
                                 "Oversized all-brick home with 6 bedrooms, high ceilings, large kitchen, in-law suite, roof deck, and professionally landscaped yard near Belmont Blue Line in Chicago.",
                                 user6);
@@ -169,9 +169,97 @@ public class DataInitializer {
                         user7
                         );
 
+                Property property3 = new Property(
+                                "1234 W Addison St",
+                                750000.00,
+                                "Chicago, IL",
+                                2800,
+                                "Charming 3-bedroom home with hardwood floors, updated kitchen, and a finished basement in Lakeview.",
+                                user1,
+                                List.of(),
+                                List.of());
+
+                Property property4 = new Property(
+                                "5678 S Michigan Ave",
+                                650000.00,
+                                "Chicago, IL",
+                                3200,
+                                "Spacious 4-bedroom townhouse with modern finishes, rooftop deck, and attached garage.",
+                                user2,
+                                List.of(),
+                                List.of());
+
+                Property property5 = new Property(
+                                "9101 N Clark St",
+                                1200000.00,
+                                "Chicago, IL",
+                                4100,
+                                "Luxury 5-bedroom home with chef's kitchen, spa bathrooms, and a large backyard.",
+                                user3,
+                                List.of(),
+                                List.of());
+
+                Property property6 = new Property(
+                                "2222 W Irving Park Rd",
+                                540000.00,
+                                "Chicago, IL",
+                                2100,
+                                "Cozy 2-bedroom condo with balcony, in-unit laundry, and heated parking.",
+                                user1,
+                                List.of(),
+                                List.of());
+
+                Property property7 = new Property(
+                                "3333 E 79th St",
+                                480000.00,
+                                "Chicago, IL",
+                                1900,
+                                "Renovated bungalow with open floor plan, new appliances, and finished basement.",
+                                user2,
+                                List.of(),
+                                List.of());
+
+                Property property8 = new Property(
+                                "4444 W Belmont Ave",
+                                830000.00,
+                                "Chicago, IL",
+                                3500,
+                                "Modern 4-bedroom home with smart features, fenced yard, and two-car garage.",
+                                user3,
+                                List.of(),
+                                List.of());
+
+                Property property9 = new Property(
+                                "5555 S State St",
+                                720000.00,
+                                "Chicago, IL",
+                                3000,
+                                "Classic brick home with updated kitchen, hardwood floors, and large patio.",
+                                user1,
+                                List.of(),
+                                List.of());
+
+                Property property10 = new Property(
+                                "6666 N Sheridan Rd",
+                                950000.00,
+                                "Chicago, IL",
+                                3700,
+                                "Elegant 4-bedroom residence with lake views, gourmet kitchen, and finished attic.",
+                                user2,
+                                List.of(),
+                                List.of());
+
                 propertyRepository.save(property1);
                 propertyRepository.save(property2);
                 propertyRepository.save(property3);
+                propertyRepository.save(property4);
+                propertyRepository.save(property5);
+                propertyRepository.save(property6);
+                propertyRepository.save(property7);
+                propertyRepository.save(property8);
+                propertyRepository.save(property9);
+                propertyRepository.save(property10);
+
 
                 //////////////////////
                 /// Images
@@ -180,14 +268,36 @@ public class DataInitializer {
                 Image image1 = new Image("property-image1.webp", property1);
                 Image image2 = new Image("property-image2.webp", property2);
                 Image image3 = new Image("property-image3.webp", property3);
+                Image image4 = new Image("house.png", property4);
+                Image image5 = new Image("house.png", property5);
+                Image image6 = new Image("house.png", property6);
+                Image image7 = new Image("house.png", property7);
+                Image image8 = new Image("house.png", property8);
+                Image image9 = new Image("house.png", property9);
+                Image image10 = new Image("house.png", property10);
 
                 imageRepository.save(image1);
                 imageRepository.save(image2);
                 imageRepository.save(image3);
+                imageRepository.save(image4);
+                imageRepository.save(image5);
+                imageRepository.save(image6);
+                imageRepository.save(image7);
+                imageRepository.save(image8);
+                imageRepository.save(image9);
+                imageRepository.save(image10);
 
                 property1.addToPropertyImages(image1);
                 property2.addToPropertyImages(image2);
                 property3.addToPropertyImages(image3);
+                property4.addToPropertyImages(image4);
+                property5.addToPropertyImages(image5);
+                property6.addToPropertyImages(image6);
+                property7.addToPropertyImages(image7);
+                property8.addToPropertyImages(image8);
+                property9.addToPropertyImages(image9);
+                property10.addToPropertyImages(image10);
+          
 
                 /////////////
                 //Messages
@@ -207,8 +317,6 @@ public class DataInitializer {
                         property2,
                         "Yes it is!");
                 user4.getMessagesSent().add(message3);
-
-
 
         }
 
