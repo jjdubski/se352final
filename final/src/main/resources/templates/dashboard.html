@@ -9,7 +9,7 @@
 
 </head>
 <body>
-<div th:replace="~{fragments :: header(false)}"></div>
+<header th:replace="fragments :: header(showButton=true)"></header>
 
 <div class="dashboard">
     <h1 class="dashboard-title">Welcome <span class="name" th:text="${user.firstName}"></span></h1>
@@ -18,79 +18,78 @@
     <h1 th:text="${role}"></h1>
     <!-- BUYER view -->
     <div th:if="${role == 'BUYER'}">
-        <p class="dashboard-subtitle">Buyer Dashboard</p>
-
         <div class="card-row">
             <a th:href="@{/properties}">
-                <button class="btn" style="background-color: var(--light-green);">Browse Properties »</button>
+                <button class="dash-btn" style="background-color: var(--light-green);">Browse Properties »</button>
             </a>
         </div>
 
         <div class="card-row">
             <a th:href="@{/favorites}">
-                <button class="btn" style="background-color: var(--mid-green);">Saved Favorites »<span class="dash-num" th:text="${user.propertiesFavorited.size()}"></span></button>
+                <button class="dash-btn" style="background-color: var(--mid-green);">Saved Favorites »<span class="dash-num" th:text="${user.propertiesFavorited.size()}"></span></button>
             </a>
         </div>
 
         <div class="card-row">
             <a th:href="@{/messages}">
-                <button class="btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
+                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
+            </a>
+        </div>
+        <div class="card-row">
+            <a th:href="@{/user/profile}">
+                <button class="dash-btn" style="background-color: gray; color: var(--dark-green);">View Profile »</button>
             </a>
         </div>
     </div>
 
     <!-- AGENT view -->
     <div th:if="${role == 'AGENT'}">
-        <p class="dashboard-subtitle">Agent Dashboard</p>
 
         <div class="card-row">
             <a th:href="@{/agent/listings}">
-                <button class="btn" style="background-color: var(--light-green);">Manage Listings »</button>
+                <button class="dash-btn" style="background-color: var(--light-green);">Manage Listings »</button>
             </a>
         </div>
 
         <div class="card-row">
             <a th:href="@{/agent/new-property}">
-                <button class="btn" style="background-color: var(--mid-green);">Add New Property »</button>
+                <button class="dash-btn" style="background-color: var(--mid-green);">Add New Property »</button>
             </a>
         </div>
 
         <div class="card-row">
             <a th:href="@{/messages}">
-                <button class="btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
+                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
             </a>
         </div>
 
         <div class="card-row">
-            <a th:href="@{/profile}">
-                <button class="btn" style="background-color: var(--light-beige); color: var(--dark-green);">View Profile »</button>
+            <a th:href="@{/user/profile}">
+                <button class="dash-btn" style="background-color: gray; color: var(--dark-green);">View Profile »</button>
             </a>
         </div>
     </div>
 
     <!-- ADMIN view -->
     <div th:if="${role == 'ADMIN'}">
-        <p class="dashboard-subtitle">Admin Dashboard</p>
-
         <div class="card-row">
             <a th:href="@{/users/admin}">
-                <button class="btn" style="background-color: var(--light-green);">Manage Users »</button>
+                <button class="dash-btn" style="background-color: var(--light-green);">Manage Users »</button>
             </a>
         </div>
 
         <div class="card-row">
             <a th:href="@{/users/admin/create-agent}">
-                <button class="btn" style="background-color: var(--mid-green);">Create Agent »</button>
+                <button class="dash-btn" style="background-color: var(--mid-green);">Create Agent »</button>
             </a>
         </div>
 
         <div class="card-row">
-            <a th:href="@{/profile}">
-                <button class="btn" style="background-color: var(--light-beige); color: black;">View Profile »</button>
+            <a th:href="@{/user/profile}">
+                <button class="dash-btn" style="background-color: gray; color: black;">View Profile »</button>
             </a>
         </div>
     </div>
 </div>
-
 </body>
 </html>

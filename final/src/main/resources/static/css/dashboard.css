@@ -2,6 +2,7 @@ body {
   height: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   font-family: 'Inter', sans-serif;
   background-color: #F5F5D5;
 }
@@ -28,6 +29,45 @@ body {
   justify-content: space-between;
   margin: 5px;
 }
+
+
+ .dash-num {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 1rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: black;
+ }
+
+ .dash-btn {
+  display: flex;
+  justify-content: left;
+  width: 80%;
+  margin: 5px;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+ .dash-btn:hover {
+    background-color: var(--dark-green);
+ }
+
+ .dash-btn.outline {
+    background-color: white;
+    color: #009B3C;
+    border: 2px solid #009B3C;
+  }
+
+ .dash-btn.outline:hover {
+    background-color: #e6f7ed;
+   }
+
 
  .dash-num {
   display: flex;
