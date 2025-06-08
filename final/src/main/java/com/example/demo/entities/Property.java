@@ -3,6 +3,7 @@ package com.example.demo.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,25 +35,23 @@ public class Property {
     private User listingAgent;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Image> propertyImages;
+    private List<Image> propertyImages = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<User> usersFavorited;
+    private List<User> usersFavorited = new ArrayList<>();
 
     public Property() {
     }
 
     public Property(String title, Double price, String location,
-                    Integer size, String description, User listingAgent,
-                    List<Image> propertyImages, List<User> usersFavorited) {
+                    Integer size, String description, User listingAgent
+                    ) {
         this.title = title;
         this.price = price;
         this.location = location;
         this.size = size;
         this.description = description;
         this.listingAgent = listingAgent;
-        this.propertyImages = propertyImages;
-        this.usersFavorited = usersFavorited;
     }
 
     public Long getId() {

@@ -1,9 +1,6 @@
 package com.example.demo.initializers;
 
-import com.example.demo.entities.Image;
-import com.example.demo.entities.Property;
-import com.example.demo.entities.Role;
-import com.example.demo.entities.User;
+import com.example.demo.entities.*;
 import com.example.demo.repositories.ImageRepository;
 import com.example.demo.repositories.PropertyRepository;
 import com.example.demo.repositories.RoleRepository;
@@ -58,10 +55,24 @@ public class DataInitializer {
                 user1Roles.add(roleBuyer);
 
                 Set<Role> user2Roles = new HashSet<>();
-                user2Roles.add(roleAdmin);
+                user2Roles.add(roleAgent);
 
                 Set<Role> user3Roles = new HashSet<>();
-                user3Roles.add(roleAgent);
+                user3Roles.add(roleAdmin);
+
+                Set<Role> user4Roles = new HashSet<>();
+                user4Roles.add(roleBuyer);
+
+                Set<Role> user5Roles = new HashSet<>();
+                user5Roles.add(roleBuyer);
+
+                Set<Role> user6Roles = new HashSet<>();
+                user6Roles.add(roleAgent);
+
+                Set<Role> user7Roles = new HashSet<>();
+                user7Roles.add(roleAgent);
+
+
 
                 User user1 = new User(passwordEncoder.encode("bj.123"),
                                 "Bob",
@@ -87,9 +98,50 @@ public class DataInitializer {
                                 "image3.jpg");
                 user3.setCreatedAt();
 
+                User user4 = new User(passwordEncoder.encode("rb.123"),
+                        "Rachel",
+                        "Brown",
+                        "rachel@email.com",
+                        user4Roles,
+                        "image4.jpg");
+                user4.setCreatedAt();
+
+                User user5 = new User(passwordEncoder.encode("ts.123"),
+                        "Tom",
+                        "Smith",
+                        "tomsmith@email.com",
+                        user5Roles,
+                        "image5.jpg");
+                user5.setCreatedAt();
+
+                User user6 = new User(passwordEncoder.encode("kw.123"),
+                        "Karen",
+                        "White",
+                        "karen@email.com",
+                        user6Roles,
+                        "image6.jpg");
+                user6.setCreatedAt();
+
+                User user7 = new User(passwordEncoder.encode("am.123"),
+                        "Alex",
+                        "Martinez",
+                        "alex@email.com",
+                        user7Roles,
+                        "image7.jpg");
+                user7.setCreatedAt();
+
                 userRepository.save(user1);
                 userRepository.save(user2);
                 userRepository.save(user3);
+                userRepository.save(user4);
+                userRepository.save(user5);
+                userRepository.save(user6);
+                userRepository.save(user7);
+
+                /////////////////////
+                /////Properties
+                ////////////////////
+
 
                 Property property1 = new Property(
                                 "3818 N Christiana Ave",
@@ -97,9 +149,7 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 3600,
                                 "Beautifully redesigned single-family home with open-concept living, chef's kitchen, spacious bedrooms, multiple balconies, and a landscaped yard in a sought-after Chicago neighborhood.",
-                                user2,
-                                List.of(),
-                                List.of());
+                                user2);
 
                 Property property2 = new Property(
                                 "3423 N Kedzie Ave",
@@ -107,9 +157,17 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 4600,
                                 "Oversized all-brick home with 6 bedrooms, high ceilings, large kitchen, in-law suite, roof deck, and professionally landscaped yard near Belmont Blue Line in Chicago.",
-                                user3,
-                                List.of(),
-                                List.of());
+                                user6);
+
+
+                Property property3 = new Property(
+                        "1837 N Fremont St",
+                        3795000.59,
+                        "Chicago, Il",
+                        4662,
+                        "Welcome to this architectural masterpiece, nestled in the heart of Lincoln Park on the serene, tree-lined Fremont Street.",
+                        user7
+                        );
 
                 Property property3 = new Property(
                                 "1234 W Addison St",
@@ -202,27 +260,14 @@ public class DataInitializer {
                 propertyRepository.save(property9);
                 propertyRepository.save(property10);
 
+
                 //////////////////////
                 /// Images
                 /////////////////////
 
-                // Image image1 = new
-                // Image("1743280986563_8c1815366539cf90fd6cb38dbb1b1e1e-cc_ft_960.jpg",
-                // property1);
-                // Image image2 = new
-                // Image("1743280986566_3bd01c92edfab81e6ef7702df5c5f315-cc_ft_960.jpg",
-                // property2);
-                // Image image3 = new
-                // Image("1743280986566_419c22f5dd1ddc1a6d861df85c941db9-cc_ft_960.jpg",
-                // property1);
-
-                // imageRepository.save(image1);
-                // imageRepository.save(image2);
-                // imageRepository.save(image3);
-
-                Image image1 = new Image("house.png", property1);
-                Image image2 = new Image("house.png", property2);
-                Image image3 = new Image("house.png", property3);
+                Image image1 = new Image("property-image1.webp", property1);
+                Image image2 = new Image("property-image2.webp", property2);
+                Image image3 = new Image("property-image3.webp", property3);
                 Image image4 = new Image("house.png", property4);
                 Image image5 = new Image("house.png", property5);
                 Image image6 = new Image("house.png", property6);
@@ -241,6 +286,38 @@ public class DataInitializer {
                 imageRepository.save(image8);
                 imageRepository.save(image9);
                 imageRepository.save(image10);
+
+                property1.addToPropertyImages(image1);
+                property2.addToPropertyImages(image2);
+                property3.addToPropertyImages(image3);
+                property4.addToPropertyImages(image4);
+                property5.addToPropertyImages(image5);
+                property6.addToPropertyImages(image6);
+                property7.addToPropertyImages(image7);
+                property8.addToPropertyImages(image8);
+                property9.addToPropertyImages(image9);
+                property10.addToPropertyImages(image10);
+          
+
+                /////////////
+                //Messages
+                /////////////
+
+                Message message1 = new Message(user1,
+                        user2,
+                        "Hi! I am interested in learning more about the property",
+                        property1,
+                        null);
+                user2.getMessagesSent().add(message1);
+
+                Message message3 = new Message(
+                        user4,
+                        user6,
+                        "Is the property at 3423 N Kedzie Ave still available?",
+                        property2,
+                        "Yes it is!");
+                user4.getMessagesSent().add(message3);
+
         }
 
 }
