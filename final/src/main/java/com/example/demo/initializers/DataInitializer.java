@@ -2,14 +2,19 @@ package com.example.demo.initializers;
 
 import com.example.demo.entities.*;
 import com.example.demo.repositories.ImageRepository;
+import com.example.demo.repositories.MessageRepository;
 import com.example.demo.repositories.PropertyRepository;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
+
+import org.hibernate.mapping.Array;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.xml.crypto.Data;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,20 +26,22 @@ public class DataInitializer {
         private final PasswordEncoder passwordEncoder;
         private final RoleRepository roleRepository;
         private final ImageRepository imageRepository;
+        private final MessageRepository messageRepository;
 
         public DataInitializer(PropertyRepository propertyRepository, UserRepository userRepository,
                         PasswordEncoder passwordEncoder, RoleRepository roleRepository,
-                        ImageRepository imageRepository) {
+                        ImageRepository imageRepository, MessageRepository messageRepository) {
                 this.propertyRepository = propertyRepository;
                 this.userRepository = userRepository;
                 this.passwordEncoder = passwordEncoder;
                 this.roleRepository = roleRepository;
                 this.imageRepository = imageRepository;
+                this.messageRepository = messageRepository;
         }
 
         @PostConstruct
         public void init() {
-                if (userRepository.count() != 0 || propertyRepository.count() != 0 || roleRepository.count() != 0) {
+                if (userRepository.count() != 0) {
                         System.out.println("Data already present - not executing initalizer");
                         return;
                 }
@@ -72,8 +79,6 @@ public class DataInitializer {
                 Set<Role> user7Roles = new HashSet<>();
                 user7Roles.add(roleAgent);
 
-
-
                 User user1 = new User(passwordEncoder.encode("bj.123"),
                                 "Bob",
                                 "Johnson",
@@ -99,35 +104,35 @@ public class DataInitializer {
                 user3.setCreatedAt();
 
                 User user4 = new User(passwordEncoder.encode("rb.123"),
-                        "Rachel",
-                        "Brown",
-                        "rachel@email.com",
-                        user4Roles,
-                        "image4.jpg");
+                                "Rachel",
+                                "Brown",
+                                "rachel@email.com",
+                                user4Roles,
+                                "image4.jpg");
                 user4.setCreatedAt();
 
                 User user5 = new User(passwordEncoder.encode("ts.123"),
-                        "Tom",
-                        "Smith",
-                        "tomsmith@email.com",
-                        user5Roles,
-                        "image5.jpg");
+                                "Tom",
+                                "Smith",
+                                "tomsmith@email.com",
+                                user5Roles,
+                                "image5.jpg");
                 user5.setCreatedAt();
 
                 User user6 = new User(passwordEncoder.encode("kw.123"),
-                        "Karen",
-                        "White",
-                        "karen@email.com",
-                        user6Roles,
-                        "image6.jpg");
+                                "Karen",
+                                "White",
+                                "karen@email.com",
+                                user6Roles,
+                                "image6.jpg");
                 user6.setCreatedAt();
 
                 User user7 = new User(passwordEncoder.encode("am.123"),
-                        "Alex",
-                        "Martinez",
-                        "alex@email.com",
-                        user7Roles,
-                        "image7.jpg");
+                                "Alex",
+                                "Martinez",
+                                "alex@email.com",
+                                user7Roles,
+                                "image7.jpg");
                 user7.setCreatedAt();
 
                 userRepository.save(user1);
@@ -139,9 +144,11 @@ public class DataInitializer {
                 userRepository.save(user7);
 
                 /////////////////////
-                /////Properties
+                ///// Properties
                 ////////////////////
 
+                ArrayList<Image> emptyImageList = new ArrayList<Image>();
+                ArrayList<User> emptyUserList = new ArrayList<User>();
 
                 Property property1 = new Property(
                                 "3818 N Christiana Ave",
@@ -149,7 +156,9 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 3600,
                                 "Beautifully redesigned single-family home with open-concept living, chef's kitchen, spacious bedrooms, multiple balconies, and a landscaped yard in a sought-after Chicago neighborhood.",
-                                user2);
+                                user2,
+                                emptyImageList,
+                                emptyUserList);
 
                 Property property2 = new Property(
                                 "3423 N Kedzie Ave",
@@ -157,97 +166,99 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 4600,
                                 "Oversized all-brick home with 6 bedrooms, high ceilings, large kitchen, in-law suite, roof deck, and professionally landscaped yard near Belmont Blue Line in Chicago.",
-                                user6);
-
-
-                Property property3 = new Property(
-                        "1837 N Fremont St",
-                        3795000.59,
-                        "Chicago, Il",
-                        4662,
-                        "Welcome to this architectural masterpiece, nestled in the heart of Lincoln Park on the serene, tree-lined Fremont Street.",
-                        user7
-                        );
+                                user6,
+                                emptyImageList,
+                                emptyUserList);
 
                 Property property3 = new Property(
+                                "1837 N Fremont St",
+                                3795000.59,
+                                "Chicago, Il",
+                                4662,
+                                "Welcome to this architectural masterpiece, nestled in the heart of Lincoln Park on the serene, tree-lined Fremont Street.",
+                                user7,
+                                emptyImageList,
+                                emptyUserList);
+
+                Property property4 = new Property(
                                 "1234 W Addison St",
                                 750000.00,
                                 "Chicago, IL",
                                 2800,
                                 "Charming 3-bedroom home with hardwood floors, updated kitchen, and a finished basement in Lakeview.",
                                 user1,
-                                List.of(),
-                                List.of());
+                                emptyImageList,
+                                emptyUserList);
 
-                Property property4 = new Property(
+                Property property5 = new Property(
                                 "5678 S Michigan Ave",
                                 650000.00,
                                 "Chicago, IL",
                                 3200,
                                 "Spacious 4-bedroom townhouse with modern finishes, rooftop deck, and attached garage.",
                                 user2,
-                                List.of(),
-                                List.of());
+                                emptyImageList,
+                                emptyUserList);
 
-                Property property5 = new Property(
+                Property property6 = new Property(
                                 "9101 N Clark St",
                                 1200000.00,
                                 "Chicago, IL",
                                 4100,
                                 "Luxury 5-bedroom home with chef's kitchen, spa bathrooms, and a large backyard.",
                                 user3,
-                                List.of(),
-                                List.of());
+                                emptyImageList,
+                                emptyUserList);
 
-                Property property6 = new Property(
+                Property property7 = new Property(
                                 "2222 W Irving Park Rd",
                                 540000.00,
                                 "Chicago, IL",
                                 2100,
                                 "Cozy 2-bedroom condo with balcony, in-unit laundry, and heated parking.",
                                 user1,
-                                List.of(),
-                                List.of());
+                                emptyImageList,
+                                emptyUserList);
 
-                Property property7 = new Property(
+                Property property8 = new Property(
                                 "3333 E 79th St",
                                 480000.00,
                                 "Chicago, IL",
                                 1900,
                                 "Renovated bungalow with open floor plan, new appliances, and finished basement.",
                                 user2,
-                                List.of(),
-                                List.of());
+                                emptyImageList,
+                                emptyUserList);
 
-                Property property8 = new Property(
+                Property property9 = new Property(
                                 "4444 W Belmont Ave",
                                 830000.00,
                                 "Chicago, IL",
                                 3500,
                                 "Modern 4-bedroom home with smart features, fenced yard, and two-car garage.",
                                 user3,
-                                List.of(),
-                                List.of());
+                                emptyImageList,
+                                emptyUserList);
 
-                Property property9 = new Property(
+                Property property10 = new Property(
                                 "5555 S State St",
                                 720000.00,
                                 "Chicago, IL",
                                 3000,
                                 "Classic brick home with updated kitchen, hardwood floors, and large patio.",
                                 user1,
-                                List.of(),
-                                List.of());
+                                emptyImageList,
+                                emptyUserList);
 
-                Property property10 = new Property(
+                Property property11 = new Property(
                                 "6666 N Sheridan Rd",
                                 950000.00,
                                 "Chicago, IL",
                                 3700,
                                 "Elegant 4-bedroom residence with lake views, gourmet kitchen, and finished attic.",
                                 user2,
-                                List.of(),
-                                List.of());
+                                emptyImageList,
+                                emptyUserList);
 
                 propertyRepository.save(property1);
                 propertyRepository.save(property2);
@@ -259,7 +270,6 @@ public class DataInitializer {
                 propertyRepository.save(property8);
                 propertyRepository.save(property9);
                 propertyRepository.save(property10);
-
 
                 //////////////////////
                 /// Images
@@ -287,37 +297,37 @@ public class DataInitializer {
                 imageRepository.save(image9);
                 imageRepository.save(image10);
 
-                property1.addToPropertyImages(image1);
-                property2.addToPropertyImages(image2);
-                property3.addToPropertyImages(image3);
-                property4.addToPropertyImages(image4);
-                property5.addToPropertyImages(image5);
-                property6.addToPropertyImages(image6);
-                property7.addToPropertyImages(image7);
-                property8.addToPropertyImages(image8);
-                property9.addToPropertyImages(image9);
-                property10.addToPropertyImages(image10);
-          
+                // property1.addToPropertyImages(image1);
+                // property2.addToPropertyImages(image2);
+                // property3.addToPropertyImages(image3);
+                // property4.addToPropertyImages(image4);
+                // property5.addToPropertyImages(image5);
+                // property6.addToPropertyImages(image6);
+                // property7.addToPropertyImages(image7);
+                // property8.addToPropertyImages(image8);
+                // property9.addToPropertyImages(image9);
+                // property10.addToPropertyImages(image10);
 
                 /////////////
-                //Messages
+                // Messages
                 /////////////
 
                 Message message1 = new Message(user1,
-                        user2,
-                        "Hi! I am interested in learning more about the property",
-                        property1,
-                        null);
-                user2.getMessagesSent().add(message1);
+                                user2,
+                                "Hi! I am interested in learning more about the property",
+                                property1,
+                                null);
 
                 Message message3 = new Message(
-                        user4,
-                        user6,
-                        "Is the property at 3423 N Kedzie Ave still available?",
-                        property2,
-                        "Yes it is!");
-                user4.getMessagesSent().add(message3);
+                                user4,
+                                user6,
+                                "Is the property at 3423 N Kedzie Ave still available?",
+                                property2,
+                                "Yes it is!");
 
+                // Save messages using a MessageRepository (assume it's injected like others)
+                messageRepository.save(message1);
+                messageRepository.save(message3);
         }
 
 }
