@@ -1,6 +1,7 @@
 body {
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   font-family: 'Inter', sans-serif;
   background-color: #F5F5D5;
@@ -19,6 +20,8 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   background-color: rgb(53, 74, 47);
+  margin-left: 20px;
+  margin-bottom: 20px;
 
 }
 
@@ -42,8 +45,8 @@ body {
 
 .profile-pic {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100%;Btw
+  object-fit: contain;
 }
 
 .profile-pic-text {
