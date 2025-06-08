@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -7,22 +6,25 @@
     <title>My Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/profile.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
 
 
 </head>
 <body>
+<header th:replace="fragments :: header(showButton=true)"></header>
 <div class="profile-container">
     <div class="profile-header-container">
         <div class="profile-pic-container">
-            <img th:if="${u.profilePicture} != null"
-                 th:src="@{u.profilePicture}"
+            <img th:if="${user.profilePicture != null}"
+                 th:src="@{'/profile-pictures/' + ${user.profilePicture}}"
                  alt="Profile"
+                 class="profile-pic"
             >
-            <img th:if="${u.profilePicture == null}"
-                 src="default.jpg"
+            <img th:if="${user.profilePicture == null}"
+                 th:src="@{/images/default.jpg}"
                  alt="Default Profile"
+                 class="profile-pic"
             >
 
         </div>
@@ -32,15 +34,15 @@
         <li class="profile-info-id">First Name: <span class="profile-info" th:text="${user.firstName}"></span></li>
         <li class="profile-info-id">Last Name: <span class="profile-info" th:text="${user.lastName}"></span></li>
         <li class="profile-info-id">Email: <span class="profile-info" th:text="${user.email}"></span></li>
-        <li class="profile-info-id">Role: <span class="profile-info" th:text="${user.role}"></span></li>
+        <li class="profile-info-id">Role: <span class="profile-info" th:each="role : ${user.roles}" th:text="${role.name}"></span></li>
     </ul>
     <div class="buttons" style="margin-top: 60px;">
         <a th:href="@{/editprofile}">
-            <button class="btn" style="background-color: white; color: rgb(92, 114, 74);">Edit Profile</button>
+            <button class="btn" style="background-color: white; color: var(--dark-green);">Edit Profile</button>
         </a>
 
-        <a th:href="@{/dashboard}">
-            <button class="btn">Back to Dashboard</button>
+        <a th:href="@{/user/dashboard}">
+            <button class="btn" style="background-color: var(--light-beige); color: var(--dark-green);">Back to Dashboard</button>
         </a>
 
     </div>
