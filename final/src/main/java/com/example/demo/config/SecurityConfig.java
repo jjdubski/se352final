@@ -30,8 +30,8 @@ public class SecurityConfig {
 
     @Autowired
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
-                          CustomUserDetailsService userDetailsService,
-                          GlobalRateLimiterFilter globalRateLimiterFilter) {
+            CustomUserDetailsService userDetailsService,
+            GlobalRateLimiterFilter globalRateLimiterFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
         this.globalRateLimiterFilter = globalRateLimiterFilter;
@@ -48,22 +48,19 @@ public class SecurityConfig {
 
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/login", "/register", "/dashboard").permitAll()
                         .requestMatchers("/", "/index", "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                        .requestMatchers("profile/**", "logout", "dashboard").hasAnyRole("BUYER", "AGENT", "ADMIN")
+                        .requestMatchers("properties/list", "properties/view/**", "messages/buyer").hasRole("BUYER")
+                        .requestMatchers("/properties/manage", "/properties/add", "/properties/edit/**", "/messages/agent", "/messages/*").hasRole("AGENT")
                         .requestMatchers("users/admin", "users/admin/**", "register/agent").hasRole("ADMIN")
-                        .requestMatchers("properties/manage", "properties/add").hasRole("AGENT")
-//                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("/api/manager/**").hasRole("MANAGER")
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())  // Handles 401 errors
-                        .accessDeniedHandler(new CustomAccessDeniedHandler())
-                )
-                .addFilterBefore(jwtAuthenticationFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
-
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // Handles 401 errors
+                        .accessDeniedHandler(new CustomAccessDeniedHandler()))
+                .addFilterBefore(jwtAuthenticationFilter,
+                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -82,5 +79,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
-

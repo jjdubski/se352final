@@ -13,56 +13,56 @@
 
 <div class="dashboard">
     <h1 class="dashboard-title">Welcome, <span class="name" th:text="${user.firstName}"></span>!</h1>
-    <p class="dashboard-subtitle"><span class="role" th:each="role : ${user.roles}" th:text="${role.name}"></span> Dashboard</p>
+    <p class="dashboard-subtitle"><span class="role" th:text="${user.roles[0].name}"></span> Dashboard</p>
 
-    <h1 th:text="${role}"></h1>
+    <h1 th:text="${user.roles[0].name}"></h1>
     <div>
     <!-- BUYER view -->
-        <div class="card-row" th:if="${role == 'BUYER'}">
-            <a th:href="@{/properties}">
+        <div class="card-row" th:if="${user.roles[0].name == 'BUYER'}">
+            <a th:href="@{/properties/list}">
                 <button class="dash-btn" style="background-color: var(--light-green);">Browse Properties »</button>
             </a>
         </div>
 
-        <div class="card-row" th:if="${role == 'BUYER'}">
+        <div class="card-row" th:if="${user.roles[0].name == 'BUYER'}">
             <a th:href="@{/favorites}">
                 <button class="dash-btn" style="background-color: var(--mid-green);">Saved Favorites »<span class="dash-num" th:text="${user.propertiesFavorited.size()}"></span></button>
             </a>
         </div>
 
-<!--        <div class="card-row" th:if="${role == 'BUYER'}">-->
-<!--            <a th:href="@{/messages}">-->
-<!--                <button class="dash-btn" style="background-color: var(&#45;&#45;dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>-->
-<!--            </a>-->
-<!--        </div>-->
+        <div class="card-row" th:if="${user.roles[0].name == 'BUYER'}">
+            <a th:href="@{/messages/buyer}">
+                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
+            </a>
+        </div>
 
     <!-- AGENT view -->
-        <div class="card-row" th:if="${role == 'AGENT'}">
+        <div class="card-row" th:if="${user.roles[0].name == 'AGENT'}">
             <a th:href="@{/agent/listings}">
                 <button class="dash-btn" style="background-color: var(--light-green);">Manage Listings »</button>
             </a>
         </div>
 
-        <div class="card-row" th:if="${role == 'AGENT'}">
+        <div class="card-row" th:if="${user.roles[0].name == 'AGENT'}">
             <a th:href="@{/properties/add}">
                 <button class="dash-btn" style="background-color: var(--mid-green);">Add New Property »</button>
             </a>
         </div>
 
-        <div class="card-row" th:if="${role == 'AGENT' || role == 'BUYER'}">
-            <a th:href="@{/messages}">
+        <div class="card-row" th:if="${user.roles[0].name == 'AGENT'}">
+            <a th:href="@{/messages/agent}">
                 <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
             </a>
         </div>
 
     <!-- ADMIN view -->
-        <div class="card-row" th:if="${role == 'ADMIN'}">
+        <div class="card-row" th:if="${user.roles[0].name == 'ADMIN'}">
             <a th:href="@{/users/admin}">
                 <button class="dash-btn" style="background-color: var(--light-green);">Manage Users »</button>
             </a>
         </div>
 
-        <div class="card-row" th:if="${role == 'ADMIN'}">
+        <div class="card-row" th:if="${user.roles[0].name == 'ADMIN'}">
             <a th:href="@{/users/admin/create-agent}">
                 <button class="dash-btn" style="background-color: var(--mid-green);">Create Agent »</button>
             </a>

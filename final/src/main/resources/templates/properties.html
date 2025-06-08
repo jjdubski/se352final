@@ -1,6 +1,6 @@
 <!--Jake Waksmanski-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,16 +12,16 @@
         Available Properties <span th:text="'(' + ${properties.size()} + ')'"></span>
     </div>
     <div th:each="property : ${properties}" class="property-card">
-        <img th:src="${property.imageUrl}" alt="Property Img" class="property-img"/>
+        <img th:src="@{'/images/' + ${property.propertyImages[0].imageFileName}}" alt="Property Img" class="property-img"/>
         <div class="property-info">
-            <div class="property-address" th:text="${property.address}">Address</div>
-            <div class="property-city" th:text="${property.location}">Location</div>
-            <div class="property-size" th:text="${property.size} + ' sq ft'">Size (sq ft)</div>
+            <div class="property-address" th:text="${property.title}">Title</div>
+            <div class="property-city" th:text="${property.location}">Address</div>
+            <div class="property-size" th:text="${property.size + ' sq ft'}">Size (sq ft)</div>
         </div>
         <div>
             <div class="property-price" th:text="${property.price}">Price</div>
             <div class="property-actions">
-                <a th:href="@{'/properties/' + ${property.id}}" class="view-btn">View Details &rarr;</a>
+                <a th:href="@{'/properties/view/' + ${property.id}}" class="view-btn">View Details &rarr;</a>
             </div>
         </div>
     </div>
