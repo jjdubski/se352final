@@ -26,7 +26,7 @@ public class Message {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
-    @Column
+    @Column(nullable = true)
     private String reply;
 
     public Message() {
@@ -37,6 +37,7 @@ public class Message {
         this.recipient = recipient;
         this.content = content;
         this.property = property;
+        this.timestamp = LocalDateTime.now();
         this.reply = reply;
     }
 

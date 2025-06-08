@@ -35,23 +35,25 @@ public class Property {
     private User listingAgent;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Image> propertyImages = new ArrayList<>();
+    private List<Image> propertyImages;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<User> usersFavorited = new ArrayList<>();
+    private List<User> usersFavorited;
 
     public Property() {
     }
 
     public Property(String title, Double price, String location,
-                    Integer size, String description, User listingAgent
-                    ) {
+            Integer size, String description, User listingAgent,
+            List<Image> propertyImages, List<User> usersFavorited) {
         this.title = title;
         this.price = price;
         this.location = location;
         this.size = size;
         this.description = description;
         this.listingAgent = listingAgent;
+        this.propertyImages = propertyImages;
+        this.usersFavorited = usersFavorited;
     }
 
     public Long getId() {
@@ -118,20 +120,21 @@ public class Property {
         return usersFavorited;
     }
 
-    public void addToPropertyImages(Image image){
-        this.propertyImages.add(image);
-        image.setProperty(this);
-    }
+    // has to be done through service/repository
+     public void addToPropertyImages(Image image) {
+         this.propertyImages.add(image);
+         image.setProperty(this);
+     }
 
-    public void removePropertyImage(Image image){
-        this.propertyImages.remove(image);
-    }
+     public void removePropertyImage(Image image) {
+         this.propertyImages.remove(image);
+     }
 
-    public void addToUsersFavorited(User user){
+    public void addToUsersFavorited(User user) {
         this.usersFavorited.add(user);
     }
 
-    public void removeFromUsersFavorited(User user ){
+    public void removeFromUsersFavorited(User user) {
         this.usersFavorited.add(user);
     }
 }
