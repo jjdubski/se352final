@@ -1,0 +1,95 @@
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  background-color: #F5F5D5;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 2rem;
+
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+}
+
+thead{
+    background-color: var(--light-green);
+}
+
+.dashboard-title {
+    font-size: 2rem;
+    color: var(--dark-green);
+    font-weight: 800;
+}
+
+.user-table {
+  box-shadow: 0 2px 12px black;
+  border-radius: 10px;
+  background-color: white;
+}
+
+table {
+  border-spacing: 0 12px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+    padding: 10px 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+tr {
+    border-bottom: 1px solid #ccc;
+}
+
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.profile {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.delete-btn {
+ background-color: red;
+ padding: 12px 24px;
+ border: none;
+ border-radius: 20px;
+ cursor: pointer;
+ font-weight: bold;
+ margin: 2rem;
+
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+.delete-btn.outline {
+  background-color: white;
+  color: red;
+  border: 2px solid red;
+}

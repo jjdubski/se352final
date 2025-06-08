@@ -32,7 +32,7 @@
 
         <div class="card-row" th:if="${user.roles[0].name == 'BUYER'}">
             <a th:href="@{/messages/buyer}">
-                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
+                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${messages.size()}"></span></button>
             </a>
         </div>
 
@@ -51,7 +51,7 @@
 
         <div class="card-row" th:if="${user.roles[0].name == 'AGENT'}">
             <a th:href="@{/messages/agent}">
-                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${user.messagesReceived.size()}"></span></button>
+                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${messages.size()}"></span></button>
             </a>
         </div>
 
