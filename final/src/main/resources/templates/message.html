@@ -4,23 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Message Details</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/message.css}" />
 </head>
 <body>
 <header th:replace="fragments :: header(showButton=true)"></header>
-<div>
+<div class="message-container">
     <h1>Message Details</h1>
-    <div>
+    <div class="message-details">
         <div>
             <label>Property:</label>
-            <span th:text="${message.property}"></span>
+            <span th:text="${message.property.title}"></span>
         </div>
         <div>
             <label>From:</label>
-            <span th:text="${message.sender}"></span>
+            <span th:text="${message.sender.firstName} + ' ' + ${message.sender.lastName}"></span>
         </div>
         <div>
             <label>Sent At:</label>
-            <span th:text="${message.sentAt}"></span>
+            <span th:text="${message.timestamp}"></span>
         </div>
         <hr>
         <div>

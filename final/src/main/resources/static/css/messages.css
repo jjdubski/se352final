@@ -18,8 +18,8 @@ body{
 }
 
 .messages-container h1 {
-    color: var(--dark-green);
-    background-color: white;
+    background-color: var(--mid-green);
+    color: white;
     font-size: 2rem;
     padding: 10px 20px;
     border-radius: 50px;

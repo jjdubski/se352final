@@ -28,7 +28,7 @@
                         <td th:text="${msg.sender.firstName} + ' ' + ${msg.sender.lastName}">Buyer Name</td>                    <td th:text="${msg.content}">Message content</td>
                         <td th:text="${msg.timestamp}">2025-01-01 12:00</td>
                         <td class="actions-cell">
-                            <form th:action="@{/messages/view/{id}(id=${msg.id})}" method="get">
+                            <form th:action="@{/messages/{id}(id=${msg.id})}" method="get">
                                 <button type="submit" class="view-btn">
                                     View
                                 </button>
