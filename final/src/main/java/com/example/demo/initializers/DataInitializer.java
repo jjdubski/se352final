@@ -220,16 +220,16 @@ public class DataInitializer {
                 // imageRepository.save(image2);
                 // imageRepository.save(image3);
 
-                Image image1 = new Image("springboot.webp", property1);
-                Image image2 = new Image("springboot.webp", property2);
-                Image image3 = new Image("springboot.webp", property3);
-                Image image4 = new Image("springboot.webp", property4);
-                Image image5 = new Image("springboot.webp", property5);
-                Image image6 = new Image("springboot.webp", property6);
-                Image image7 = new Image("springboot.webp", property7);
-                Image image8 = new Image("springboot.webp", property8);
-                Image image9 = new Image("springboot.webp", property9);
-                Image image10 = new Image("springboot.webp", property10);
+                Image image1 = new Image("house.png", property1);
+                Image image2 = new Image("house.png", property2);
+                Image image3 = new Image("house.png", property3);
+                Image image4 = new Image("house.png", property4);
+                Image image5 = new Image("house.png", property5);
+                Image image6 = new Image("house.png", property6);
+                Image image7 = new Image("house.png", property7);
+                Image image8 = new Image("house.png", property8);
+                Image image9 = new Image("house.png", property9);
+                Image image10 = new Image("house.png", property10);
 
                 imageRepository.save(image1);
                 imageRepository.save(image2);
