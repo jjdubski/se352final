@@ -19,6 +19,10 @@ a {
     color: inherit;
 }
 
+button {
+    cursor: pointer;
+}
+
 .navbar {
     display: flex;
     justify-content: flex-start;
@@ -59,6 +63,8 @@ a {
 
 .logo-text {
     font-size: 2rem;
+    font-family: Inter, sans-serif;
+    font-weight: 300;
     color: rgb(53, 74, 47);
 }
 
