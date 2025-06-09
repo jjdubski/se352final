@@ -136,7 +136,7 @@ public class AppController {
     }
 
     // edit profile
-    @PutMapping("/profile/edit")
+    @PostMapping("/profile/edit")
     @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String updateSettings(@ModelAttribute("user") User updatedUser,
             @RequestParam(required = false) String password,
@@ -222,20 +222,25 @@ public class AppController {
         return "users";
     }
 
-    @PutMapping("/user/add")
+    @GetMapping("/user/add")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @ResponseBody
-    public String updateUser(Model model) {
+    public String addUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "addUser";
     }
 
-    @DeleteMapping("/user/delete/{email}")
+    @PostMapping("/user/delete/{email}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String deleteUser(@PathVariable String email) {
-        userService.delete(email);
-        return "delete";
+    public String deleteUser(@PathVariable String email,
+            RedirectAttributes redirectAttributes) {
+        try {
+            userService.delete(email);
+            redirectAttributes.addFlashAttribute("message", "User deleted successfully.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "User deletion failed:" + e.getMessage());
+        }
+        return "redirect:/users/admin";
     }
 
     // ====PROPERTIES====
@@ -254,13 +259,13 @@ public class AppController {
         }
         return "redirect:/property";
     }
-    
+
     // property pic deletion
     @PostMapping("/property/{id}/delete-property-picture")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String deleteProperyPicture(@PathVariable Long id,
-                                       @RequestParam("image") Image propertyImage,
-                                       RedirectAttributes redirectAttributes){
+            @RequestParam("image") Image propertyImage,
+            RedirectAttributes redirectAttributes) {
         try {
             String filename = propertyService.deletePropertyImage(id, propertyImage);
             redirectAttributes.addFlashAttribute("message", "Property picture uploaded: " + filename);
@@ -359,7 +364,7 @@ public class AppController {
     @PostMapping("/properties/add")
     @PreAuthorize("hasAnyRole('AGENT')")
     public String addNewProperty(@ModelAttribute("property") Property property,
-            //@RequestParam(value = "file", required = false) List<MultipartFile> files,
+            // @RequestParam(value = "file", required = false) List<MultipartFile> files,
             RedirectAttributes redirectAttributes) {
 
         try {

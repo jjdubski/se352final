@@ -23,8 +23,7 @@ public class DataInitializer {
         private final RoleRepository roleRepository;
         private final ImageRepository imageRepository;
         private final MessageRepository messageRepository;
-    //    private final FavoritesRepository favoritesRepository;
-
+        // private final FavoritesRepository favoritesRepository;
 
         public DataInitializer(PropertyRepository propertyRepository, UserRepository userRepository,
                         PasswordEncoder passwordEncoder, RoleRepository roleRepository,
@@ -35,7 +34,7 @@ public class DataInitializer {
                 this.roleRepository = roleRepository;
                 this.imageRepository = imageRepository;
                 this.messageRepository = messageRepository;
-               // this.favoritesRepository = favoritesRepository;
+                // this.favoritesRepository = favoritesRepository;
         }
 
         @PostConstruct
@@ -296,16 +295,16 @@ public class DataInitializer {
                 imageRepository.save(image9);
                 imageRepository.save(image10);
 
-                 property1.addToPropertyImages(image1);
-                 property2.addToPropertyImages(image2);
-                 property3.addToPropertyImages(image3);
-                 property4.addToPropertyImages(image4);
-                 property5.addToPropertyImages(image5);
-                 property6.addToPropertyImages(image6);
-                 property7.addToPropertyImages(image7);
-                 property8.addToPropertyImages(image8);
-                 property9.addToPropertyImages(image9);
-                 property10.addToPropertyImages(image10);
+                property1.addToPropertyImages(image1);
+                property2.addToPropertyImages(image2);
+                property3.addToPropertyImages(image3);
+                property4.addToPropertyImages(image4);
+                property5.addToPropertyImages(image5);
+                property6.addToPropertyImages(image6);
+                property7.addToPropertyImages(image7);
+                property8.addToPropertyImages(image8);
+                property9.addToPropertyImages(image9);
+                property10.addToPropertyImages(image10);
 
                 /////////////
                 // Messages
@@ -393,23 +392,20 @@ public class DataInitializer {
                 messageRepository.save(message10);
 
                 //////////////////
-                ////Favorites
+                //// Favorites
                 //////////////////
-//
-//                Favorite favorite1 = new Favorite(user2, property1);
-//                Favorite favorite2 = new Favorite(user2, property4);
-//                Favorite favorite3 = new Favorite(user2, property3);
-//                Favorite favorite4 = new Favorite(user2, property6);
-//                Favorite favorite5 = new Favorite(user4, property1);
-//                favoritesRepository.save(favorite1);
-//                favoritesRepository.save(favorite2);
-//                favoritesRepository.save(favorite3);
-//                favoritesRepository.save(favorite4);
-//                favoritesRepository.save(favorite5);
-
-
+                //
+                // Favorite favorite1 = new Favorite(user2, property1);
+                // Favorite favorite2 = new Favorite(user2, property4);
+                // Favorite favorite3 = new Favorite(user2, property3);
+                // Favorite favorite4 = new Favorite(user2, property6);
+                // Favorite favorite5 = new Favorite(user4, property1);
+                // favoritesRepository.save(favorite1);
+                // favoritesRepository.save(favorite2);
+                // favoritesRepository.save(favorite3);
+                // favoritesRepository.save(favorite4);
+                // favoritesRepository.save(favorite5);
 
         }
-
 
 }

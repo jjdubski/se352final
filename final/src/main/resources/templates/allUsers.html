@@ -14,7 +14,7 @@
 <div class="container">
     <div class="header-container">
         <h1 class="dashboard-title">Manage Users</h1>
-        <a th:href="@{/user/add}" class="btn">Add New Agent</a>
+        <a th:href="@{/users/admin/create-agent}" class="btn">Add New Agent</a>
     </div>
 
     <table class="user-table">
@@ -30,18 +30,16 @@
         <tbody>
         <tr th:each="user : ${users}">
             <td class="profile-container">
-                <img class="profile"
-                     th:src="${user.profilePicture != null} ?
-                                   @{'/profile-pictures/' + ${user.profilePicture}} :
-                                   @{/images/default.jpg}"
-                     alt="Profile"/>
+               <img class="profile"
+                          th:src="${user.profilePicture != null} ? @{/profile-pictures/{pic}(pic=${user.profilePicture})} : @{/images/default.jpg}"
+                          alt="Profile"/>
             </td>
             <td th:text="${user.firstName + ' ' + user.lastName}">Full Name</td>
             <td th:text="${user.getRoles()[0].getName()}">Role</td>
             <td th:text="${user.email}">Email</td>
             <td>
-                <form method="post" th:action="@{/user/delete/${user.email}}">
-                    <input type="hidden" name="_method" value="delete" />
+                <form th:action="@{'/user/delete/' + ${user.email}}" method="post">
+                    <!-- <input type="hidden" name="_method" value="delete"/> -->
                     <button class="delete-btn" type="submit">Delete</button>
                 </form>
             </td>
