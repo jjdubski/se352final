@@ -1,0 +1,123 @@
+body {
+    background-color: var(--light-beige);
+    font-family: "Merriweather Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.favorites-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.favorites-container h1 {
+    background-color: #5C724A;
+    color: white;
+    border-radius: 40px;
+    padding: 12px 48px;
+    text-align: center;
+    width: fit-content;
+    margin: 32px auto 40px auto;
+    font-size: 2.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
+.property-card {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: flex-start;
+    padding: 24px 32px;
+    margin: 24px 0;
+    width: 90%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.property-card img {
+    width: 240px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.property-card h2 {
+    margin: 0 0 12px 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+}
+
+.property-card p {
+    margin: 4px 0;
+    font-size: 1.08rem;
+}
+
+.property-card span {
+    font-weight: 400;
+}
+
+.property-card .property-details-buttons {
+    display: flex;
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.property-card button {
+    border: none;
+    border-radius: 22px;
+    padding: 10px 28px;
+    font-size: 1.1rem;
+    font-family: inherit;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.10);
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.property-card a button {
+    background: #5C724A;
+    color: white;
+}
+
+.property-card a button:hover {
+    background: #354A2F;
+}
+
+.property-card form button {
+    background: #d60000;
+    color: white;
+}
+
+.property-card form button:hover {
+    background: #a80000;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 18px 0;
+}
+
+@media (max-width: 800px) {
+    .property-card {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+    }
+    .property-card img {
+        width: 90vw;
+        max-width: 350px;
+        height: auto;
+        margin-bottom: 18px;
+    }
+}

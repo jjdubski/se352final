@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Favorites</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/favorites.css}" />
 </head>
 <body>
     <header th:replace="fragments :: header(showButton=true)"></header>
-    <div>
+    <div class="favorites-container">
         <h1>Favorites</h1>
         <div th:if="${favorites.isEmpty()}">
             <p>No favorites added yet.</p>
@@ -17,18 +19,20 @@
                 <div>
                     <img th:src="@{'/images/' + ${property.propertyImages[0].imageFileName}}" alt="Property Image" style="width:200px; height:auto;">
                 </div>
-                <div style="margin-left: 20px;">
-                    <h2 th:text="${property.title}">Property Address</h2>
-                    <p>Price: <span th:text="${property.price}">$</span></p>
-                    <p>Location: <span th:text="${property.location}">Location</span></p>
-                    <p>Sq. Ft: <span th:text="${property.size}">Size</span></p><div></div>
-                        <a href="#" th:href="@{/property/{id}(id=${property.id})}">
+                <div>
+                    <h2 th:text="${property.address}">Property Address</h2>
+                    <p><b>Price:</b> <span th:text="${property.price}">$</span></p>
+                    <p><b>Location:</b> <span th:text="${property.location}">Location</span></p>
+                    <p><b>Sq. Ft:</b> <span th:text="${property.size}">Size</span></p>
+                    <div class="property-details-buttons">
+                        <a th:href="@{'/property/' + ${property.id}}">
                             <button>View Details</button>
                         </a>
                         <form th:action="@{/favorites/remove}" method="post">
                             <input type="hidden" name="propertyId" th:value="${property.id}"/>
-                            <button type="submit">Remove from Favorites</button>
+                            <button type="submit">Remove</button>
                         </form>
+                    </div>
                     </div>
                 </div>
             </div>

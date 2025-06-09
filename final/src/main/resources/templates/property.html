@@ -4,31 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Property Details</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/property.css}" />
 </head>
 <body>
     <header th:replace="fragments :: header(showButton=true)"></header>
-    <div>
-        <div>
-            <div class="property-header">
-                <h1 th:text="${property.title}">Address</h1>
-                <button>Add to Favorites</button>
+    <div class="property-details">
+        <div class="property-details-container">
+            <div class="property-details-left">
+                <h1 class="property-title" th:text="${property.title}">Address</h1>
+                <p class="property-description" th:text="${property.description}">Description</p>
+                <p class="property-info"><b>Price:</b> <span th:text="${property.price}">$</span></p>
+                <p class="property-info"><b>Location:</b> <span th:text="${property.location}">Location</span></p>
+                <p class="property-info"><b>Sq. Ft:</b> <span th:text="${property.size}">Size (sq ft)</span></p>
             </div>
-            <p th:text="${property.description}">Description</p>
-            <p>Price: <span th:text="${property.price}">$</span></p>
-            <p>Location: <span th:text="${property.location}">Location</span></p>
-            <p>Sq. Ft: <span th:text="${property.size}">Size (sq ft)</span></p></div>
-        <form th:action="@{/messages}" method="post">
-            <h2>Contact the Agent</h2>
-            <input type="hidden" name="property" th:value="${property.id}" />
-            <textarea name="content"></textarea>
-            <button>Send</button>
-        </form>
-        </form>
-    </div>
-    <div>
-        <h2>Property Images</h2>
-        <div>
-            <img th:each="img : ${property.propertyImages}" th:src="@{'/images/' + ${img.imageFileName}}" alt="Property Image" />
+            <div class="property-details-right">
+                <button class="favorite-btn">Add to Favorites <span class="heart">&#9825;</span></button>
+                <form th:action="@{/messages}" method="post" class="contact-agent-form">
+                    <label for="contact-agent-textarea">Contact the Agent</label>
+                    <input type="hidden" name="property" th:value="${property.id}" />
+                    <textarea id="contact-agent-textarea" name="content"></textarea>
+                    <button class="send-btn" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+        <h2 class="property-images-header">Property Images</h2>
+        <div class="property-images-list">
+            <img th:each="img : ${property.propertyImages}" th:src="@{'/images/' + ${img.imageFileName}}" alt="Property Image" class="property-image-item"/>
         </div>
     </div>
 </body>

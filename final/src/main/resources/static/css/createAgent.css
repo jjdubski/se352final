@@ -1,6 +1,7 @@
 body {
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   font-family: 'Inter', sans-serif;
   background-color: #F5F5D5;
@@ -14,9 +15,7 @@ input {
   border-radius: 40px;
   border: 1px solid #ccc;
   background-color: #5c724a1c;
-
 }
-
 
 .show-password {
   display: flex;
@@ -52,7 +51,7 @@ input {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
- label {
+label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;

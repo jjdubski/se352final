@@ -9,10 +9,10 @@
 <body>
 <header class="navbar" th:fragment="header(showButton)">
     <div class="header-content">
-        <div class="logo-container">
+        <a href="/" class="logo-container">
             <img th:src="@{/images/logo.png}" alt="HotProperties Logo" class="logo">
             <span class="logo-text">Hot Properties</span>
-        </div>
+        </a>
 
         <a th:href="@{/dashboard}" th:if="${showButton}">
             <button class="btn" type="submit">Go to Dashboard</button>

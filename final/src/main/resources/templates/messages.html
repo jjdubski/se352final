@@ -16,8 +16,9 @@
                <thead>
                     <tr>
                         <th>Property</th>
-                        <th>Buyer</th>
-                        <th>Message</th>
+                        <th th:if="${user.roles[0].name == 'AGENT'}">Buyer</th>
+                        <th th:if="${user.roles[0].name == 'AGENT'}">Message</th>
+                        <th th:if="${user.roles[0].name == 'BUYER'}">Your Message</th>
                         <th>Timestamp</th>
                         <th>Actions</th>
                     </tr>
@@ -25,11 +26,12 @@
                 <tbody>
                     <tr th:each="msg : ${messages}">
                         <td th:text="${msg.property.title}">123 Main St</td>
-                        <td th:text="${msg.sender.firstName} + ' ' + ${msg.sender.lastName}">Buyer Name</td>                    <td th:text="${msg.content}">Message content</td>
+                        <td th:if="${user.roles[0].name == 'AGENT'}" th:text="${msg.sender.firstName} + ' ' + ${msg.sender.lastName}">Buyer Name</td>
+                        <td th:text="${msg.content}">Message</td>
                         <td th:text="${msg.timestamp}">2025-01-01 12:00</td>
                         <td class="actions-cell">
                             <form th:action="@{/messages/{id}(id=${msg.id})}" method="get">
-                                <button type="submit" class="view-btn">
+                                <button th:if="${user.roles[0].name == 'AGENT'}" type="submit" class="view-btn">
                                     View
                                 </button>
                             </form>
@@ -42,6 +44,9 @@
                     </tr>
                 </tbody>
         </table>
+        <a th:href="@{/dashboard}">
+            <button class="btn" type="submit">Back to Dashboard</button>
+        </a>
     </div>
 </body>
 </html>
