@@ -14,29 +14,23 @@
         <div th:if="${favorites.isEmpty()}">
             <p>No favorites added yet.</p>
         </div>
-        <div th:each="property : ${favorites}">
-            <div class="property-card" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
-                <div>
-                    <img th:src="@{'/images/' + ${property.propertyImages[0].imageFileName}}" alt="Property Image" style="width:200px; height:auto;">
-                </div>
-                <div>
-                    <h2 th:text="${property.address}">Property Address</h2>
-                    <p><b>Price:</b> <span th:text="${property.price}">$</span></p>
-                    <p><b>Location:</b> <span th:text="${property.location}">Location</span></p>
-                    <p><b>Sq. Ft:</b> <span th:text="${property.size}">Size</span></p>
-                    <div class="property-details-buttons">
-                        <a th:href="@{'/property/' + ${property.id}}">
-                            <button>View Details</button>
-                        </a>
-                        <form th:action="@{/favorites/remove}" method="post">
-                            <input type="hidden" name="propertyId" th:value="${property.id}"/>
-                            <button type="submit">Remove</button>
-                        </form>
-                    </div>
-                    </div>
+        <div th:each="property : ${favorites}" class="property-card">
+            <img th:src="@{'/images/' + ${property.propertyImages[0].imageFileName}}" alt="Property Image">
+            <div class="property-details">
+                <h2 th:text="${property.title}">Address</h2>
+                <p><b>Price:</b> <span th:text="${property.price}">$</span></p>
+                <p><b>Location:</b> <span th:text="${property.location}">Location</span></p>
+                <p><b>Sq. Ft:</b> <span th:text="${property.size}">Size</span></p>
+                <div class="property-details-buttons">
+                    <a th:href="@{'/property/' + ${property.id}}">
+                        <button>View Details</button>
+                    </a>
+                    <form th:action="@{/favorites/remove}" method="post">
+                        <input type="hidden" name="propertyId" th:value="${property.id}"/>
+                        <button type="submit">Remove</button>
+                    </form>
                 </div>
             </div>
-            <hr/>
         </div>
     </div>
 </body>

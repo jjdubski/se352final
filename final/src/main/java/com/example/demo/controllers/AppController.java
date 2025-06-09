@@ -60,17 +60,14 @@ public class AppController {
             @RequestParam(value = "file", required = false) MultipartFile file,
             RedirectAttributes redirectAttributes) {
         try {
-            // First, register the user (this will assign them an ID)
 
             List<String> roleNames = List.of("BUYER");
             user.setCreatedAt();
             User savedUser = userService.registerNewUser(user, roleNames);
 
-            // Then, store the profile picture (if uploaded) and update the user record
             if (file != null && !file.isEmpty()) {
                 String filename = userService.storeProfilePicture(savedUser.getId(), file);
                 savedUser.setProfilePicture(filename);
-                // Save again to persist the filename
                 userService.updateUser(savedUser);
             }
 
@@ -99,16 +96,17 @@ public class AppController {
             response.addCookie(jwtCookie);
             return "redirect:/dashboard";
         } catch (BadCredentialsException e) {
-            model.addAttribute("error", "Invalid email or password");
+            model.addAttribute("errorMessage", "Invalid email or password");
             return "login";
         }
     }
 
     @GetMapping("/logout")
     @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
-    public String logout(HttpServletResponse response) {
+    public String logout(HttpServletResponse response, Model model) {
         authService.clearJwtCookie(response);
-        return "redirect:/login";
+        model.addAttribute("successMessage", "You have been logged out successfully.");
+        return "login";
     }
 
     // === DASHBOARD ====
@@ -146,17 +144,14 @@ public class AppController {
             @RequestParam(value = "file", required = false) MultipartFile file,
             RedirectAttributes redirectAttributes) {
         try {
-            // Look up the real user so we get the correct ID
             User actualUser = userService.getCurrentUser();
 
-            // Copy updates from form-bound user
             actualUser.setFirstName(updatedUser.getFirstName());
             actualUser.setLastName(updatedUser.getLastName());
             actualUser.setEmail(updatedUser.getEmail());
 
             userService.updateUserProfile(actualUser, password, addIds, removeIds);
 
-            // Save profile picture if provided
             if (file != null && !file.isEmpty()) {
                 String filename = userService.storeProfilePicture(actualUser.getId(), file);
                 actualUser.setProfilePicture(filename);
@@ -506,17 +501,13 @@ public class AppController {
             @RequestParam(value = "file", required = false) MultipartFile file,
             RedirectAttributes redirectAttributes) {
         try {
-            // First, register the user (this will assign them an ID)
-
             List<String> roleNames = List.of("AGENT");
             agent.setCreatedAt();
             User savedUser = userService.registerNewUser(agent, roleNames);
 
-            // Then, store the profile picture (if uploaded) and update the user record
             if (file != null && !file.isEmpty()) {
                 String filename = userService.storeProfilePicture(savedUser.getId(), file);
                 savedUser.setProfilePicture(filename);
-                // Save again to persist the filename
                 userService.updateUser(savedUser);
             }
 
