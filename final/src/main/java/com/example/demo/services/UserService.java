@@ -3,10 +3,14 @@ package com.example.demo.services;
 import com.example.demo.entities.Message;
 import com.example.demo.entities.Property;
 import com.example.demo.entities.User;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.beans.Transient;
 import java.util.List;
 
 public interface UserService {
@@ -38,6 +42,7 @@ public interface UserService {
 
     User getUserById(Long id);
 
+    @Transactional
     void delete(String email);
 
     @PreAuthorize("hasRole('BUYER')")
