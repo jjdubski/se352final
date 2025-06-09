@@ -21,7 +21,7 @@ body {
     text-align: center;
     width: fit-content;
     margin: 32px auto 40px auto;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
 }
@@ -32,19 +32,27 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     display: flex;
     align-items: flex-start;
-    padding: 24px 32px;
-    margin: 24px 0;
+    justify-content: space-between;
     width: 90%;
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
+    height: fit-content;
+    border: 1px solid var(--dark-green);
+    margin-bottom: 30px;
+}
+
+.property-details {
+    flex: 1;
+    align-items: flex-start;
+    margin: 20px 0px 0px 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .property-card img {
     width: 240px;
-    height: 180px;
+    height: auto;
+    aspect-ratio: 1/1;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 18px 0px 0px 18px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
@@ -100,12 +108,6 @@ body {
 
 .property-card form button:hover {
     background: #a80000;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 18px 0;
 }
 
 @media (max-width: 800px) {
