@@ -23,18 +23,18 @@ public class DataInitializer {
         private final RoleRepository roleRepository;
         private final ImageRepository imageRepository;
         private final MessageRepository messageRepository;
-        // private final FavoritesRepository favoritesRepository;
+        private final FavoriteRepository favoritesRepository;
 
         public DataInitializer(PropertyRepository propertyRepository, UserRepository userRepository,
                         PasswordEncoder passwordEncoder, RoleRepository roleRepository,
-                        ImageRepository imageRepository, MessageRepository messageRepository) {
+                        ImageRepository imageRepository, MessageRepository messageRepository, FavoriteRepository favoritesRepository) {
                 this.propertyRepository = propertyRepository;
                 this.userRepository = userRepository;
                 this.passwordEncoder = passwordEncoder;
                 this.roleRepository = roleRepository;
                 this.imageRepository = imageRepository;
                 this.messageRepository = messageRepository;
-                // this.favoritesRepository = favoritesRepository;
+                this.favoritesRepository = favoritesRepository;
         }
 
         @PostConstruct
@@ -81,7 +81,7 @@ public class DataInitializer {
                                 "Bob",
                                 "Johnson",
                                 "johnson@email.com",
-                                user2Roles,
+                                user1Roles,
                                 "image1.jpg");
                 user1.setCreatedAt();
 
@@ -89,7 +89,7 @@ public class DataInitializer {
                                 "Maria",
                                 "Jackson",
                                 "jackson@email.com",
-                                user1Roles,
+                                user2Roles,
                                 "image2.jpg");
                 user2.setCreatedAt();
 
@@ -174,7 +174,7 @@ public class DataInitializer {
                                 "Chicago, Il",
                                 4662,
                                 "Welcome to this architectural masterpiece, nestled in the heart of Lincoln Park on the serene, tree-lined Fremont Street.",
-                                user7,
+                                user6,
                                 emptyImageList,
                                 emptyUserList);
 
@@ -184,7 +184,7 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 2800,
                                 "Charming 3-bedroom home with hardwood floors, updated kitchen, and a finished basement in Lakeview.",
-                                user1,
+                                user2,
                                 emptyImageList,
                                 emptyUserList);
 
@@ -204,7 +204,7 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 4100,
                                 "Luxury 5-bedroom home with chef's kitchen, spa bathrooms, and a large backyard.",
-                                user3,
+                                user2,
                                 emptyImageList,
                                 emptyUserList);
 
@@ -214,7 +214,7 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 2100,
                                 "Cozy 2-bedroom condo with balcony, in-unit laundry, and heated parking.",
-                                user1,
+                                user6,
                                 emptyImageList,
                                 emptyUserList);
 
@@ -234,7 +234,7 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 3500,
                                 "Modern 4-bedroom home with smart features, fenced yard, and two-car garage.",
-                                user3,
+                                user6,
                                 emptyImageList,
                                 emptyUserList);
 
@@ -244,7 +244,7 @@ public class DataInitializer {
                                 "Chicago, IL",
                                 3000,
                                 "Classic brick home with updated kitchen, hardwood floors, and large patio.",
-                                user1,
+                                user2,
                                 emptyImageList,
                                 emptyUserList);
 
@@ -317,13 +317,6 @@ public class DataInitializer {
                                 property1,
                                 null);
 
-                Message message2 = new Message(
-                                user2,
-                                user1,
-                                "Thank you for your interest! Would you like to schedule a tour?",
-                                property1,
-                                null);
-
                 Message message3 = new Message(
                                 user4,
                                 user6,
@@ -339,49 +332,48 @@ public class DataInitializer {
                                 null);
 
                 Message message5 = new Message(
-                                user3,
                                 user1,
+                                user6,
                                 "Is the price negotiable for 1234 W Addison St?",
                                 property4,
                                 null);
 
                 Message message6 = new Message(
-                                user6,
-                                user2,
+                                user4,
+                                user7,
                                 "How old is the roof on 5678 S Michigan Ave?",
                                 property5,
                                 null);
 
                 Message message7 = new Message(
-                                user7,
-                                user3,
+                                user5,
+                                user6,
                                 "Are pets allowed at 9101 N Clark St?",
                                 property6,
                                 "No sorry. Pets are not allowed.");
 
                 Message message8 = new Message(
                                 user1,
-                                user2,
+                                user7,
                                 "Is there parking available at 2222 W Irving Park Rd?",
                                 property7,
                                 "No, there is no parking available.");
 
                 Message message9 = new Message(
-                                user2,
+                                user4,
                                 user6,
                                 "What are the HOA fees for 3333 E 79th St?",
                                 property8,
                                 null);
 
                 Message message10 = new Message(
-                                user3,
                                 user1,
+                                user7,
                                 "Can I schedule a viewing for 4444 W Belmont Ave?",
                                 property9,
                                 "No, the property is not available.");
 
                 messageRepository.save(message1);
-                messageRepository.save(message2);
                 messageRepository.save(message3);
                 messageRepository.save(message4);
                 messageRepository.save(message5);
@@ -390,21 +382,29 @@ public class DataInitializer {
                 messageRepository.save(message8);
                 messageRepository.save(message9);
                 messageRepository.save(message10);
+          
+                ////////////////
+                //Favorites
+                ////////////////
 
-                //////////////////
-                //// Favorites
-                //////////////////
-                //
-                // Favorite favorite1 = new Favorite(user2, property1);
-                // Favorite favorite2 = new Favorite(user2, property4);
-                // Favorite favorite3 = new Favorite(user2, property3);
-                // Favorite favorite4 = new Favorite(user2, property6);
-                // Favorite favorite5 = new Favorite(user4, property1);
-                // favoritesRepository.save(favorite1);
-                // favoritesRepository.save(favorite2);
-                // favoritesRepository.save(favorite3);
-                // favoritesRepository.save(favorite4);
-                // favoritesRepository.save(favorite5);
+                Favorite favorite1 = new Favorite(user1, property1);
+                favorite1.setCreatedAt();
+                Favorite favorite2 = new Favorite(user1, property4);
+                favorite2.setCreatedAt();
+                Favorite favorite3 = new Favorite(user1, property3);
+                favorite3.setCreatedAt();
+                Favorite favorite4 = new Favorite(user1, property6);
+                favorite4.setCreatedAt();
+                Favorite favorite5 = new Favorite(user4, property1);
+                favorite5.setCreatedAt();
+                Favorite favorite6 = new Favorite(user4, property7);
+                favorite6.setCreatedAt();
+                favoritesRepository.save(favorite1);
+                favoritesRepository.save(favorite2);
+                favoritesRepository.save(favorite3);
+                favoritesRepository.save(favorite4);
+                favoritesRepository.save(favorite5);
+                favoritesRepository.save(favorite6);
 
         }
 
