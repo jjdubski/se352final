@@ -1,0 +1,118 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--light-green);
+    font-family: "Merriweather Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.properties-header {
+    color: white;
+    background-color: var(--mid-green);
+    font-size: 2rem;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: "Inter", sans-serif;
+    font-weight: 200;
+    width: fit-content
+}
+
+.properties-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+.properties-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+    justify-items: center;
+}
+
+.property-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--light-beige);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.property-image {
+    flex: 0 0 150px;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.property-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.property-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--dark-green);
+}
+
+.property-location {
+    font-size: 1rem;
+    color: var(--mid-green);
+}
+
+.property-size {
+    font-size: 0.9rem;
+    color: var(--dark-green);
+}
+
+.property-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--dark-green);
+    margin-bottom: 10px;
+}
+
+.property-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.view-btn {
+    background-color: var(--mid-green);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.view-btn:hover {
+    background-color: var(--dark-green);
+}

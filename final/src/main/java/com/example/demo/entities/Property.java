@@ -26,7 +26,7 @@ public class Property {
     @Column(nullable = false)
     private Integer size;
 
-    @Column
+    @Column(length = 5000)
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -121,14 +121,14 @@ public class Property {
     }
 
     // has to be done through service/repository
-     public void addToPropertyImages(Image image) {
-         this.propertyImages.add(image);
-         image.setProperty(this);
-     }
+    public void addToPropertyImages(Image image) {
+        this.propertyImages.add(image);
+        image.setProperty(this);
+    }
 
-     public void removePropertyImage(Image image) {
-         this.propertyImages.remove(image);
-     }
+    public void removePropertyImage(Image image) {
+        this.propertyImages.remove(image);
+    }
 
     public void addToUsersFavorited(User user) {
         this.usersFavorited.add(user);
