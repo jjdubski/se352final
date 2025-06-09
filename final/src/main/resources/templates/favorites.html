@@ -17,7 +17,7 @@
         <div th:each="property : ${favorites}">
             <div class="property-card" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
                 <div>
-                    <img th:src="@{${property.images[0]}}" alt="Property Image" style="width:200px; height:auto;">
+                    <img th:src="@{'/images/' + ${property.propertyImages[0].imageFileName}}" alt="Property Image" style="width:200px; height:auto;">
                 </div>
                 <div>
                     <h2 th:text="${property.address}">Property Address</h2>
@@ -25,16 +25,12 @@
                     <p><b>Location:</b> <span th:text="${property.location}">Location</span></p>
                     <p><b>Sq. Ft:</b> <span th:text="${property.size}">Size</span></p>
                     <div class="property-details-buttons">
-                        <a th:href="@{/property/{id}(id=${property.id})}">
+                        <a th:href="@{'/property/' + ${property.id}}">
                             <button>View Details</button>
                         </a>
-                        <form th:if="${property.favorited}" th:action="@{/favorites/remove}" method="post">
+                        <form th:action="@{/favorites/remove}" method="post">
                             <input type="hidden" name="propertyId" th:value="${property.id}"/>
                             <button type="submit">Remove</button>
-                        </form>
-                        <form th:if="${!property.favorited}" th:action="@{/favorites/add}" method="post">
-                            <input type="hidden" name="propertyId" th:value="${property.id}"/>
-                            <button type="submit">Add to Favorites</button>
                         </form>
                     </div>
                     </div>

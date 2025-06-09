@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.entities.Favorite;
 import com.example.demo.entities.Message;
 import com.example.demo.entities.Property;
 import com.example.demo.entities.User;
@@ -35,7 +36,8 @@ public interface UserService {
     @PreAuthorize("isAuthenticated()")
     User getCurrentUser();
 
-    List<Message> findMessagesForUser(User user);
+    List<Message> findMessagesForBuyer(User user);
+    List<Message> findMessagesForAgent(User user);
 
     @PreAuthorize("isAuthenticated()")
     List<Property> getFavorites();
@@ -49,4 +51,6 @@ public interface UserService {
     Message sendMessage(Message message);
 
     Message findMessage(Long id);
+
+    void sendMessageReply(Message message, String reply);
 }

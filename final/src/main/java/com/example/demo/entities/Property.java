@@ -135,6 +135,6 @@ public class Property {
     }
 
     public void removeFromUsersFavorited(User user) {
-        this.usersFavorited.add(user);
+        this.usersFavorited.remove(user);
     }
 }

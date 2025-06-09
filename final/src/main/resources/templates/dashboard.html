@@ -26,13 +26,13 @@
 
         <div class="card-row" th:if="${user.roles[0].name == 'BUYER'}">
             <a th:href="@{/favorites}">
-                <button class="dash-btn" style="background-color: var(--mid-green);">Saved Favorites »<span class="dash-num" th:text="${user.propertiesFavorited.size()}"></span></button>
+                <button class="dash-btn" style="background-color: var(--mid-green);">Saved Favorites »<span class="dash-num" th:text="${favorites.size()}"></span></button>
             </a>
         </div>
 
         <div class="card-row" th:if="${user.roles[0].name == 'BUYER'}">
             <a th:href="@{/messages/buyer}">
-                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${messages.size()}"></span></button>
+                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${buyermessages.size()}"></span></button>
             </a>
         </div>
 
@@ -51,7 +51,7 @@
 
         <div class="card-row" th:if="${user.roles[0].name == 'AGENT'}">
             <a th:href="@{/messages/agent}">
-                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${messages.size()}"></span></button>
+                <button class="dash-btn" style="background-color: var(--dark-green);">View Messages » <span class="dash-num" th:text="${agentmessages.size()}"></span></button>
             </a>
         </div>
 
@@ -73,6 +73,13 @@
                 <button class="dash-btn" style="background-color: gray; color: white;">View Profile »</button>
             </a>
         </div>
+
+        <div class="card-row">
+            <form th:action="@{/logout}" method="post">
+                <button class="dash-btn" style="background-color: red; color: white;" type="submit">Log Out</button>
+            </form>
+        </div>
+
     </div>
 </div>
 </body>

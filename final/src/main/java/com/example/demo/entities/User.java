@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import com.example.demo.repositories.FavoriteRepository;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -42,7 +43,7 @@ public class User {
     private List<Property> propertiesListed;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Property> propertiesFavorited;
+    private List<Favorite> propertiesFavorited;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Message> messagesSent;
@@ -140,16 +141,11 @@ public class User {
 
     }
 
-    public List<Property> getPropertiesFavorited() {
-        return propertiesFavorited;
-    }
 
     //
     // }
     //
-    public void setPropertiesFavorited(List<Property> propertiesFavorited) {
-        this.propertiesFavorited = propertiesFavorited;
-    }
+
 
     public List<Message> getMessagesSent() {
         return messagesSent;
