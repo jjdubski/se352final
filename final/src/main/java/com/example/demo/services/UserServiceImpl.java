@@ -1,8 +1,12 @@
 package com.example.demo.services;
 
+import com.example.demo.exceptions.InvalidMessageParameterException;
 import com.example.demo.exceptions.MessageNotFoundException;
 import com.example.demo.repositories.*;
 import com.example.demo.utils.CurrentUserContext;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 //import com.example.demo.entities.Role;
 import com.example.demo.entities.*;
 
+import java.beans.Transient;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -182,7 +187,7 @@ public class UserServiceImpl implements UserService {
     public Message sendMessage(Message message) {
         User sender = getCurrentUserContext().user();
         Optional<Property> propertyOpt = propertyRepository.findById(message.getProperty().getId());
-        if(propertyOpt.isEmpty()) {
+        if (propertyOpt.isEmpty()) {
             throw new RuntimeException("Property not found with id: " + message.getProperty().getId());
         }
         message.setSender(sender);
@@ -197,6 +202,15 @@ public class UserServiceImpl implements UserService {
             throw new MessageNotFoundException("No message found with id: " + id);
         }
         return message.get();
+    }
+
+    @Override
+    public void sendMessageReply(Message message, String reply) {
+        message.setReply(reply);
+        if (message.getReply() == null || message.getReply().isBlank()) {
+            throw new InvalidMessageParameterException("Reply must contain text.");
+        }
+        messageRepository.save(message);
     }
 
     @Override
@@ -221,9 +235,14 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional
     @Override
     public void delete(String email) {
-        userRepository.deleteByEmail(email);
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found: " + email);
+        }
+        userRepository.delete(user);
     }
 
 }

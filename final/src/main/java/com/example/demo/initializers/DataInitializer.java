@@ -25,7 +25,6 @@ public class DataInitializer {
         private final MessageRepository messageRepository;
         private final FavoriteRepository favoritesRepository;
 
-
         public DataInitializer(PropertyRepository propertyRepository, UserRepository userRepository,
                         PasswordEncoder passwordEncoder, RoleRepository roleRepository,
                         ImageRepository imageRepository, MessageRepository messageRepository, FavoriteRepository favoritesRepository) {
@@ -296,16 +295,16 @@ public class DataInitializer {
                 imageRepository.save(image9);
                 imageRepository.save(image10);
 
-                 property1.addToPropertyImages(image1);
-                 property2.addToPropertyImages(image2);
-                 property3.addToPropertyImages(image3);
-                 property4.addToPropertyImages(image4);
-                 property5.addToPropertyImages(image5);
-                 property6.addToPropertyImages(image6);
-                 property7.addToPropertyImages(image7);
-                 property8.addToPropertyImages(image8);
-                 property9.addToPropertyImages(image9);
-                 property10.addToPropertyImages(image10);
+                property1.addToPropertyImages(image1);
+                property2.addToPropertyImages(image2);
+                property3.addToPropertyImages(image3);
+                property4.addToPropertyImages(image4);
+                property5.addToPropertyImages(image5);
+                property6.addToPropertyImages(image6);
+                property7.addToPropertyImages(image7);
+                property8.addToPropertyImages(image8);
+                property9.addToPropertyImages(image9);
+                property10.addToPropertyImages(image10);
 
                 /////////////
                 // Messages
@@ -383,7 +382,7 @@ public class DataInitializer {
                 messageRepository.save(message8);
                 messageRepository.save(message9);
                 messageRepository.save(message10);
-
+          
                 ////////////////
                 //Favorites
                 ////////////////
@@ -407,9 +406,6 @@ public class DataInitializer {
                 favoritesRepository.save(favorite5);
                 favoritesRepository.save(favorite6);
 
-
-
         }
-
 
 }
