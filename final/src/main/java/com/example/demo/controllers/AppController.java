@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+
 @Controller
 public class AppController {
     private final AuthService authService;
@@ -136,7 +137,7 @@ public class AppController {
     }
 
     // edit profile
-    @PutMapping("/profile/edit")
+    @PostMapping("/profile/edit")
     @PreAuthorize("hasAnyRole('BUYER', 'AGENT', 'ADMIN')")
     public String updateSettings(@ModelAttribute("user") User updatedUser,
             @RequestParam(required = false) String password,
@@ -410,8 +411,8 @@ public class AppController {
     @GetMapping("/favorites")
     @PreAuthorize("hasAnyRole('BUYER')")
     public String favorites(Model model) {
-        List<Property> properties = userService.getFavorites();
-        model.addAttribute("favorites", properties);
+        List<Property> favorites = userService.getFavorites();
+       model.addAttribute("favorites", favorites);
         return "favorites";
     }
 
@@ -422,7 +423,7 @@ public class AppController {
     @PreAuthorize("hasAnyRole('AGENT')")
     public String allMessagesAgent(Model model) {
         User user = userService.getCurrentUser();
-        List<Message> messages = userService.findMessagesForUser(user);
+        List<Message> messages = userService.findMessagesForAgent(user);
         model.addAttribute("user", user);
         model.addAttribute("messages", messages);
         return "messages";
@@ -432,7 +433,7 @@ public class AppController {
     @PreAuthorize("hasAnyRole('BUYER')")
     public String allMessagesBuyer(Model model) {
         User user = userService.getCurrentUser();
-        List<Message> messages = userService.findMessagesForUser(user);
+        List<Message> messages = userService.findMessagesForBuyer(user);
         model.addAttribute("user", user);
         model.addAttribute("messages", messages);
         return "messages";

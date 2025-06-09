@@ -1,10 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.exceptions.MessageNotFoundException;
-import com.example.demo.repositories.MessageRepository;
-import com.example.demo.repositories.PropertyRepository;
-import com.example.demo.repositories.RoleRepository;
-import com.example.demo.repositories.UserRepository;
+import com.example.demo.repositories.*;
 import com.example.demo.utils.CurrentUserContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,10 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,14 +28,16 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final MessageRepository messageRepository;
+    private final FavoriteRepository favoriteRepository;
 
     public UserServiceImpl(UserRepository userRepository, PropertyRepository propertyRepository, RoleRepository roleRepository,
-            MessageRepository messageRepository, PasswordEncoder passwordEncoder) {
+            MessageRepository messageRepository, PasswordEncoder passwordEncoder, FavoriteRepository favoriteRepository) {
         this.userRepository = userRepository;
         this.propertyRepository = propertyRepository;
         this.roleRepository = roleRepository;
         this.messageRepository = messageRepository;
         this.passwordEncoder = passwordEncoder;
+        this.favoriteRepository = favoriteRepository;
     }
 
     private CurrentUserContext getCurrentUserContext() {
@@ -58,10 +54,15 @@ public class UserServiceImpl implements UserService {
     public void prepareDashboardModel(Model model) {
         CurrentUserContext context = getCurrentUserContext();
         User user = context.user();
-        List<Message> messages = findMessagesForUser(user);
+        List<Message> buyermessages = findMessagesForBuyer(user);
+        List<Message> agentmessages = findMessagesForAgent(user);
+        List<Favorite> favorites = favoriteRepository.findByBuyer(user);
+
         model.addAttribute("user", user);
         model.addAttribute("authorization", context.auth());
-        model.addAttribute("messages", messages);
+        model.addAttribute("buyermessages", buyermessages);
+        model.addAttribute("favorites", favorites);
+        model.addAttribute("agentmessages", agentmessages);
     }
 
     @Override
@@ -166,9 +167,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Message> findMessagesForUser(User user) {
+    public List<Message> findMessagesForAgent(User user) {
         return messageRepository.findByRecipient(user);
     }
+
+    @Override
+    public List<Message> findMessagesForBuyer(User user){
+        return messageRepository.findBySender(user);
+    }
+
+
 
     @Override
     public Message sendMessage(Message message) {
@@ -199,7 +207,12 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("User not found: " + email);
         }
         User user = userRepository.findByEmail(email);
-        return user.getPropertiesFavorited();
+        List<Favorite> favorites = favoriteRepository.findByBuyer(user);
+        List<Property> properties = new ArrayList<>();
+        for (Favorite favorite : favorites){
+            properties.add(favorite.getProperty());
+        }
+        return properties;
     }
 
     @Override
