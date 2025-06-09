@@ -44,4 +44,6 @@ public interface UserService {
     Message sendMessage(Message message);
 
     Message findMessage(Long id);
+
+    void sendMessageReply(Message message, String reply);
 }

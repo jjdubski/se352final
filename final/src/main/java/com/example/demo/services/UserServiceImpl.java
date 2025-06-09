@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.exceptions.InvalidMessageParameterException;
 import com.example.demo.exceptions.MessageNotFoundException;
 import com.example.demo.repositories.MessageRepository;
 import com.example.demo.repositories.PropertyRepository;
@@ -189,6 +190,15 @@ public class UserServiceImpl implements UserService {
             throw new MessageNotFoundException("No message found with id: " + id);
         }
         return message.get();
+    }
+
+    @Override
+    public void sendMessageReply(Message message, String reply) {
+        message.setReply(reply);
+        if (message.getReply() == null || message.getReply().isBlank()) {
+            throw new InvalidMessageParameterException("Reply must contain text.");
+        }
+        messageRepository.save(message);
     }
 
     @Override

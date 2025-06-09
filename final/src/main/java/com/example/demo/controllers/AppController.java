@@ -458,6 +458,23 @@ public class AppController {
         }
     }
 
+    @PostMapping("/messages/reply")
+    @PreAuthorize("hasAnyRole('AGENT')")
+    public String replyToMessage(@RequestParam("messageId") Long messageId,
+            @RequestParam("reply") String reply,
+            RedirectAttributes redirectAttributes) {
+        try {
+            Message message = userService.findMessage(messageId);
+            userService.sendMessageReply(message, reply);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Reply sent successfully.");
+            return "redirect:/messages/agent";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to send reply: " + e.getMessage());
+            return "redirect:/messages/" + messageId;
+        }
+    }
+
     // single message
     @GetMapping("/messages/{id}")
     @PreAuthorize("hasAnyRole('AGENT')")
